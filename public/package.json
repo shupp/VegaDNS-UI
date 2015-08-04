@@ -1,0 +1,20 @@
+{
+  "name": "vegadns-ui",
+  "version": "1.0.0",
+  "description": "JS UI for VegaDNS2",
+  "main": "js/app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "dns",
+    "vegadns"
+  ],
+  "author": "Bill Shupp",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "browserify": "^11.0.1",
+    "flux": "^2.0.3",
+    "react": "^0.13.3"
+  }
+}
