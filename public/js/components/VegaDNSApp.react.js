@@ -1,11 +1,13 @@
 var MainSection = require('./MainSection.react');
 var React = require('react');
+var VegaDNSStore = require('../stores/VegaDNSStore');
 
 var VegaDNSApp = React.createClass({
 
   getInitialState: function() {
     return {
-        loggedIn: false
+        loggedIn: false,
+        resources: {}
     }
   },
 
