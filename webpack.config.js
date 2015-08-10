@@ -6,7 +6,9 @@ module.exports = {
         app: './public/js/app.js'
     },
     output: {
-        filename: './public/js/bundle.js'
+        filename: 'bundle.js',
+        path: './public/js/',
+        publicPath: '/js/'
     },
     module: {
         loaders: [
