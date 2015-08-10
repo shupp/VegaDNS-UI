@@ -3,10 +3,10 @@ var webpack = require('webpack');
 // webpack.config.js
 module.exports = {
     entry: {
-        app: './js/app.js'
+        app: './public/js/app.js'
     },
     output: {
-        filename: './js/bundle.js'
+        filename: './public/js/bundle.js'
     },
     module: {
         loaders: [
