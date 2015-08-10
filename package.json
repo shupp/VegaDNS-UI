@@ -15,7 +15,6 @@
   "author": "Bill Shupp",
   "license": "Apache 2.0",
   "dependencies": {
-    "alt": "^0.17.1",
     "babel-runtime": "^5.8.20",
     "flux": "^2.0.3",
     "react": "^0.13.3"
