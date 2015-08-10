@@ -1,4 +1,4 @@
-var VegaDNSClient = require('../dispatcher/VegaDNSClient');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var VegaDNSStore = function() {
 }
