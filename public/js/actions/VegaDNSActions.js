@@ -8,6 +8,11 @@ var VegaDNSActions = {
       email: email,
       password: password
     });
+  },
+  logout: function() {
+    AppDispatcher.dispatch({
+      actionType: VegaDNSConstants.LOGOUT
+    });
   }
 };
 

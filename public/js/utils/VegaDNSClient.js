@@ -35,6 +35,12 @@ VegaDNSClient.prototype.login = function(email, password) {
     return this.send(url, "POST", data);
 }
 
+VegaDNSClient.prototype.logout = function() {
+    var url = this.getHost() + "/logout";
+
+    return this.send(url, "POST");
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");

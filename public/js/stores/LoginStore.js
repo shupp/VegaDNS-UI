@@ -27,6 +27,17 @@ class LogInStore extends EventEmitter {
         });
     }
 
+    logout() {
+        VegaDNSClient.logout()
+        .success(data => {
+            loggedInState = false;
+            this.emitChange();
+            responseData = data;
+        }).error(data => {
+            this.emitChange();
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
@@ -48,6 +59,9 @@ AppDispatcher.register(function(action) {
   switch(action.actionType) {
     case VegaDNSConstants.LOGIN:
       store.login(action.email, action.password);
+      break;
+    case VegaDNSConstants.LOGOUT:
+      store.logout();
       break;
   }
 });

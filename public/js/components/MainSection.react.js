@@ -1,15 +1,19 @@
 var React = require('react');
-var ReactPropTypes = React.PropTypes;
+var HeaderSection = require('./HeaderSection.react');
 
 var MainSection = React.createClass({
   render: function() {
 
       return (
-      <section id="main">
-
-      <h1 className="vegadns-logo">VegaDNS</h1>
-        <h3>I'm logged in!</h3>
-      </section>
+      <div>
+          <section id="header">
+              <HeaderSection />
+          </section>
+          <section id="main">
+              <h1 className="vegadns-logo">VegaDNS</h1>
+              <h3>welcome</h3>
+          </section>
+      </div>
       );
   },
 });
