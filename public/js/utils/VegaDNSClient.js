@@ -14,8 +14,7 @@ VegaDNSClient.prototype.getHost = function(version=true) {
 }
 
 VegaDNSClient.prototype.send = function(url, method, data) {
-    var deferred = Q.defer();
-    $.ajax({
+    return $.ajax({
         type: method,
         url: url,
         data: data,
@@ -23,13 +22,7 @@ VegaDNSClient.prototype.send = function(url, method, data) {
             withCredentials: true
         },
         dataType: "json"
-    }).success(function(data) {
-        deferred.resolve(data);
-    }).error(function(data) {
-        deferred.reject(new Error('shitballs'));
     });
-
-    return deferred.promise;
 }
 
 VegaDNSClient.prototype.login = function(email, password) {

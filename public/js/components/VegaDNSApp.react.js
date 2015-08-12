@@ -1,34 +1,37 @@
+var LogIn = require('./LogIn.react');
 var MainSection = require('./MainSection.react');
 var React = require('react');
-var VegaDNSStore = require('../stores/VegaDNSStore');
+var LogInStore = require('../stores/LogInStore');
 
 var VegaDNSApp = React.createClass({
-
   getInitialState: function() {
     return {
-        loggedIn: false,
-        resources: {}
+        loggedIn: false
     }
   },
 
   componentDidMount: function() {
-    {}
+    LogInStore.addChangeListener(this.onChange);
   },
 
-  componentWillUnmount: function() {
-    {}
+  onChange() {
+    this.setState({loggedIn: LogInStore.isLoggedIn()});
   },
 
   render: function() {
-    return (
-      <div>
-        <MainSection />
-      </div>
-    );
-  },
-
-  _onChange: function() {
-    this.setState({loggedIn: true});
+    if (this.state.loggedIn == false) {
+        return (
+          <div>
+            <LogIn />
+          </div>
+        );
+    } else {
+        return (
+          <div>
+            <MainSection />
+          </div>
+        );
+    }
   }
 
 });
