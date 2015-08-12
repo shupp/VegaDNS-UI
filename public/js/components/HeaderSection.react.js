@@ -5,9 +5,7 @@ var HeaderSection = React.createClass({
   render: function() {
 
       return (
-      <section id="logout">
-        <button className="btn btn-lg btn-primary btn-block" onClick={this.submitLogOut}>Sign out</button>
-      </section>
+        <button className="btn btn-primary" onClick={this.submitLogOut}>Sign out</button>
       );
   },
 
