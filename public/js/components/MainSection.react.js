@@ -1,5 +1,6 @@
 var React = require('react');
 var HeaderSection = require('./HeaderSection.react');
+var DomainList = require('./DomainList.react');
 
 var MainSection = React.createClass({
   render: function() {
@@ -11,7 +12,7 @@ var MainSection = React.createClass({
           </section>
           <section id="main">
               <h1 className="vegadns-logo">VegaDNS</h1>
-              <h3>welcome</h3>
+              <DomainList />
           </section>
       </div>
       );

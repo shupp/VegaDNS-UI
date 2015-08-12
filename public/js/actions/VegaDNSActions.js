@@ -13,6 +13,11 @@ var VegaDNSActions = {
     AppDispatcher.dispatch({
       actionType: VegaDNSConstants.LOGOUT
     });
+  },
+  listDomains: function() {
+    AppDispatcher.dispatch({
+      actionType: VegaDNSConstants.LIST_DOMAINS
+    });
   }
 };
 
