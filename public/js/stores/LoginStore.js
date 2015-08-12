@@ -13,7 +13,6 @@ var responseData = null;
 
 class LogInStore extends EventEmitter {
     emitChange() {
-        console.log('in emitChange');
         this.emit(CHANGE_CONSTANT);
     }
 
