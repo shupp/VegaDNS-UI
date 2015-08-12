@@ -35,8 +35,17 @@ var DomainList = React.createClass({
 
       return (
           <section id="domains">
-            <h3>domains!</h3>
-            <ul>{domains}</ul>
+            <h1>Domains</h1>
+            <table className="table table-hover">
+                <thead>
+                    <th>id</th>
+                    <th>name</th>
+                    <th>status</th>
+                </thead>
+                <tbody>
+                    {domains}
+                </tbody>
+            </table>
           </section>
       );
   }

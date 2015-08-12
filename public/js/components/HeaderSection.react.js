@@ -5,7 +5,7 @@ var HeaderSection = React.createClass({
   render: function() {
 
       return (
-        <div className="dropdown pull-right">
+        <div className="dropdown">
             <button className="btn btn-default dropdown-toggle" type="button" id="your-account-menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Your Account <span className="caret"></span>
             </button>

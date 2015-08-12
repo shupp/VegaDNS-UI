@@ -9,7 +9,11 @@ var DomainListEntry = React.createClass({
   render: function() {
       var domain = this.props.domain;
       return (
-        <li>{domain.domain}</li>
+        <tr>
+            <td>{domain.domain_id}</td>
+            <td>{domain.domain}</td>
+            <td>{domain.status}</td>
+        </tr>
       );
   }
 });
