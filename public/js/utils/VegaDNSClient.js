@@ -1,5 +1,4 @@
 var VegaDNSConfig = require('../utils/VegaDNSConfig');
-var Q = require('q');
 
 var VegaDNSClient = function() {
     var loggedIn = false;
