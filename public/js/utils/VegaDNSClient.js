@@ -34,6 +34,12 @@ VegaDNSClient.prototype.login = function(email, password) {
     return this.send(url, "POST", data);
 }
 
+VegaDNSClient.prototype.checkLogin = function() {
+    var url = this.getHost() + "/login?suppress_response_codes=true";
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.logout = function() {
     var url = this.getHost() + "/logout";
 
@@ -42,6 +48,12 @@ VegaDNSClient.prototype.logout = function() {
 
 VegaDNSClient.prototype.domains = function(filter) {
     var url = this.getHost() + "/domains";
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.records = function(domain_id, filter) {
+    var url = this.getHost() + "/records?domain_id=" + domain_id;
 
     return this.send(url, "GET");
 }

@@ -27,6 +27,25 @@ class LogInStore extends EventEmitter {
         });
     }
 
+    checkLoginState() {
+        var originalState = loggedInState ? true : false;
+
+        VegaDNSClient.checkLogin()
+        .success(data => {
+            responseData = data;
+            if (data.status == "ok") {
+                loggedInState = true;
+            } else {
+                loggedInState = false;
+            }
+            if (originalState != loggedInState) {
+                this.emitChange();
+            }
+        }).error(data => {
+            this.emitChange();
+        });
+    }
+
     logout() {
         VegaDNSClient.logout()
         .success(data => {
@@ -47,6 +66,9 @@ class LogInStore extends EventEmitter {
     }
 
     isLoggedIn() {
+        if (loggedInState == false) {
+            this.checkLoginState();
+        }
         return loggedInState;
     }
 }

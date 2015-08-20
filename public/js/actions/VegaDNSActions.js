@@ -18,6 +18,12 @@ var VegaDNSActions = {
     AppDispatcher.dispatch({
       actionType: VegaDNSConstants.LIST_DOMAINS
     });
+  },
+  listRecords: function(domainId) {
+    AppDispatcher.dispatch({
+      actionType: VegaDNSConstants.LIST_RECORDS,
+      domainId: domainId
+    });
   }
 };
 
