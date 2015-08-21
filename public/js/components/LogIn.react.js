@@ -15,8 +15,8 @@ var LogIn = React.createClass({
         return (
             <section id="login">
                 <h1 className="vegadns-logo">VegaDNS</h1>
-                <h2 className="form-signin-heading">Please sign in</h2>
                 <form className="form-signin">
+                    <h2 className="form-signin-heading">Please sign in</h2>
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
                     <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" autofocus />
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
