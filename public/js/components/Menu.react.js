@@ -5,10 +5,10 @@ var Menu = React.createClass({
     render: function() {
         return (
             <ul>
-                <li><a href="#domains">Domains</a></li>
+                <li><a href="#">Domains</a></li>
             </ul>
         );
-    },
+    }
 });
 
 module.exports = Menu;
