@@ -17,8 +17,8 @@ var HeaderSection = React.createClass({
 
     submitLogOut: function(e) {
         e.preventDefault();
-        VegaDNSActions.logout();
         window.location.hash = "";
+        VegaDNSActions.logout();
     }
 });
 
