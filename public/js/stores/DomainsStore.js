@@ -46,11 +46,11 @@ var store = new DomainsStore();
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  switch(action.actionType) {
-    case VegaDNSConstants.LIST_DOMAINS:
-      store.fetchDomains();
-      break;
-  }
+    switch(action.actionType) {
+        case VegaDNSConstants.LIST_DOMAINS:
+            store.fetchDomains();
+            break;
+    }
 });
 
 module.exports = store;

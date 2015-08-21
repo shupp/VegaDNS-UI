@@ -78,14 +78,14 @@ var store = new LogInStore();
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  switch(action.actionType) {
-    case VegaDNSConstants.LOGIN:
-      store.login(action.email, action.password);
-      break;
-    case VegaDNSConstants.LOGOUT:
-      store.logout();
-      break;
-  }
+    switch(action.actionType) {
+        case VegaDNSConstants.LOGIN:
+            store.login(action.email, action.password);
+            break;
+        case VegaDNSConstants.LOGOUT:
+            store.logout();
+            break;
+    }
 });
 
 module.exports = store;

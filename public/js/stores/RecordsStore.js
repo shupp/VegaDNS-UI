@@ -46,11 +46,11 @@ var store = new RecordsStore();
 
 // Register callback to handle all updates
 AppDispatcher.register(function(action) {
-  switch(action.actionType) {
-    case VegaDNSConstants.LIST_RECORDS:
-      store.fetchRecords(action.domainId);
-      break;
-  }
+    switch(action.actionType) {
+        case VegaDNSConstants.LIST_RECORDS:
+            store.fetchRecords(action.domainId);
+            break;
+    }
 });
 
 module.exports = store;
