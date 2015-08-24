@@ -1,3 +1,12 @@
+var VegaDNSConfig = require('./utils/VegaDNSConfig');
+// Override API Server Config if set in index.html
+if (typeof VegaDNSHost !== "undefined") {
+    VegaDNSConfig["host"] = VegaDNSHost;
+}
+if (typeof VegaDNSAPIVersion !== "undefined") {
+    VegaDNSConfig["version"] = VegaDNSAPIVersion;
+}
+
 var React = require('react');
 var VegaDNSApp = require('./components/VegaDNSApp.react');
 
