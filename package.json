@@ -15,6 +15,7 @@
   "author": "Bill Shupp",
   "license": "Apache 2.0",
   "dependencies": {
+    "URIjs": "^1.16.0",
     "babel-runtime": "^5.8.20",
     "flux": "^2.0.3",
     "keymirror": "^0.1.1",

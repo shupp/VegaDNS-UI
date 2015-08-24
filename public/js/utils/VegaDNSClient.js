@@ -1,4 +1,5 @@
 var VegaDNSConfig = require('../utils/VegaDNSConfig');
+var URI = require('URIjs');
 
 var VegaDNSClient = function() {
     var loggedIn = false;
@@ -13,6 +14,17 @@ VegaDNSClient.prototype.getHost = function(version=true) {
 }
 
 VegaDNSClient.prototype.send = function(url, method, data) {
+    if (typeof data === "undefined") {
+        data = {};
+    }
+    if (method == "GET") {
+        var url = new URI(url).addQuery(
+            "suppress_auth_response_codes", "true"
+        ).toString();
+    } else {
+        data["supress_auth_response_codes"] = "true";
+    }
+
     return $.ajax({
         type: method,
         url: url,
@@ -28,14 +40,14 @@ VegaDNSClient.prototype.login = function(email, password) {
     var url = this.getHost() + "/login";
     var data = {
         email: email,
-        password: password,
+        password: password
     };
 
     return this.send(url, "POST", data);
 }
 
 VegaDNSClient.prototype.checkLogin = function() {
-    var url = this.getHost() + "/login?suppress_response_codes=true";
+    var url = this.getHost() + "/login";
 
     return this.send(url, "GET");
 }
