@@ -19,7 +19,9 @@ class LogInStore extends EventEmitter {
     login(email, password) {
         VegaDNSClient.login(email, password)
         .success(data => {
-            loggedInState = true;
+            if (data.status == "ok") {
+                loggedInState = true;
+            }
             this.emitChange();
             responseData = data;
         }).error(data => {
