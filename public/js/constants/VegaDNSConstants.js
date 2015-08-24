@@ -26,5 +26,13 @@ module.exports = keyMirror({
     DELETE_ACCOUNT: null,
     DELETE_GROUP: null,
     DELETE_GROUP_MEMBER: null,
-    DELETE_DOMAIN_GROUP_MAP: null
+    DELETE_DOMAIN_GROUP_MAP: null,
+
+    ADD_NOTIFICATION: null,
+    DISMISS_NOTIFICATION: null,
+
+    NOTIFICATION_SUCCESS: null,
+    NOTIFICATION_INFO: null,
+    NOTIFICATION_WARNING: null,
+    NOTIFICATION_DANGER: null
 });

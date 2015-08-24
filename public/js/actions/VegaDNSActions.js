@@ -24,6 +24,18 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LIST_RECORDS,
             domainId: domainId
         });
+    },
+    addNotification: function(messageType, message) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_NOTIFICATION,
+            messageType: messageType,
+            message: message
+        });
+    },
+    dismissNotification: function() {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DISMISS_NOTIFICATION
+        });
     }
 };
 

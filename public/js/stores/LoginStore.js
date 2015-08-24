@@ -3,6 +3,7 @@
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
+var VegaDNSActions = require('../actions/VegaDNSActions');
 
 import { EventEmitter } from 'events';
 
@@ -21,6 +22,10 @@ class LogInStore extends EventEmitter {
         .success(data => {
             if (data.status == "ok") {
                 loggedInState = true;
+                VegaDNSActions.addNotification(
+                    VegaDNSConstants.NOTIFICATION_SUCCESS,
+                    "Welcome to VegaDNS!"
+                );
             }
             this.emitChange();
             responseData = data;
