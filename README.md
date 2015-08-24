@@ -13,4 +13,4 @@ If you want to run this locally, you can run the webpack-dev-server by typing th
 npm run-script watch
 ```
 
-Then you can point your browser to [http://localhost:8080/webpack-dev-server](http://localhost:8080/webpack-dev-server)
+Then you can point your browser to [http://localhost:8080/webpack-dev-server](http://localhost:8080/webpack-dev-server).  By default, it points at a local API server at http://localhost:5000 (flask test server default).  If you want to change this, uncomment and modify the VegaDNSHost variable in public/index.html.
