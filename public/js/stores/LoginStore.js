@@ -26,9 +26,9 @@ class LogInStore extends EventEmitter {
                     VegaDNSConstants.NOTIFICATION_SUCCESS,
                     "Welcome to VegaDNS!"
                 );
+                responseData = data;
             }
             this.emitChange();
-            responseData = data;
         }).error(data => {
             this.emitChange();
         });
@@ -57,8 +57,12 @@ class LogInStore extends EventEmitter {
         VegaDNSClient.logout()
         .success(data => {
             loggedInState = false;
-            this.emitChange();
             responseData = data;
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Logged out successfully"
+            );
+            this.emitChange();
         }).error(data => {
             this.emitChange();
         });
@@ -77,6 +81,13 @@ class LogInStore extends EventEmitter {
             this.checkLoginState();
         }
         return loggedInState;
+    }
+
+    getAccount() {
+        if (loggedInState == false) {
+            return null;
+        }
+        return responseData.account;
     }
 }
 
