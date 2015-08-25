@@ -1,4 +1,5 @@
 var React = require('react');
+var Logo = require('./Logo.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
 var LogIn = React.createClass({
@@ -14,7 +15,7 @@ var LogIn = React.createClass({
 
         return (
             <section id="login">
-                <h1 className="vegadns-logo">VegaDNS</h1>
+                <Logo />
                 <form className="form-signin">
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>

@@ -2,6 +2,7 @@ var React = require('react');
 var LogInStore = require('../stores/LogInStore');
 var LogIn = require('./LogIn.react');
 var HeaderSection = require('./HeaderSection.react');
+var Logo = require('./Logo.react');
 var DomainList = require('./DomainList.react');
 var RecordList = require('./RecordList.react');
 var Menu = require('./Menu.react');
@@ -80,8 +81,8 @@ var VegaDNSApp = React.createClass({
                                 <Menu />
                             </div>
                             <div>
-                            <h1 className="vegadns-logo">VegaDNS</h1>
-                            <Child route={Route} params={Params}/>
+                                <Logo />
+                                <Child route={Route} params={Params}/>
                             </div>
                         </row>
                     </section>

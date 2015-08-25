@@ -4,8 +4,10 @@ body {
   background-color: #eee;
 }
 
-h1.vegadns-logo {
-  text-align: center;
+img.vegadns-logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .form-signin {
