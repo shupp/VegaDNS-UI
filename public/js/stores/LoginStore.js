@@ -27,10 +27,19 @@ class LogInStore extends EventEmitter {
                     "Welcome to VegaDNS!"
                 );
                 responseData = data;
+            } else {
+                VegaDNSActions.addNotification(
+                    VegaDNSConstants.NOTIFICATION_DANGER,
+                    "Login failed"
+                );
+                responseData = data;
             }
             this.emitChange();
         }).error(data => {
-            this.emitChange();
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Something went wrong"
+            );
         });
     }
 
@@ -49,7 +58,11 @@ class LogInStore extends EventEmitter {
                 this.emitChange();
             }
         }).error(data => {
-            this.emitChange();
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Something went wrong"
+            );
+            responseData = data;
         });
     }
 
