@@ -22,7 +22,7 @@ VegaDNSClient.prototype.send = function(url, method, data) {
             "suppress_auth_response_codes", "true"
         ).toString();
     } else {
-        data["supress_auth_response_codes"] = "true";
+        data["suppress_auth_response_codes"] = "true";
     }
 
     return $.ajax({
