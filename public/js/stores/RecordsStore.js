@@ -11,6 +11,7 @@ var CHANGE_CONSTANT = 'CHANGE';
 var loggedInState = false;
 var responseData = null;
 var records = [];
+var total_records = 0;
 
 class RecordsStore extends EventEmitter {
     emitChange() {
@@ -21,11 +22,16 @@ class RecordsStore extends EventEmitter {
         return records;
     }
 
-    fetchRecords(domain_id) {
-        VegaDNSClient.records(domain_id)
+    getRecordTotal() {
+        return total_records;
+    }
+
+    fetchRecords(domain_id, page, perpage) {
+        VegaDNSClient.records(domain_id, page, perpage)
         .success(data => {
             responseData = data;
             records = data.records;
+            total_records = data.total_records;
             this.emitChange();
         }).error(data => {
             this.emitChange();
@@ -48,7 +54,7 @@ var store = new RecordsStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_RECORDS:
-            store.fetchRecords(action.domainId);
+            store.fetchRecords(action.domainId, action.page, action.perPage);
             break;
     }
 });

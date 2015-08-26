@@ -64,8 +64,8 @@ VegaDNSClient.prototype.domains = function(filter) {
     return this.send(url, "GET");
 }
 
-VegaDNSClient.prototype.records = function(domain_id, filter) {
-    var url = this.getHost() + "/records?domain_id=" + domain_id;
+VegaDNSClient.prototype.records = function(domain_id, page, perpage) {
+    var url = this.getHost() + "/records?domain_id=" + domain_id + "&page=" + page + "&perpage=" + perpage;
 
     return this.send(url, "GET");
 }

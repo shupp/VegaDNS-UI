@@ -2,16 +2,41 @@ var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
 var RecordListEntry = require('./RecordListEntry.react');
+var Pager = require('./Pager.react');
+var LastPage = null;
 
 var RecordList = React.createClass({
     getInitialState: function() {
+        var page;
+        if (typeof this.props.params.page !== "undefined") {
+            page = this.props.params.page;
+        } else {
+            page = 1;
+        }
+
         return {
-            records: []
+            records: [],
+            total: 0,
+            page: page,
+            perpage: 25
         }
     },
 
     componentWillMount: function() {
-        VegaDNSActions.listRecords(this.props.params["domain-id"]);
+        this.listRecordsCallback(this.state.page);
+    },
+
+    pagerClickCallback: function(page) {
+        this.listRecordsCallback(page);
+        this.setState({page: page});
+    },
+
+    listRecordsCallback: function(page) {
+        VegaDNSActions.listRecords(
+            this.props.params["domain-id"],
+            page,
+            this.state.perpage
+        )
     },
 
     componentDidMount: function() {
@@ -23,7 +48,10 @@ var RecordList = React.createClass({
     },
 
     onChange() {
-        this.setState({records: RecordsStore.getRecordList()});
+        this.setState({
+            records: RecordsStore.getRecordList(),
+            total: RecordsStore.getRecordTotal()
+        });
     },
 
     render: function() {
@@ -35,10 +63,19 @@ var RecordList = React.createClass({
             }
             records.push(<RecordListEntry key={key} record={this.state.records[key]} />);
         }
+        var pager = <Pager
+            page={this.state.page}
+            perpage={this.state.perpage}
+            total={this.state.total}
+            route={this.props.route}
+            params={this.props.params}
+            callback={this.pagerClickCallback}
+        />
 
         return (
             <section id="records">
                 <h1>Records</h1>
+                {pager}
                 <table className="table table-hover">
                     <thead>
                         <th>id</th>
