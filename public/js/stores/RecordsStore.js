@@ -11,6 +11,7 @@ var CHANGE_CONSTANT = 'CHANGE';
 var loggedInState = false;
 var responseData = null;
 var records = [];
+var domain = null;
 var total_records = 0;
 
 class RecordsStore extends EventEmitter {
@@ -20,6 +21,10 @@ class RecordsStore extends EventEmitter {
 
     getRecordList() {
         return records;
+    }
+
+    getDomain() {
+        return domain;
     }
 
     getRecordTotal() {
@@ -32,6 +37,7 @@ class RecordsStore extends EventEmitter {
             responseData = data;
             records = data.records;
             total_records = data.total_records;
+            domain = data.domain;
             this.emitChange();
         }).error(data => {
             this.emitChange();

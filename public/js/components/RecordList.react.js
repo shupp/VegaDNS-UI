@@ -16,6 +16,7 @@ var RecordList = React.createClass({
 
         return {
             records: [],
+            domain: null,
             total: 0,
             page: page,
             perpage: 25
@@ -50,12 +51,18 @@ var RecordList = React.createClass({
     onChange() {
         this.setState({
             records: RecordsStore.getRecordList(),
-            total: RecordsStore.getRecordTotal()
+            total: RecordsStore.getRecordTotal(),
+            domain: RecordsStore.getDomain()
         });
     },
 
     render: function() {
         var records = [];
+        var domain = null;
+
+        if (this.state.domain !== null) {
+            domain = this.state.domain.domain;
+        }
 
         for (var key in this.state.records) {
             if (this.state.records[key].record_type == "SOA") {
@@ -74,7 +81,7 @@ var RecordList = React.createClass({
 
         return (
             <section id="records">
-                <h1>Records</h1>
+                <h2>Records for {domain}</h2>
                 {pager}
                 <table className="table table-hover">
                     <thead>
