@@ -75,6 +75,7 @@ var Pager = React.createClass({
         for (var i = 0; i < pageRange.length; i++) {
             innerPages.push(
                 <PagerInnerPage
+                    key={pageRange[i]}
                     page={pageRange[i]}
                     currentPage={currentPage}
                     url={this.buildUrl(pageRange[i])}
