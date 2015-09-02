@@ -12,9 +12,9 @@ var DomainListEntry = React.createClass({
         var url = "#records?domain-id=" + domain.domain_id;
         return (
             <tr>
-                <td>{domain.domain_id}</td>
                 <td><a href={url}>{domain.domain}</a></td>
                 <td>{domain.status}</td>
+                <td>{domain.domain_id}</td>
             </tr>
         );
     }

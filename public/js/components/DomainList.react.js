@@ -38,9 +38,9 @@ var DomainList = React.createClass({
                 <h1>Domains</h1>
                 <table className="table table-hover">
                     <thead>
-                        <th>id</th>
                         <th>name</th>
                         <th>status</th>
+                        <th>id</th>
                     </thead>
                     <tbody>
                         {domains}

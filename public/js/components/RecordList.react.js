@@ -85,10 +85,14 @@ var RecordList = React.createClass({
                 {pager}
                 <table className="table table-hover">
                     <thead>
-                        <th>id</th>
                         <th>name</th>
                         <th>type</th>
                         <th>value</th>
+                        <th>ttl</th>
+                        <th>distance</th>
+                        <th>weight</th>
+                        <th>port</th>
+                        <th>id</th>
                     </thead>
                     <tbody>
                         {records}
