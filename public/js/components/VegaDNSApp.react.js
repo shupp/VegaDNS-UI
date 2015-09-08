@@ -4,13 +4,15 @@ var LogIn = require('./LogIn.react');
 var HeaderSection = require('./HeaderSection.react');
 var Logo = require('./Logo.react');
 var DomainList = require('./DomainList.react');
+var ApiKeyList = require('./ApiKeyList.react');
 var RecordList = require('./RecordList.react');
 var Menu = require('./Menu.react');
 
 var VegaDNSApp = React.createClass({
     getInitialState: function() {
         return {
-            loggedIn: false
+            loggedIn: false,
+            account: null
         }
     },
 
@@ -23,7 +25,10 @@ var VegaDNSApp = React.createClass({
     },
 
     onChange() {
-        this.setState({loggedIn: LogInStore.isLoggedIn()});
+        this.setState({
+            loggedIn: LogInStore.isLoggedIn(),
+            account: LogInStore.getAccount()
+        });
     },
 
     render: function() {
@@ -66,6 +71,9 @@ var VegaDNSApp = React.createClass({
                 case 'records':
                     Child = RecordList;
                     break;
+                case 'apikeys':
+                    Child = ApiKeyList;
+                    break;
                 default:
                     Child = DomainList;
             }
@@ -82,7 +90,7 @@ var VegaDNSApp = React.createClass({
                             </div>
                             <div>
                                 <Logo />
-                                <Child route={Route} params={Params}/>
+                                <Child route={Route} params={Params} account={this.state.account}/>
                             </div>
                         </row>
                     </section>

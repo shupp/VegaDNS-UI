@@ -27,6 +27,12 @@ var VegaDNSActions = {
             perPage: perPage
         });
     },
+    listApiKeys: function(accountIds) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.LIST_APIKEYS,
+            accountIds: accountIds
+        });
+    },
     addNotification: function(messageType, message) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,

@@ -70,6 +70,25 @@ VegaDNSClient.prototype.records = function(domain_id, page, perpage) {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.apikeys = function(accountIds) {
+    var url = this.getHost() + "/apikeys";
+    var data = {
+        account_ids: accountIds
+    }
+
+    return this.send(url, "GET", data);
+}
+
+VegaDNSClient.prototype.create_apikey = function(account_id, description) {
+    var url = this.getHost() + "/apikeys";
+    var data = {
+        account_id: account_id,
+        description: description
+    }
+
+    return this.send(url, "POST", data);
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");

@@ -32,6 +32,7 @@ var HeaderSection = React.createClass({
                     {account} <span className="caret"></span>
                 </button>
                 <ul className="dropdown-menu" aria-labelledby="your-account-menu">
+                    <li><a href="#apikeys">API Keys</a></li>
                     <li><a href="#" onClick={this.submitLogOut}>Sign Out</a></li>
                 </ul>
             </div>
