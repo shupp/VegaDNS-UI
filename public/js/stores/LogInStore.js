@@ -24,7 +24,7 @@ class LogInStore extends EventEmitter {
                 loggedInState = true;
                 VegaDNSActions.addNotification(
                     VegaDNSConstants.NOTIFICATION_SUCCESS,
-                    "Welcome to VegaDNS!"
+                    "Welcome to VegaDNS, " + data.account.first_name + "!"
                 );
                 responseData = data;
             } else {
