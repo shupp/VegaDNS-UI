@@ -14,17 +14,50 @@ var RecordList = React.createClass({
             page = 1;
         }
 
+        var sort;
+        if (typeof this.props.params.sort !== "undefined") {
+            sort = this.props.params.sort;
+        } else {
+            sort = 'name';
+        }
+
+        var order;
+        if (typeof this.props.params.order !== "undefined") {
+            order = this.props.params.order;
+        } else {
+            order = 'asc';
+        }
+
         return {
             records: [],
             domain: null,
             total: 0,
             page: page,
+            sort: sort,
+            order: order,
             perpage: 25
         }
     },
 
+    createSortChangeUrl: function(header) {
+        var neworder = this.state.order == 'desc' ? 'asc' : 'desc';
+        var url = "#records?domain-id=" + this.props.params["domain-id"];
+        var url =  url + "&sort=" + header + "&order=" + neworder;
+
+        return url;
+    },
+
     componentWillMount: function() {
         this.listRecordsCallback(this.state.page);
+    },
+
+    sortClickCallback: function(sort, order) {
+        this.setState({
+            sort: sort,
+            order: order,
+            page: 1
+        });
+        this.listRecordsCallback(1);
     },
 
     pagerClickCallback: function(page) {
@@ -36,7 +69,9 @@ var RecordList = React.createClass({
         VegaDNSActions.listRecords(
             this.props.params["domain-id"],
             page,
-            this.state.perpage
+            this.state.perpage,
+            this.state.sort,
+            this.state.order
         )
     },
 
@@ -59,6 +94,7 @@ var RecordList = React.createClass({
     render: function() {
         var records = [];
         var domain = null;
+        var order_arrow = this.state.order == 'desc' ? 8595 : 8593;
 
         if (this.state.domain !== null) {
             domain = this.state.domain.domain;
@@ -79,20 +115,26 @@ var RecordList = React.createClass({
             callback={this.pagerClickCallback}
         />
 
+        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'id'];
+        var sortable = ['name', 'type', 'value', 'ttl', 'distance'];
+        var theads = [];
+        for (var i = 0; i < tableheads.length; i++) {
+            if (sortable.indexOf(tableheads[i]) == -1) {
+                // not sortable
+                theads.push(<th key={i}>{tableheads[i]}</th>)
+            } else {
+                var arrow = this.state.sort == tableheads[i] ? ' ' + String.fromCharCode(order_arrow) : '';
+                theads.push(<th key={i}><a href={this.createSortChangeUrl(tableheads[i])}>{tableheads[i]}{arrow}</a></th>);
+            }
+        }
+
         return (
             <section id="records">
                 <h2>Records for {domain}</h2>
                 {pager}
                 <table className="table table-hover">
                     <thead>
-                        <th>name</th>
-                        <th>type</th>
-                        <th>value</th>
-                        <th>ttl</th>
-                        <th>distance</th>
-                        <th>weight</th>
-                        <th>port</th>
-                        <th>id</th>
+                        {theads}
                     </thead>
                     <tbody>
                         {records}

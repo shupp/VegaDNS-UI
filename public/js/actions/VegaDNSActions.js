@@ -19,12 +19,14 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LIST_DOMAINS
         });
     },
-    listRecords: function(domainId, page, perPage) {
+    listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,
             domainId: domainId,
             page: page,
-            perPage: perPage
+            perPage: perPage,
+            sort: sort,
+            order: order
         });
     },
     listApiKeys: function(accountIds) {
