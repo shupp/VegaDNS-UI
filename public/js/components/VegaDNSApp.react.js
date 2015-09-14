@@ -90,7 +90,7 @@ var VegaDNSApp = React.createClass({
                             </div>
                             <div>
                                 <Logo />
-                                <Child route={Route} params={Params} account={this.state.account}/>
+                                <Child key={window.location.hash} route={Route} params={Params} account={this.state.account}/>
                             </div>
                         </row>
                     </section>
