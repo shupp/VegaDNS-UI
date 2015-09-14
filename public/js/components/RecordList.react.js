@@ -60,11 +60,6 @@ var RecordList = React.createClass({
         this.listRecordsCallback(1);
     },
 
-    pagerClickCallback: function(page) {
-        this.listRecordsCallback(page);
-        this.setState({page: page});
-    },
-
     listRecordsCallback: function(page) {
         VegaDNSActions.listRecords(
             this.props.params["domain-id"],
@@ -112,7 +107,6 @@ var RecordList = React.createClass({
             total={this.state.total}
             route={this.props.route}
             params={this.props.params}
-            callback={this.pagerClickCallback}
         />
 
         var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'id'];

@@ -4,10 +4,6 @@ var PagerInnerPage = require('./PagerInnerPage.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
 var Pager = React.createClass({
-    handleClick: function(page) {
-        this.props.callback(page);
-    },
-
     buildUrl: function(page) {
         // Copy params before we modify them
         var newParams = {};
@@ -80,7 +76,6 @@ var Pager = React.createClass({
                     currentPage={currentPage}
                     url={this.buildUrl(pageRange[i])}
                     params={this.props.params}
-                    callback={this.props.callback}
                 />
             );
         }
@@ -90,23 +85,23 @@ var Pager = React.createClass({
             <nav>
                 <ul className="pagination">
                     <li>
-                        <a href={firstPageUrl} onClick={this.handleClick.bind(this, 1)} aria-label="First">
+                        <a href={firstPageUrl} aria-label="First">
                             <span aria-hidden="true">&lt;</span>
                         </a>
                     </li>
                     <li>
-                        <a href={prevPageUrl} onClick={this.handleClick.bind(this, prevPage)} aria-label="Previous">
+                        <a href={prevPageUrl} aria-label="Previous">
                             <span aria-hidden="true">&lt;&lt;</span>
                         </a>
                     </li>
                     {innerPages}
                     <li>
-                        <a href={nextPageUrl} onClick={this.handleClick.bind(this, nextPage)} aria-label="Next">
+                        <a href={nextPageUrl} aria-label="Next">
                             <span aria-hidden="true">&gt;&gt;</span>
                         </a>
                     </li>
                     <li>
-                        <a href={lastPageUrl} onClick={this.handleClick.bind(this, pageCount)} aria-label="Last">
+                        <a href={lastPageUrl} aria-label="Last">
                             <span aria-hidden="true">&gt;</span>
                         </a>
                     </li>
