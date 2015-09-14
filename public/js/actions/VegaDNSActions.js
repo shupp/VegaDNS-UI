@@ -35,6 +35,19 @@ var VegaDNSActions = {
             accountIds: accountIds
         });
     },
+    addApiKey: function(accountId, description) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_APIKEY,
+            accountId: accountId,
+            description: description
+        });
+    },
+    deleteApiKey: function(apiKeyId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_APIKEY,
+            apiKeyId: apiKeyId
+        });
+    },
     addNotification: function(messageType, message) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,

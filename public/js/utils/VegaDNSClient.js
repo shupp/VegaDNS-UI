@@ -80,7 +80,7 @@ VegaDNSClient.prototype.apikeys = function(accountIds) {
     return this.send(url, "GET", data);
 }
 
-VegaDNSClient.prototype.create_apikey = function(account_id, description) {
+VegaDNSClient.prototype.addApiKey = function(account_id, description) {
     var url = this.getHost() + "/apikeys";
     var data = {
         account_id: account_id,
@@ -88,6 +88,12 @@ VegaDNSClient.prototype.create_apikey = function(account_id, description) {
     }
 
     return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.deleteApiKey = function(apiKeyId) {
+    var url = this.getHost() + "/apikeys/" + apiKeyId;
+
+    return this.send(url, "DELETE");
 }
 
 VegaDNSClient.prototype.healthcheck = function() {
