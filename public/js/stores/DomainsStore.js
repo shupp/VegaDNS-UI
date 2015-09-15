@@ -3,6 +3,7 @@
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var AppDispatcher = require('../dispatcher/AppDispatcher');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
+var VegaDNSActions = require('../actions/VegaDNSActions');
 
 import { EventEmitter } from 'events';
 
@@ -32,6 +33,23 @@ class DomainsStore extends EventEmitter {
         });
     }
 
+    addDomain(domain) {
+        VegaDNSClient.addDomain(domain)
+        .success(data => {
+            var new_id = data.domain.domain_id;
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Domain created successfully"
+            );
+            window.location.hash = "#records?domain-id=" + new_id;
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Domain creation was unsuccessful: " + data.responseJSON.message
+            );
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
@@ -49,6 +67,9 @@ AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_DOMAINS:
             store.fetchDomains();
+            break;
+        case VegaDNSConstants.ADD_DOMAIN:
+            store.addDomain(action.domain);
             break;
     }
 });

@@ -19,6 +19,12 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LIST_DOMAINS
         });
     },
+    addDomain: function(domain) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_DOMAIN,
+            domain: domain
+        });
+    },
     listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,

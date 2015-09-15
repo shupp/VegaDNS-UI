@@ -96,6 +96,15 @@ VegaDNSClient.prototype.deleteApiKey = function(apiKeyId) {
     return this.send(url, "DELETE");
 }
 
+VegaDNSClient.prototype.addDomain = function(domain) {
+    var url = this.getHost() + "/domains" ;
+    var data = {
+        domain: domain
+    }
+
+    return this.send(url, "POST", data);
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");

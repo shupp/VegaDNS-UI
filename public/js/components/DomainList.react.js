@@ -2,12 +2,22 @@ var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var DomainsStore = require('../stores/DomainsStore');
 var DomainListEntry = require('./DomainListEntry.react');
+var DomainAddForm = require('./DomainAddForm.react');
 
 var DomainList = React.createClass({
     getInitialState: function() {
         return {
-            domains: []
+            domains: [],
+            showAddForm: false
         }
+    },
+
+    showAddDomainForm: function() {
+        this.setState({showAddForm: true});
+    },
+
+    hideAddDomainForm: function() {
+        this.setState({showAddForm: false});
     },
 
     componentWillMount: function() {
@@ -33,9 +43,14 @@ var DomainList = React.createClass({
             domains.push(<DomainListEntry key={key} domain={this.state.domains[key]} />);
         }
 
-        return (
-            <section id="domains">
+        var addDomainForm = <DomainAddForm hideCallback={this.hideAddDomainForm} />
+
+        var domainList = 
+            <div>
                 <h1>Domains</h1>
+                <div className="pull-right">
+                    <a className="btn btn-primary" onClick={this.showAddDomainForm} role="button">add</a>
+                </div>
                 <table className="table table-hover">
                     <thead>
                         <th>name</th>
@@ -46,6 +61,11 @@ var DomainList = React.createClass({
                         {domains}
                     </tbody>
                 </table>
+            </div>
+
+        return (
+            <section id="domains">
+                {this.state.showAddForm  ? addDomainForm : domainList}
             </section>
         );
     }
