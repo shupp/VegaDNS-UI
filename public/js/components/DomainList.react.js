@@ -25,15 +25,21 @@ var DomainList = React.createClass({
     },
 
     componentDidMount: function() {
+        DomainsStore.addRefreshChangeListener(this.onRefreshChange);
         DomainsStore.addChangeListener(this.onChange);
     },
 
     componentWillUnmount: function() {
+        DomainsStore.removeRefreshChangeListener(this.onRefreshChange);
         DomainsStore.removeChangeListener(this.onChange);
     },
 
     onChange() {
         this.setState({domains: DomainsStore.getDomainList()});
+    },
+
+    onRefreshChange() {
+        VegaDNSActions.listDomains();
     },
 
     render: function() {
@@ -55,6 +61,7 @@ var DomainList = React.createClass({
                     <thead>
                         <th>name</th>
                         <th>status</th>
+                        <th>delete</th>
                         <th>id</th>
                     </thead>
                     <tbody>

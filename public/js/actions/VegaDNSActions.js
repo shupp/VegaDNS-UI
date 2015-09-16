@@ -25,6 +25,12 @@ var VegaDNSActions = {
             domain: domain
         });
     },
+    deleteDomain: function(domain) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_DOMAIN,
+            domain: domain
+        });
+    },
     listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,

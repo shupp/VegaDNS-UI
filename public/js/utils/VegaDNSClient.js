@@ -105,6 +105,12 @@ VegaDNSClient.prototype.addDomain = function(domain) {
     return this.send(url, "POST", data);
 }
 
+VegaDNSClient.prototype.deleteDomain = function(domainId) {
+    var url = this.getHost() + "/domains/" + domainId;
+
+    return this.send(url, "DELETE");
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");

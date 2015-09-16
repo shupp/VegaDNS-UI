@@ -8,6 +8,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 import { EventEmitter } from 'events';
 
 var CHANGE_CONSTANT = 'CHANGE';
+var REFRESH_CHANGE_CONSTANT = 'REFRESH';
 
 var loggedInState = false;
 var responseData = null;
@@ -16,6 +17,10 @@ var domains = [];
 class DomainsStore extends EventEmitter {
     emitChange() {
         this.emit(CHANGE_CONSTANT);
+    }
+
+    emitRefreshChange() {
+        this.emit(REFRESH_CHANGE_CONSTANT);
     }
 
     getDomainList() {
@@ -50,12 +55,36 @@ class DomainsStore extends EventEmitter {
         });
     }
 
+    deleteDomain(domain) {
+        VegaDNSClient.deleteDomain(domain.domain_id)
+        .success(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Domain \"" + domain.domain + "\" deleted successfully"
+            );
+            this.emitRefreshChange();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Domain deletion was unsuccessful: " + data.responseJSON.message
+            );
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
 
     removeChangeListener(callback) {
         this.removeListener(CHANGE_CONSTANT, callback);
+    }
+
+    addRefreshChangeListener(callback) {
+        this.on(REFRESH_CHANGE_CONSTANT, callback);
+    }
+
+    removeRefreshChangeListener(callback) {
+        this.removeListener(REFRESH_CHANGE_CONSTANT, callback);
     }
 }
 
@@ -70,6 +99,9 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.ADD_DOMAIN:
             store.addDomain(action.domain);
+            break;
+        case VegaDNSConstants.DELETE_DOMAIN:
+            store.deleteDomain(action.domain);
             break;
     }
 });
