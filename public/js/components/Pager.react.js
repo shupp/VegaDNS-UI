@@ -56,6 +56,11 @@ var Pager = React.createClass({
         var currentPage = parseInt(this.props.page);
         var showPages = 10;
         var pageCount = Math.ceil(this.props.total / this.props.perpage);
+
+        if (pageCount == 1) {
+            return null;
+        }
+
         var pageRange = this.findPageRange(currentPage, showPages, pageCount);
         var prevPage = currentPage > 1 ? currentPage - 1 : 1;
         var nextPage = currentPage < pageCount ? currentPage + 1 : currentPage;
