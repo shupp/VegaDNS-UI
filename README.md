@@ -1,6 +1,6 @@
 # VegaDNS UI
 
-VegaDNS UI is a JavaScript UI for the [VegaDNS 2 API](https://github.com/shupp/VegaDNS/tree/python-api).  Once you check out this branch, you'll need to bundle up the JavaScript before you can use it using [npm](https://www.npmjs.com).  Once npm is installed, you can go into the root directory of this branch and do the following
+VegaDNS UI is a JavaScript UI for [VegaDNS-API](https://github.com/shupp/VegaDNS-API).  Once you check out this branch, you'll need to bundle up the JavaScript before you can use it using [npm](https://www.npmjs.com).  Once npm is installed, you can go into the root directory of this branch and do the following
 
 ```
 npm install
