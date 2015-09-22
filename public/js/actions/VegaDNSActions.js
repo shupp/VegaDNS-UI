@@ -41,6 +41,12 @@ var VegaDNSActions = {
             order: order
         });
     },
+    addRecord: function(payload) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_RECORD,
+            payload: payload
+        });
+    },
     listApiKeys: function(accountIds) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_APIKEYS,

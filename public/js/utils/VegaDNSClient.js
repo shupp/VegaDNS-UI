@@ -71,6 +71,12 @@ VegaDNSClient.prototype.records = function(domain_id, page, perpage, sort, order
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.addRecord = function(payload) {
+    var url = this.getHost() + "/records";
+
+    return this.send(url, "POST", payload);
+}
+
 VegaDNSClient.prototype.apikeys = function(accountIds) {
     var url = this.getHost() + "/apikeys";
     var data = {
