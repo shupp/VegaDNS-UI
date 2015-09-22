@@ -127,7 +127,7 @@ var RecordList = React.createClass({
             params={this.props.params}
         />
 
-        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'id'];
+        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'delete', 'id'];
         var sortable = ['name', 'type', 'value', 'ttl', 'distance'];
         var theads = [];
         for (var i = 0; i < tableheads.length; i++) {

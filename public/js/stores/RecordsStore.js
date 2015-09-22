@@ -67,6 +67,22 @@ class RecordsStore extends EventEmitter {
         });
     }
 
+    deleteRecord(recordId) {
+        VegaDNSClient.deleteRecord(recordId)
+        .success(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Record deleted successfully"
+            );
+            this.emitRefreshChange();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                data.message
+            );
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
@@ -95,6 +111,9 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.ADD_RECORD:
             store.addRecord(action.payload);
+            break;
+        case VegaDNSConstants.DELETE_RECORD:
+            store.deleteRecord(action.recordId);
             break;
     }
 });

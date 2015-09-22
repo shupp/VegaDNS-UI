@@ -47,6 +47,12 @@ var VegaDNSActions = {
             payload: payload
         });
     },
+    deleteRecord: function(recordId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_RECORD,
+            recordId: recordId
+        });
+    },
     listApiKeys: function(accountIds) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_APIKEYS,

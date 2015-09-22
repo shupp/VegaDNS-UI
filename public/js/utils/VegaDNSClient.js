@@ -77,6 +77,12 @@ VegaDNSClient.prototype.addRecord = function(payload) {
     return this.send(url, "POST", payload);
 }
 
+VegaDNSClient.prototype.deleteRecord = function(recordId) {
+    var url = this.getHost() + "/records/" + recordId;
+
+    return this.send(url, "DELETE");
+}
+
 VegaDNSClient.prototype.apikeys = function(accountIds) {
     var url = this.getHost() + "/apikeys";
     var data = {

@@ -1,9 +1,30 @@
 var React = require('react');
 var ReactPropTypes = React.PropTypes;
+var VegaDNSActions = require('../actions/VegaDNSActions');
+var ConfirmDialog = require('./ConfirmDialog.react');
 
 var RecordListEntry = React.createClass({
+    getInitialState: function() {
+        return {
+            showConfirmDeleteDialog: false
+        }
+    },
+
     propTypes: {
         record: ReactPropTypes.object.isRequired
+    },
+
+    showDeleteConfirmDialog: function() {
+        this.setState({showConfirmDeleteDialog: true});
+    },
+
+    hideDeleteConfirmDialog: function() {
+        this.setState({showConfirmDeleteDialog: false});
+    },
+
+    handleDeleteRecord: function(e) {
+        e.preventDefault();
+        VegaDNSActions.deleteRecord(this.props.record.record_id);
     },
 
     render: function() {
@@ -22,6 +43,18 @@ var RecordListEntry = React.createClass({
             port = record.port;
         }
 
+        var confirmDeleteDialog = <ConfirmDialog
+            confirmText={"Are you sure you wan't to delete the " + record.record_type + " record \"" + record.name + "\"?"}
+            confirmCallback={this.handleDeleteRecord}
+            cancelCallback={this.hideDeleteConfirmDialog} />
+
+        if (this.state.showConfirmDeleteDialog) {
+            return (<tr>
+                    <td colSpan="9">{confirmDeleteDialog}</td>
+                </tr>
+            );
+        }
+
         return (
             <tr>
                 <td>{record.name}</td>
@@ -31,6 +64,7 @@ var RecordListEntry = React.createClass({
                 <td>{distance}</td>
                 <td>{weight}</td>
                 <td>{port}</td>
+                <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
                 <td>{record.record_id}</td>
             </tr>
         );
