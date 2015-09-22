@@ -3,7 +3,6 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
-var LastPage = null;
 
 var RecordList = React.createClass({
     getInitialState: function() {
