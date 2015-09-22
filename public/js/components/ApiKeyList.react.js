@@ -52,7 +52,7 @@ var ApiKeyList = React.createClass({
         var addKeyForm = <ApiKeyAddForm hideCallback={this.hideAddKeyForm} />
         var keyList = 
                 <div>
-                    <h1>API Keys</h1>
+                    <h2 className="text-center">API Keys</h2>
                     <div className="pull-right">
                         <a className="btn btn-primary" onClick={this.showAddKeyForm} role="button">add</a>
                     </div>

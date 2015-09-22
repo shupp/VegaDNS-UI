@@ -53,7 +53,7 @@ var DomainList = React.createClass({
 
         var domainList = 
             <div>
-                <h1>Domains</h1>
+                <h2 className="text-center">Domains</h2>
                 <div className="pull-right">
                     <a className="btn btn-primary" onClick={this.showAddDomainForm} role="button">add</a>
                 </div>
