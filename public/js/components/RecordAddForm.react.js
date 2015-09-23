@@ -27,6 +27,7 @@ var RecordAddForm = React.createClass({
         for (var key in this.state) {
             payload[key] = this.state[key];
         }
+        payload["name"] = payload["name"] + "." + this.props.domain.domain;
         payload["domain_id"] = this.props.domain.domain_id;
         VegaDNSActions.addRecord(payload);
     },
@@ -36,7 +37,7 @@ var RecordAddForm = React.createClass({
                     <div className="form-group">
                         <label htmlFor="distance" className="col-sm-4 control-label">Distance/Priority</label>
                         <div className="col-sm-2">
-                            <input onChange={this.handleChange.bind(this, 'distance')} className="form-control" id="distance" placeholder="10" />
+                            <input onChange={this.handleChange.bind(this, 'distance')} className="form-control" id="distance" />
                         </div>
                     </div>
         var weight =
@@ -53,6 +54,39 @@ var RecordAddForm = React.createClass({
                             <input onChange={this.handleChange.bind(this, 'port')} className="form-control" id="port" />
                         </div>
                     </div>
+
+        var example = null;
+        switch (this.state.record_type) {
+            case "A":
+            case "A+PTR":
+                example = "1.2.3.4";
+                break;
+            case "AAAA":
+            case "AAAA+PTR":
+                example = "2001:cdba:0000:0000:0000:0000:3257:9652";
+                break;
+            case "NS":
+                example = "ns1." + this.props.domain.domain;
+                break;
+            case "MX":
+                example = "mail." + this.props.domain.domain;
+                break;
+            case "PTR":
+                example = "www.example.com";
+                break;
+            case "TXT":
+                example = "v=spf1 a -all";
+                break;
+            case "CNAME":
+                example = "target." + this.props.domain.domain;
+                break;
+            case "SRV":
+                example = "_sip._tcp." + this.props.domain.domain;
+                break;
+            case "SPF":
+                example = "v=spf1 a -all";
+                break;
+        }
 
 
         return (
@@ -79,21 +113,27 @@ var RecordAddForm = React.createClass({
                     </div>
                     <div className="form-group">
                         <label htmlFor="name" className="col-sm-4 control-label">Hostname</label>
-                        <div className="col-sm-8">
-                            <input onChange={this.handleChange.bind(this, 'name')} className="form-control" id="name" placeholder={"foo." + this.props.domain.domain} />
+                        <div className="col-sm-6">
+                            <div className="col-sm-4 domain-suffix-no-padding">
+                                <input onChange={this.handleChange.bind(this, 'name')} className="form-control" id="name" />
+                            </div>
+                            <div className="col-sm-2 domain-suffix-text domain-suffix-no-padding">
+                                .{this.props.domain.domain}
+                            </div>
                         </div>
                     </div>
                     <div className="form-group">
                         <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
                         <div className="col-sm-8">
-                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" placeholder="1.2.3.4" />
+                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" placeholder="See example below"/>
+                            Example: {example}
                         </div>
                     </div>
                     {["MX", "SRV"].indexOf(this.state.record_type) > -1 ? distance : null}
                     {this.state.record_type == "SRV" ? weight : null}
                     {this.state.record_type == "SRV" ? port : null}
                     <div className="form-group">
-                        <label htmlFor="ttl" className="col-sm-4 control-label">TTL</label>
+                        <label htmlFor="ttl" className="col-sm-4 control-label">TTL (seconds)</label>
                         <div className="col-sm-2">
                             <input onChange={this.handleChange.bind(this, 'ttl')} className="form-control" id="ttl" value={this.state.ttl} />
                         </div>

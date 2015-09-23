@@ -63,3 +63,14 @@ img.vegadns-logo {
   opacity: 0.01;
   transition: opacity 0.3s ease-in;
 }
+
+.domain-suffix-text {
+    position: relative;
+    top: 7px;
+}
+
+.domain-suffix-no-padding {
+    padding-right: 0px;
+    padding-left: 0px;
+    width: 95px;
+}
