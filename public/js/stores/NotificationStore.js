@@ -15,14 +15,16 @@ var messageTypes = [
 ];
 var message = "";
 var messageType = null;
+var autoDismiss = false;
 
 class NotificationStore extends EventEmitter {
     emitChange() {
         this.emit(CHANGE_CONSTANT);
     }
 
-    addNotification(type, value) {
+    addNotification(type, value, dismiss) {
         if (messageTypes.indexOf(type) >= 0) {
+            autoDismiss = dismiss == true ? true : false;
             message = value;
             messageType = type;
             this.emitChange();
@@ -40,7 +42,8 @@ class NotificationStore extends EventEmitter {
     getNotification() {
         return {
             messageType: messageType,
-            message: message
+            message: message,
+            autoDismiss: autoDismiss,
         }
     }
 
@@ -57,7 +60,7 @@ var store = new NotificationStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.ADD_NOTIFICATION:
-            store.addNotification(action.messageType, action.message);
+            store.addNotification(action.messageType, action.message, action.autoDismiss);
             break;
         case VegaDNSConstants.DISMISS_NOTIFICATION:
             store.dismissNotification();

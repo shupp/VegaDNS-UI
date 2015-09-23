@@ -72,11 +72,12 @@ var VegaDNSActions = {
             apiKeyId: apiKeyId
         });
     },
-    addNotification: function(messageType, message) {
+    addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,
             messageType: messageType,
-            message: message
+            message: message,
+            autoDismiss: autoDismiss
         });
     },
     dismissNotification: function() {

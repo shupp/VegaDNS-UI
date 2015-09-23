@@ -1,13 +1,15 @@
-var React = require('react');
+var React = require('react/addons');
 var NotificationStore = require('../stores/NotificationStore');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
 
 var Notification = React.createClass({
     getInitialState: function() {
         return {
             message: "",
-            messageType: null
+            messageType: null,
+            autoDismiss: false
         }
     },
 
@@ -21,7 +23,7 @@ var Notification = React.createClass({
 
     render: function() {
         if (this.state.messageType == null) {
-            return <div id="notification"></div>
+            var alert = null;
         } else {
             var bootstrapClass;
             switch(this.state.messageType) {
@@ -38,13 +40,25 @@ var Notification = React.createClass({
                     bootstrapClass = "alert-danger";
                     break;
             }
-            return <div id="notification" className={"alert " + bootstrapClass}>
-                <button onClick={this.handleDismissal} type="button" className="close" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-                <h4>{this.state.message}</h4>
-            </div>
+            var alert = 
+                    <div key="notification" id="notification" className={"alert " + bootstrapClass}>
+                        <button onClick={this.handleDismissal} type="button" className="close" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4>{this.state.message}</h4>
+                    </div>
+
+
+            if (this.state.autoDismiss == true) {
+                setTimeout(this.handleDismissal, 5000);
+            }
         }
+
+        return (
+            <ReactCSSTransitionGroup transitionAppear={true} transitionName="notification-animation">
+                {alert}
+            </ReactCSSTransitionGroup>
+        )
     },
 
     handleDismissal: function(e) {

@@ -44,3 +44,22 @@ img.vegadns-logo {
   border-top-left-radius: 0;
   border-top-right-radius: 0;
 }
+
+
+.notification-animation-enter {
+  opacity: 0.01;
+}
+
+.notification-animation-enter.notification-animation-enter-active {
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
+}
+
+.notification-animation-leave {
+  opacity: 1;
+}
+
+.notification-animation-leave.notification-animation-leave-active {
+  opacity: 0.01;
+  transition: opacity 0.3s ease-in;
+}
