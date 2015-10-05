@@ -20,7 +20,7 @@ class LogInStore extends EventEmitter {
     login(email, password) {
         VegaDNSClient.login(email, password)
         .success(data => {
-            if (data.status == "ok") {
+            if ("status" in data && data.status == "ok") {
                 loggedInState = true;
                 VegaDNSActions.addNotification(
                     VegaDNSConstants.NOTIFICATION_SUCCESS,
