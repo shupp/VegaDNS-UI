@@ -128,4 +128,13 @@ VegaDNSClient.prototype.healthcheck = function() {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.containsAuthError = function(data) {
+    if ("status" in data) {
+        if (data.status == "error") {
+            return true;
+        }
+    }
+    return false;
+}
+
 module.exports = new VegaDNSClient();
