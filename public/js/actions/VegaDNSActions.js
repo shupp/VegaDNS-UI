@@ -72,6 +72,35 @@ var VegaDNSActions = {
             apiKeyId: apiKeyId
         });
     },
+    listAccounts: function() {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.LIST_ACCOUNTS
+        });
+    },
+    addAccount: function(account) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_ACCOUNT,
+            account: account
+        });
+    },
+    getAccount: function(accountId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_ACCOUNT,
+            accountId: accountId
+        });
+    },
+    editAccount: function(account) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.EDIT_ACCOUNT,
+            account: account
+        });
+    },
+    deleteAccount: function(account) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_ACCOUNT,
+            account: account
+        });
+    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,
@@ -83,6 +112,12 @@ var VegaDNSActions = {
     dismissNotification: function() {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.DISMISS_NOTIFICATION
+        });
+    },
+    redirect: function(route) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.REDIRECT_ROUTE,
+            route: route
         });
     }
 };

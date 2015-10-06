@@ -46,7 +46,7 @@ class DomainsStore extends EventEmitter {
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
                 "Domain created successfully"
             );
-            window.location.hash = "#records?domain-id=" + new_id;
+            VegaDNSActions.redirect("records?domain-id=" + new_id);
         }).error(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,

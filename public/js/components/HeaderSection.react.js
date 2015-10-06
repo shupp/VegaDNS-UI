@@ -27,6 +27,19 @@ var HeaderSection = React.createClass({
             account = this.state.account.email;
         }
 
+        var menuDomains = <li><a href="#">Domains</a></li>
+        var menuAccounts = <li><a href="#accounts">Accounts</a></li>
+
+        switch (this.props.route) {
+            case "accounts":
+                menuAccounts = <li className="active"><a href="#accounts">Accounts <span className="sr-only">(current)</span></a></li>
+                break;
+            case "":
+            case "domains":
+            default:
+                menuDomains = <li className="active"><a href="#">Domains <span className="sr-only">(current)</span></a></li>
+        }
+
         return (
             <nav className="navbar navbar-inverse">
               <div className="container-fluid">
@@ -43,6 +56,12 @@ var HeaderSection = React.createClass({
 
                 {/* <!-- Collect the nav links, forms, and other content for toggling --> */}
                 <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <ul className="nav navbar-nav">
+                        {menuDomains}
+                        {menuAccounts}
+                    </ul>
+
 
                   <ul className="nav navbar-nav navbar-right">
                     <li className="dropdown">

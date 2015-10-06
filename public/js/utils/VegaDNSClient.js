@@ -108,6 +108,36 @@ VegaDNSClient.prototype.deleteApiKey = function(apiKeyId) {
     return this.send(url, "DELETE");
 }
 
+VegaDNSClient.prototype.getAccount = function(accountId) {
+    var url = this.getHost() + "/accounts/" + accountId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.accounts = function() {
+    var url = this.getHost() + "/accounts";
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addAccount = function(data) {
+    var url = this.getHost() + "/accounts";
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editAccount = function(data) {
+    var url = this.getHost() + "/accounts/" + data.account_id;
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteAccount = function(accountId) {
+    var url = this.getHost() + "/accounts/" + accountId;
+
+    return this.send(url, "DELETE");
+}
+
 VegaDNSClient.prototype.addDomain = function(domain) {
     var url = this.getHost() + "/domains" ;
     var data = {

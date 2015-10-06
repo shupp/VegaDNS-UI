@@ -5,6 +5,9 @@ var HeaderSection = require('./HeaderSection.react');
 var DomainList = require('./DomainList.react');
 var ApiKeyList = require('./ApiKeyList.react');
 var RecordList = require('./RecordList.react');
+var AccountList = require('./AccountList.react');
+var AccountEdit = require('./AccountEdit.react');
+var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
     getInitialState: function() {
@@ -63,15 +66,19 @@ var VegaDNSApp = React.createClass({
 
             var Child;
             switch (Route) {
-                case 'domains':
-                    Child = DomainList;
-                    break;
                 case 'records':
                     Child = RecordList;
                     break;
                 case 'apikeys':
                     Child = ApiKeyList;
                     break;
+                case 'accounts':
+                    Child = AccountList;
+                    break;
+                case 'accountEdit':
+                    Child = AccountEdit;
+                    break;
+                case 'domains':
                 default:
                     Child = DomainList;
             }
@@ -79,7 +86,7 @@ var VegaDNSApp = React.createClass({
             return (
                 <div>
                     <section id="header">
-                        <HeaderSection />
+                        <HeaderSection route={Route} />
                     </section>
                     <section id="main">
                         <row>
