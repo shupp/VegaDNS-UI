@@ -65,7 +65,8 @@ class AccountsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Account " + account.email + " created successfully"
+                "Account " + account.email + " created successfully",
+                true
             );
             this.fetchAccounts()
         }).error(data => {
@@ -85,7 +86,8 @@ class AccountsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Account " + account.email + " updated successfully"
+                "Account " + account.email + " updated successfully",
+                true
             );
             VegaDNSActions.redirect("accounts");
         }).error(data => {
@@ -101,7 +103,8 @@ class AccountsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Account " + account.email + " deleted successfully"
+                "Account " + account.email + " deleted successfully",
+                true
             );
             this.emitRefreshChange();
         }).error(data => {
