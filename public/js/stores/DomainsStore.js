@@ -44,7 +44,8 @@ class DomainsStore extends EventEmitter {
             var new_id = data.domain.domain_id;
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Domain created successfully"
+                "Domain created successfully",
+                true
             );
             VegaDNSActions.redirect("records?domain-id=" + new_id);
         }).error(data => {
@@ -60,7 +61,8 @@ class DomainsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Domain \"" + domain.domain + "\" deleted successfully"
+                "Domain \"" + domain.domain + "\" deleted successfully",
+                true
             );
             this.emitRefreshChange();
         }).error(data => {
