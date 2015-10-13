@@ -50,8 +50,9 @@ var Notification = React.createClass({
 
 
             if (this.state.autoDismiss == true) {
-                setTimeout(this.handleDismissal, 5000);
+                setTimeout(this.handleDismissal, 4000);
             }
+            window.scrollTo(0,0);
         }
 
         return (
