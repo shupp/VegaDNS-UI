@@ -13,6 +13,7 @@ var REFRESH_CHANGE_CONSTANT = 'REFRESH';
 var loggedInState = false;
 var responseData = null;
 var records = [];
+var record = {}
 var domain = null;
 var total_records = 0;
 
@@ -33,8 +34,29 @@ class RecordsStore extends EventEmitter {
         return domain;
     }
 
+    getRecord() {
+        return record;
+    }
+
     getRecordTotal() {
         return total_records;
+    }
+
+    fetchRecord(recordId) {
+        VegaDNSClient.getRecord(recordId)
+        .success(data => {
+            record = data.record;
+            this.emitChange();
+        }).error(data => {
+            var message = "Record not found";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                message
+            );
+        });
     }
 
     fetchRecords(domain_id, page, perpage, sort, order) {
@@ -56,13 +78,36 @@ class RecordsStore extends EventEmitter {
             var message = data.record.record_type + " record \"" + data.record.name + "\" created successfully";
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                message
+                message,
+                true
             );
             this.emitRefreshChange();
         }).error(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,
-                data.message
+                data.message,
+                true
+            );
+        });
+    }
+
+    editRecord(record) {
+        VegaDNSClient.editRecord(record)
+        .success(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Record " + record.name + " updated successfully",
+                true
+            );
+            VegaDNSActions.redirect("records?domain-id=" + record.domain_id);
+        }).error(data => {
+            var message = "Record edit failed";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                message
             );
         });
     }
@@ -72,7 +117,8 @@ class RecordsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Record deleted successfully"
+                "Record deleted successfully",
+                true
             );
             this.emitRefreshChange();
         }).error(data => {
@@ -111,6 +157,12 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.ADD_RECORD:
             store.addRecord(action.payload);
+            break;
+        case VegaDNSConstants.GET_RECORD:
+            store.fetchRecord(action.recordId);
+            break;
+        case VegaDNSConstants.EDIT_RECORD:
+            store.editRecord(action.record);
             break;
         case VegaDNSConstants.DELETE_RECORD:
             store.deleteRecord(action.recordId);

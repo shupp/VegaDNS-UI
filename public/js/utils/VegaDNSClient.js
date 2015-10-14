@@ -64,6 +64,12 @@ VegaDNSClient.prototype.domains = function(filter) {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.getRecord = function(recordId) {
+    var url = this.getHost() + "/records/" + recordId;
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.records = function(domain_id, page, perpage, sort, order) {
     var url = this.getHost() + "/records?domain_id=" + domain_id;
     url = url + "&page=" + page + "&perpage=" + perpage + "&sort=" + sort + "&order=" + order;
@@ -75,6 +81,12 @@ VegaDNSClient.prototype.addRecord = function(payload) {
     var url = this.getHost() + "/records";
 
     return this.send(url, "POST", payload);
+}
+
+VegaDNSClient.prototype.editRecord = function(data) {
+    var url = this.getHost() + "/records/" + data.record_id;
+
+    return this.send(url, "PUT", data);
 }
 
 VegaDNSClient.prototype.deleteRecord = function(recordId) {

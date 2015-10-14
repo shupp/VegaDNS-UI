@@ -7,6 +7,7 @@ var ApiKeyList = require('./ApiKeyList.react');
 var RecordList = require('./RecordList.react');
 var AccountList = require('./AccountList.react');
 var AccountEdit = require('./AccountEdit.react');
+var RecordEdit = require('./RecordEdit.react');
 var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
@@ -77,6 +78,9 @@ var VegaDNSApp = React.createClass({
                     break;
                 case 'accountEdit':
                     Child = AccountEdit;
+                    break;
+                case 'recordEdit':
+                    Child = RecordEdit;
                     break;
                 case 'domains':
                 default:

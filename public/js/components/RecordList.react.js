@@ -117,7 +117,7 @@ var RecordList = React.createClass({
             if (this.state.records[key].record_type == "SOA") {
                 continue;
             }
-            records.push(<RecordListEntry key={key} record={this.state.records[key]} />);
+            records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} />);
         }
         var pager = <Pager
             page={this.state.page}
@@ -127,7 +127,7 @@ var RecordList = React.createClass({
             params={this.props.params}
         />
 
-        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'delete', 'id'];
+        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'edit', 'delete', 'id'];
         var sortable = ['name', 'type', 'value', 'ttl', 'distance'];
         var theads = [];
         for (var i = 0; i < tableheads.length; i++) {

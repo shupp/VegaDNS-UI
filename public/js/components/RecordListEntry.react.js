@@ -27,6 +27,13 @@ var RecordListEntry = React.createClass({
         VegaDNSActions.deleteRecord(this.props.record.record_id);
     },
 
+    handleEditRecord: function(e) {
+        e.preventDefault();
+        VegaDNSActions.redirect(
+            "recordEdit?record-id=" + this.props.record.record_id + "&domain-id=" + this.props.domain.domain_id
+        );
+    },
+
     render: function() {
         var record = this.props.record;
         var distance = 'n/a';
@@ -64,6 +71,7 @@ var RecordListEntry = React.createClass({
                 <td>{distance}</td>
                 <td>{weight}</td>
                 <td>{port}</td>
+                <td><button type="button" onClick={this.handleEditRecord} className="btn btn-primary btn-xs">edit</button></td>
                 <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
                 <td>{record.record_id}</td>
             </tr>

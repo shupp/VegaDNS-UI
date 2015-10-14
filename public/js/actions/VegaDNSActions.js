@@ -41,10 +41,22 @@ var VegaDNSActions = {
             order: order
         });
     },
+    getRecord: function(recordId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_RECORD,
+            recordId: recordId
+        });
+    },
     addRecord: function(payload) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_RECORD,
             payload: payload
+        });
+    },
+    editRecord: function(record) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.EDIT_RECORD,
+            record: record
         });
     },
     deleteRecord: function(recordId) {

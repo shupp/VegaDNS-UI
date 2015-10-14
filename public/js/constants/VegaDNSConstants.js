@@ -32,6 +32,7 @@ module.exports = keyMirror({
     DELETE_DOMAIN_GROUP_MAP: null,
     DELETE_APIKEY: null,
     GET_ACCOUNT: null,
+    GET_RECORD: null,
 
     ADD_NOTIFICATION: null,
     DISMISS_NOTIFICATION: null,
