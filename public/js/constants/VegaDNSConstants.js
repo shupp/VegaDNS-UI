@@ -33,6 +33,7 @@ module.exports = keyMirror({
     DELETE_APIKEY: null,
     GET_ACCOUNT: null,
     GET_RECORD: null,
+    GET_GROUP: null,
 
     ADD_NOTIFICATION: null,
     DISMISS_NOTIFICATION: null,

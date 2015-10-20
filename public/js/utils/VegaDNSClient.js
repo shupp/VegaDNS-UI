@@ -132,6 +132,18 @@ VegaDNSClient.prototype.accounts = function() {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.searchAccounts = function(search) {
+    var url = this.getHost() + "/accounts?search=" + search;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.searchDomains = function(search) {
+    var url = this.getHost() + "/domains?search=" + search;
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.addAccount = function(data) {
     var url = this.getHost() + "/accounts";
 
@@ -148,6 +160,102 @@ VegaDNSClient.prototype.deleteAccount = function(accountId) {
     var url = this.getHost() + "/accounts/" + accountId;
 
     return this.send(url, "DELETE");
+}
+
+VegaDNSClient.prototype.domaingroupmaps = function(groupId) {
+    var url = this.getHost() + "/domaingroupmaps?group_id=" + groupId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addDomainGroupMap = function(groupId, domainId, permissions) {
+    var url = this.getHost() + "/domaingroupmaps";
+    var data = {
+        group_id: groupId,
+        domain_id: domainId,
+        can_read: permissions.can_read,
+        can_write: permissions.can_write,
+        can_delete: permissions.can_delete
+    };
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editDomainGroupMap = function(domaingroupmapId, permissions) {
+    var url = this.getHost() + "/domaingroupmaps/" + domaingroupmapId;
+    var data = {
+        can_read: permissions.can_read,
+        can_write: permissions.can_write,
+        can_delete: permissions.can_delete
+    };
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteDomainGroupMap = function(domaingroupmapId) {
+    var url = this.getHost() + "/domaingroupmaps/" + domaingroupmapId;
+
+    return this.send(url, "DELETE");
+}
+
+VegaDNSClient.prototype.groupmembers = function(groupId) {
+    var url = this.getHost() + "/groupmembers?group_id=" + groupId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addGroupMember = function(groupId, accountId) {
+    var url = this.getHost() + "/groupmembers";
+    var data = {
+        group_id: groupId,
+        account_id: accountId,
+        is_admin: 0 // Defaults to non-admin
+    };
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editGroupMember = function(groupmemberId, isAdmin) {
+    var url = this.getHost() + "/groupmembers/" + groupmemberId;
+    var data = { is_admin: isAdmin };
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteGroupMember = function(groupmemberId) {
+    var url = this.getHost() + "/groupmembers/" + groupmemberId;
+
+    return this.send(url, "DELETE");
+}
+
+VegaDNSClient.prototype.groups = function() {
+    var url = this.getHost() + "/groups";
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addGroup = function(data) {
+    var url = this.getHost() + "/groups";
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editGroup = function(data) {
+    var url = this.getHost() + "/groups/" + data.group_id;
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteGroup = function(groupId) {
+    var url = this.getHost() + "/groups/" + groupId;
+
+    return this.send(url, "DELETE");
+}
+
+VegaDNSClient.prototype.getGroup = function(groupId) {
+    var url = this.getHost() + "/groups/" + groupId;
+
+    return this.send(url, "GET");
 }
 
 VegaDNSClient.prototype.addDomain = function(domain) {

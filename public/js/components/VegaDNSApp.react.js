@@ -7,6 +7,8 @@ var ApiKeyList = require('./ApiKeyList.react');
 var RecordList = require('./RecordList.react');
 var AccountList = require('./AccountList.react');
 var AccountEdit = require('./AccountEdit.react');
+var GroupList = require('./GroupList.react');
+var GroupEdit = require('./GroupEdit.react');
 var RecordEdit = require('./RecordEdit.react');
 var Redirect = require('../utils/Redirect');
 
@@ -79,6 +81,12 @@ var VegaDNSApp = React.createClass({
                 case 'accountEdit':
                     Child = AccountEdit;
                     break;
+                case 'groups':
+                    Child = GroupList;
+                    break;
+                case 'groupEdit':
+                    Child = GroupEdit;
+                    break;
                 case 'recordEdit':
                     Child = RecordEdit;
                     break;
@@ -93,11 +101,11 @@ var VegaDNSApp = React.createClass({
                         <HeaderSection route={Route} />
                     </section>
                     <section id="main">
-                        <row>
+                        <div className="row">
                             <div>
                                 <Child key={window.location.hash} route={Route} params={Params} account={this.state.account}/>
                             </div>
-                        </row>
+                        </div>
                     </section>
                 </div>
             );

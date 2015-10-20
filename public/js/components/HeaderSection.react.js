@@ -29,10 +29,14 @@ var HeaderSection = React.createClass({
 
         var menuDomains = <li><a href="#">Domains</a></li>
         var menuAccounts = <li><a href="#accounts">Accounts</a></li>
+        var menuGroups = <li><a href="#groups">Groups</a></li>
 
         switch (this.props.route) {
             case "accounts":
                 menuAccounts = <li className="active"><a href="#accounts">Accounts <span className="sr-only">(current)</span></a></li>
+                break;
+            case "groups":
+                menuGroups = <li className="active"><a href="#groups">Groups <span className="sr-only">(current)</span></a></li>
                 break;
             case "":
             case "domains":
@@ -60,6 +64,7 @@ var HeaderSection = React.createClass({
                     <ul className="nav navbar-nav">
                         {menuDomains}
                         {menuAccounts}
+                        {menuGroups}
                     </ul>
 
 
