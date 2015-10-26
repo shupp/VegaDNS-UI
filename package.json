@@ -13,13 +13,18 @@
     "vegadns"
   ],
   "author": "Bill Shupp",
-  "license": "Apache 2.0",
+  "license": "Apache-2.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/shupp/VegaDNS-UI.git"
+  },
   "dependencies": {
-    "URIjs": "^1.16.0",
+    "urijs": "^1.16.1",
     "babel-runtime": "^5.8.20",
     "flux": "^2.0.3",
     "keymirror": "^0.1.1",
-    "react": "^0.13.3"
+    "react": "^0.14.0",
+    "react-select": "^0.8.2"
   },
   "devDependencies": {
     "babel-core": "^5.8.21",
