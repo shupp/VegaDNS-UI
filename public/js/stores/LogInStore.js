@@ -37,10 +37,15 @@ class LogInStore extends EventEmitter {
             }
             this.emitChange();
         }).error(data => {
+            var message = "Something went wrong";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,
-                "Something went wrong"
+                message
             );
+            responseData = data;
         });
     }
 
@@ -59,9 +64,13 @@ class LogInStore extends EventEmitter {
                 this.emitChange();
             }
         }).error(data => {
+            var message = "Something went wrong";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,
-                "Something went wrong"
+                message
             );
             responseData = data;
         });
