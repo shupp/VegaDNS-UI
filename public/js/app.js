@@ -8,13 +8,14 @@ if (typeof VegaDNSAPIVersion !== "undefined") {
 }
 
 var React = require('react');
+var ReactDOM = require('react-dom');
 var VegaDNSApp = require('./components/VegaDNSApp.react');
 var Notification = require('./components/Notification.react');
-React.render(<Notification />, document.getElementById('notifications'));
+ReactDOM.render(<Notification />, document.getElementById('notifications'));
 
 function renderRoute () {
     var route = window.location.hash.substr(1);
-    React.render(<VegaDNSApp route={route} />, document.getElementById('vegadnsapp'));
+    ReactDOM.render(<VegaDNSApp route={route} />, document.getElementById('vegadnsapp'));
 }
 
 window.addEventListener('hashchange', renderRoute);
