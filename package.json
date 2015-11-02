@@ -19,12 +19,13 @@
     "url": "https://github.com/shupp/VegaDNS-UI.git"
   },
   "dependencies": {
-    "urijs": "^1.16.1",
     "babel-runtime": "^5.8.20",
     "flux": "^2.0.3",
     "keymirror": "^0.1.1",
-    "react": "^0.14.0",
-    "react-select": "^0.8.2"
+    "react": "^0.14.2",
+    "react-addons-css-transition-group": "^0.14.2",
+    "react-select": "^0.8.2",
+    "urijs": "^1.16.1"
   },
   "devDependencies": {
     "babel-core": "^5.8.21",

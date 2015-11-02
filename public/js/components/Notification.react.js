@@ -1,8 +1,8 @@
-var React = require('react/addons');
+var React = require('react');
 var NotificationStore = require('../stores/NotificationStore');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var ReactCSSTransitionGroup = React.addons.CSSTransitionGroup;
+var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var Notification = React.createClass({
     getInitialState: function() {
