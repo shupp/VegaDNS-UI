@@ -22,6 +22,7 @@ var Notification = React.createClass({
     },
 
     render: function() {
+        var timeout = 4000;
         if (this.state.messageType == null) {
             var alert = null;
         } else {
@@ -50,13 +51,19 @@ var Notification = React.createClass({
 
 
             if (this.state.autoDismiss == true) {
-                setTimeout(this.handleDismissal, 4000);
+                setTimeout(this.handleDismissal, timeout);
             }
             window.scrollTo(0,0);
         }
 
         return (
-            <ReactCSSTransitionGroup transitionAppear={true} transitionName="notification-animation">
+            <ReactCSSTransitionGroup
+                transitionAppear={true}
+                transitionAppearTimeout={timeout}
+                transitionEnterTimeout={timeout}
+                transitionLeaveTimeout={0}
+                transitionName="notification-animation"
+            >
                 {alert}
             </ReactCSSTransitionGroup>
         )
