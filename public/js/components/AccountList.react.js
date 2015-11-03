@@ -61,14 +61,16 @@ var AccountList = React.createClass({
                     </div>
                     <table className="table table-hover">
                         <thead>
-                            <th>name</th>
-                            <th>email</th>
-                            <th>phone</th>
-                            <th>type</th>
-                            <th>status</th>
-                            <th>edit</th>
-                            <th>delete</th>
-                            <th>id</th>
+                            <tr>
+                                <th>name</th>
+                                <th>email</th>
+                                <th>phone</th>
+                                <th>type</th>
+                                <th>status</th>
+                                <th>edit</th>
+                                <th>delete</th>
+                                <th>id</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {accounts}

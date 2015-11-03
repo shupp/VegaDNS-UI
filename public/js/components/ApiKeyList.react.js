@@ -58,11 +58,13 @@ var ApiKeyList = React.createClass({
                     </div>
                     <table className="table table-hover">
                         <thead>
-                            <th>description</th>
-                            <th>key</th>
-                            <th>secret</th>
-                            <th>delete</th>
-                            <th>id</th>
+                            <tr>
+                                <th>description</th>
+                                <th>key</th>
+                                <th>secret</th>
+                                <th>delete</th>
+                                <th>id</th>
+                            </tr>
                         </thead>
                         <tbody>
                             {apikeys}
