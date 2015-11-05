@@ -60,7 +60,7 @@ var Notification = React.createClass({
             <ReactCSSTransitionGroup
                 transitionAppear={true}
                 transitionAppearTimeout={timeout}
-                transitionEnterTimeout={timeout}
+                transitionEnterTimeout={0}
                 transitionLeaveTimeout={0}
                 transitionName="notification-animation"
             >
