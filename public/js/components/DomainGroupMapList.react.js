@@ -129,7 +129,7 @@ var DomainGroupMapList = React.createClass({
                 </form>
 
                 <div>
-                    <h4 className="text-center">Group Members</h4>
+                    <h4 className="text-center">Domains in this group</h4>
                     <table className="table table-hover">
                         <thead>
                             <tr>
