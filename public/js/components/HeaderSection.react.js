@@ -30,6 +30,10 @@ var HeaderSection = React.createClass({
         var menuDomains = <li><a href="#">Domains</a></li>
         var menuAccounts = <li><a href="#accounts">Accounts</a></li>
         var menuGroups = <li><a href="#groups">Groups</a></li>
+        var menuDefaultRecords = null;
+        if (this.state.account.account_type == "senior_admin") {
+            var menuDefaultRecords = <li><a href="#defaultRecords">Default Records</a></li>
+        }
 
         switch (this.props.route) {
             case "accounts":
@@ -39,6 +43,12 @@ var HeaderSection = React.createClass({
             case "groups":
             case "groupEdit":
                 menuGroups = <li className="active"><a href="#groups">Groups <span className="sr-only">(current)</span></a></li>
+                break;
+            case "defaultRecords":
+            case "defaultRecordsEdit":
+                if (menuDefaultRecords !== null) {
+                    menuDefaultRecords = <li className="active"><a href="#defaultRecords">Default Records <span className="sr-only">(current)</span></a></li>
+                }
                 break;
             case "":
             case "domains":
@@ -67,6 +77,7 @@ var HeaderSection = React.createClass({
                         {menuDomains}
                         {menuAccounts}
                         {menuGroups}
+                        {menuDefaultRecords}
                     </ul>
 
 

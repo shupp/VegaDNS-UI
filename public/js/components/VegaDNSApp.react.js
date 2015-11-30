@@ -5,6 +5,7 @@ var HeaderSection = require('./HeaderSection.react');
 var DomainList = require('./DomainList.react');
 var ApiKeyList = require('./ApiKeyList.react');
 var RecordList = require('./RecordList.react');
+var DefaultRecordList = require('./DefaultRecordList.react');
 var AccountList = require('./AccountList.react');
 var AccountEdit = require('./AccountEdit.react');
 var GroupList = require('./GroupList.react');
@@ -71,6 +72,12 @@ var VegaDNSApp = React.createClass({
             switch (Route) {
                 case 'records':
                     Child = RecordList;
+                    break;
+                case 'defaultRecords':
+                    Child = DefaultRecordList;
+                    break;
+                case 'defaultRecordsEdit':
+                    Child = DefaultRecordEdit;
                     break;
                 case 'apikeys':
                     Child = ApiKeyList;

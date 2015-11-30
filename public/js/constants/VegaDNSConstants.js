@@ -10,6 +10,7 @@ module.exports = keyMirror({
     LIST_GROUP_MEMBERS: null,
     LIST_DOMAIN_GROUP_MAPS: null,
     LIST_APIKEYS: null,
+    LIST_DEFAULT_RECORDS: null,
     ADD_DOMAIN: null,
     ADD_RECORD: null,
     ADD_ACCOUNT: null,

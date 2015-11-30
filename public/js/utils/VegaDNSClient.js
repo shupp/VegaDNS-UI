@@ -64,6 +64,12 @@ VegaDNSClient.prototype.domains = function(filter) {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.defaultRecords = function() {
+    var url = this.getHost() + "/default_records";
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.getRecord = function(recordId) {
     var url = this.getHost() + "/records/" + recordId;
 
