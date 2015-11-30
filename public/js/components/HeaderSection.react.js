@@ -33,9 +33,11 @@ var HeaderSection = React.createClass({
 
         switch (this.props.route) {
             case "accounts":
+            case "accountEdit":
                 menuAccounts = <li className="active"><a href="#accounts">Accounts <span className="sr-only">(current)</span></a></li>
                 break;
             case "groups":
+            case "groupEdit":
                 menuGroups = <li className="active"><a href="#groups">Groups <span className="sr-only">(current)</span></a></li>
                 break;
             case "":
