@@ -1,5 +1,5 @@
 var VegaDNSConfig = require('../utils/VegaDNSConfig');
-var URI = require('URIjs');
+var URI = require('urijs');
 
 var VegaDNSClient = function() {
     var loggedIn = false;

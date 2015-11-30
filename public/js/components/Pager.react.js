@@ -1,5 +1,5 @@
 var React = require('react');
-var URI = require('URIjs');
+var URI = require('urijs');
 var PagerInnerPage = require('./PagerInnerPage.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
