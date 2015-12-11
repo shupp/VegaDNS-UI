@@ -22,9 +22,9 @@ var DefaultRecordListEntry = React.createClass({
         this.setState({showConfirmDeleteDialog: false});
     },
 
-    handleDeleteRecord: function(e) {
+    handleDeleteDefaultRecord: function(e) {
         e.preventDefault();
-        VegaDNSActions.deleteDefaultRecord(this.props.default_record.record_id);
+        VegaDNSActions.deleteDefaultRecord(this.props.record.record_id);
     },
 
     handleEditDefaultRecord: function(e) {

@@ -42,6 +42,12 @@ var VegaDNSActions = {
             payload: payload
         });
     },
+    deleteDefaultRecord: function(recordId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_DEFAULT_RECORD,
+            recordId: recordId
+        });
+    },
     listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,

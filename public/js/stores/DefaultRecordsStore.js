@@ -104,7 +104,7 @@ class DefaultRecordsStore extends EventEmitter {
         .success(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Record deleted successfully",
+                "Default record deleted successfully",
                 true
             );
             this.emitRefreshChange();

@@ -33,6 +33,7 @@ module.exports = keyMirror({
     DELETE_GROUP_MEMBER: null,
     DELETE_DOMAIN_GROUP_MAP: null,
     DELETE_APIKEY: null,
+    DELETE_DEFAULT_RECORD: null,
     GET_ACCOUNT: null,
     GET_RECORD: null,
     GET_GROUP: null,

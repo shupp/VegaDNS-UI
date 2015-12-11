@@ -76,6 +76,12 @@ VegaDNSClient.prototype.addDefaultRecord = function(payload) {
     return this.send(url, "POST", payload);
 }
 
+VegaDNSClient.prototype.deleteDefaultRecord = function(recordId) {
+    var url = this.getHost() + "/default_records/" + recordId;
+
+    return this.send(url, "DELETE");
+}
+
 VegaDNSClient.prototype.getRecord = function(recordId) {
     var url = this.getHost() + "/records/" + recordId;
 
