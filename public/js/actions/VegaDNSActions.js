@@ -48,6 +48,18 @@ var VegaDNSActions = {
             recordId: recordId
         });
     },
+    getDefaultRecord: function(recordId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_DEFAULT_RECORD,
+            recordId: recordId
+        });
+    },
+    editDefaultRecord: function(default_record) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.EDIT_DEFAULT_RECORD,
+            default_record: default_record
+        });
+    },
     listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,

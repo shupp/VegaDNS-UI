@@ -34,7 +34,7 @@ class DefaultRecordsStore extends EventEmitter {
     fetchDefaultRecord(recordId) {
         VegaDNSClient.getDefaultRecord(recordId)
         .success(data => {
-            record = data.defaultrecord;
+            defaultrecord = data.default_record;
             this.emitChange();
         }).error(data => {
             var message = "Default Record not found";
@@ -86,7 +86,7 @@ class DefaultRecordsStore extends EventEmitter {
                 "Default Record " + default_record.name + " updated successfully",
                 true
             );
-            VegaDNSActions.redirect("default_records");
+            VegaDNSActions.redirect("defaultRecords");
         }).error(data => {
             var message = "Default Record edit failed";
             if (typeof data.responseJSON.message != 'undefined') {

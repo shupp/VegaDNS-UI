@@ -26,6 +26,7 @@ module.exports = keyMirror({
     EDIT_GROUP_MEMBER: null,
     EDIT_DOMAIN_GROUP_MAP: null,
     EDIT_APIKEY: null,
+    EDIT_DEFAULT_RECORD: null,
     DELETE_DOMAIN: null,
     DELETE_RECORD: null,
     DELETE_ACCOUNT: null,
@@ -37,6 +38,7 @@ module.exports = keyMirror({
     GET_ACCOUNT: null,
     GET_RECORD: null,
     GET_GROUP: null,
+    GET_DEFAULT_RECORD: null,
 
     ADD_NOTIFICATION: null,
     DISMISS_NOTIFICATION: null,

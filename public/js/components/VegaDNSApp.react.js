@@ -11,6 +11,7 @@ var AccountEdit = require('./AccountEdit.react');
 var GroupList = require('./GroupList.react');
 var GroupEdit = require('./GroupEdit.react');
 var RecordEdit = require('./RecordEdit.react');
+var DefaultRecordEdit = require('./DefaultRecordEdit.react');
 var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
@@ -76,7 +77,7 @@ var VegaDNSApp = React.createClass({
                 case 'defaultRecords':
                     Child = DefaultRecordList;
                     break;
-                case 'defaultRecordsEdit':
+                case 'defaultRecordEdit':
                     Child = DefaultRecordEdit;
                     break;
                 case 'apikeys':
