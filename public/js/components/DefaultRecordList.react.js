@@ -64,7 +64,7 @@ var DefaultRecordList = React.createClass({
         var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'edit', 'delete', 'id'];
         var theads = [];
         for (var i = 0; i < tableheads.length; i++) {
-            theads.push(<td key={i}>{tableheads[i]}</td>);
+            theads.push(<td key={i}><b>{tableheads[i]}</b></td>);
         }
 
         var recordList = 

@@ -18,6 +18,7 @@ module.exports = keyMirror({
     ADD_GROUP_MEMBER: null,
     ADD_DOMAIN_GROUP_MAP: null,
     ADD_APIKEY: null,
+    ADD_DEFAULT_RECORD: null,
     EDIT_DOMAIN: null,
     EDIT_RECORD: null,
     EDIT_ACCOUNT: null,

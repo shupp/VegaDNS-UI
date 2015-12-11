@@ -91,6 +91,8 @@ var DefaultRecordAddForm = React.createClass({
         return (
             <section id="add_record">
                 <h3 className="text-center">Create a new default resource record</h3>
+                <h5 className="text-center"><br />You can use <i>DOMAIN</i> in any label to be replaced with the domain name</h5>
+                <h5 className="text-center">example: <i>www.DOMAIN</i> would become <i>www.example.com</i></h5>
                 <form className="form-horizontal">
                     <div className="form-group">
                         <label htmlFor="record_type" className="col-sm-4 control-label">RR Type</label>
@@ -116,9 +118,7 @@ var DefaultRecordAddForm = React.createClass({
                             <div className="col-sm-4 domain-suffix-no-padding">
                                 <input onChange={this.handleChange.bind(this, 'name')} className="form-control" id="name" />
                             </div>
-                            <div className="col-sm-2 domain-suffix-text domain-suffix-no-padding">
-                                .DOMAIN
-                            </div>
+                            <div className="col-sm-2 domain-suffix-text domain-suffix-no-padding"></div>
                         </div>
                     </div>
                     <div className="form-group">
@@ -140,7 +140,7 @@ var DefaultRecordAddForm = React.createClass({
                     <div className="form-group">
                         <div className="col-sm-4"></div>
                         <div className="col-sm-8">
-                            <button type="submit" onClick={this.addRecord} className="btn btn-success">Create</button>
+                            <button type="submit" onClick={this.addDefaultRecord} className="btn btn-success">Create</button>
                             &nbsp;
                             <button type="submit" onClick={this.props.hideCallback} className="btn btn-danger">Cancel</button>
                         </div>

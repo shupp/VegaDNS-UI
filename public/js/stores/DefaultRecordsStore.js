@@ -60,9 +60,9 @@ class DefaultRecordsStore extends EventEmitter {
     }
 
     addDefaultRecord(payload) {
-        VegaDNSClient.addRecord(payload)
+        VegaDNSClient.addDefaultRecord(payload)
         .success(data => {
-            var message = data.default_record.record_type + " record \"" + data.default_record.name + "\" created successfully";
+            var message = "Default " + data.default_record.record_type + " record \"" + data.default_record.name + "\" created successfully";
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
                 message,

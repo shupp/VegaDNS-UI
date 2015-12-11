@@ -70,6 +70,12 @@ VegaDNSClient.prototype.defaultRecords = function() {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.addDefaultRecord = function(payload) {
+    var url = this.getHost() + "/default_records";
+
+    return this.send(url, "POST", payload);
+}
+
 VegaDNSClient.prototype.getRecord = function(recordId) {
     var url = this.getHost() + "/records/" + recordId;
 

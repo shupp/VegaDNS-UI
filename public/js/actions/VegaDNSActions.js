@@ -36,6 +36,12 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LIST_DEFAULT_RECORDS
         });
     },
+    addDefaultRecord: function(payload) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_DEFAULT_RECORD,
+            payload: payload
+        });
+    },
     listRecords: function(domainId, page, perPage, sort, order) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,
