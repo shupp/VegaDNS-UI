@@ -70,6 +70,12 @@ var VegaDNSActions = {
             order: order
         });
     },
+    getSOARecord: function(domainId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_SOA_RECORD,
+            domainId: domainId
+        });
+    },
     getRecord: function(recordId) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.GET_RECORD,

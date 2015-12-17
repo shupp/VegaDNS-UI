@@ -94,6 +94,12 @@ VegaDNSClient.prototype.editDefaultRecord = function(data) {
     return this.send(url, "PUT", data);
 }
 
+VegaDNSClient.prototype.getSOARecord = function(domainId) {
+    var url = this.getHost() + "/records?domain_id=" + domainId + "&filter_record_type=soa";
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.getRecord = function(recordId) {
     var url = this.getHost() + "/records/" + recordId;
 

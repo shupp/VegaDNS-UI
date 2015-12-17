@@ -14,6 +14,7 @@ var loggedInState = false;
 var responseData = null;
 var records = [];
 var record = {}
+var soa_record = {}
 var domain = null;
 var total_records = 0;
 
@@ -36,6 +37,10 @@ class RecordsStore extends EventEmitter {
 
     getRecord() {
         return record;
+    }
+
+    getSOARecord() {
+        return soa_record;
     }
 
     getRecordTotal() {
@@ -72,6 +77,24 @@ class RecordsStore extends EventEmitter {
         });
     }
 
+    fetchSOARecord(domainId) {
+        VegaDNSClient.getSOARecord(domainId)
+        .success(data => {
+            soa_record = data.records[0];
+            domain = data.domain;
+            this.emitChange();
+        }).error(data => {
+            var message = "SOA Record not found";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                message
+            );
+        });
+    }
+
     addRecord(payload) {
         VegaDNSClient.addRecord(payload)
         .success(data => {
@@ -94,9 +117,14 @@ class RecordsStore extends EventEmitter {
     editRecord(record) {
         VegaDNSClient.editRecord(record)
         .success(data => {
+            if (record.record_type == "SOA") {
+                var message = "SOA record updated successfully";
+            } else {
+                var message = "Record " + record.name + " updated successfully";
+            }
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Record " + record.name + " updated successfully",
+                message,
                 true
             );
             VegaDNSActions.redirect("records?domain-id=" + record.domain_id);
@@ -166,6 +194,9 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.DELETE_RECORD:
             store.deleteRecord(action.recordId);
+            break;
+        case VegaDNSConstants.GET_SOA_RECORD:
+            store.fetchSOARecord(action.domainId);
             break;
     }
 });
