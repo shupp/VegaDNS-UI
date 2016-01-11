@@ -35,7 +35,6 @@ var DefaultRecordEdit = React.createClass({
     },
 
     render: function() {
-        console.log(this.state.record);
         if (Object.keys(this.state.record).length) {
             return (
                 <section id="record_edit">
