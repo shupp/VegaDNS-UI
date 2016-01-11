@@ -12,7 +12,8 @@ var REFRESH_CHANGE_CONSTANT = 'REFRESH';
 
 var responseData = null;
 var defaultrecords = [];
-var defaultrecord = {}
+var defaultrecord = {};
+var default_soa_record = {};
 
 class DefaultRecordsStore extends EventEmitter {
     emitChange() {
@@ -29,6 +30,27 @@ class DefaultRecordsStore extends EventEmitter {
 
     getDefaultRecord() {
         return defaultrecord;
+    }
+
+    getDefaultSOARecord() {
+        return default_soa_record;
+    }
+
+    fetchDefaultSOARecord() {
+        VegaDNSClient.getDefaultSOARecord()
+        .success(data => {
+            default_soa_record = data.default_records[0];
+            this.emitChange();
+        }).error(data => {
+            var message = "Default SOA Record not found";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                message
+            );
+        });
     }
 
     fetchDefaultRecord(recordId) {
@@ -81,9 +103,14 @@ class DefaultRecordsStore extends EventEmitter {
     editDefaultRecord(default_record) {
         VegaDNSClient.editDefaultRecord(default_record)
         .success(data => {
+            if (default_record.record_type == "SOA") {
+                var message = "Default SOA record updated successfully";
+            } else {
+                var message = "Default Record " + default_record.name + " updated successfully";
+            }
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_SUCCESS,
-                "Default Record " + default_record.name + " updated successfully",
+                message,
                 true
             );
             VegaDNSActions.redirect("defaultRecords");
@@ -153,6 +180,9 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.DELETE_DEFAULT_RECORD:
             store.deleteDefaultRecord(action.recordId);
+            break;
+        case VegaDNSConstants.GET_DEFAULT_SOA_RECORD:
+            store.fetchDefaultSOARecord();
             break;
     }
 });

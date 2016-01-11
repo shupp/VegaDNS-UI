@@ -20,6 +20,10 @@ var DefaultRecordList = React.createClass({
         this.setState({showAddForm: false});
     },
 
+    editDefaultSoaRedirect: function() {
+        VegaDNSActions.redirect("defaultRecordEditSOA");
+    },
+
     componentWillMount: function() {
         this.listDefaultRecordsCallback();
     },
@@ -70,8 +74,13 @@ var DefaultRecordList = React.createClass({
         var recordList = 
             <div>
                 <h2 className="text-center">Default Records</h2>
-                <div className="pull-right">
-                    <a className="btn btn-primary" onClick={this.showAddRecordForm} role="button">add</a>
+                <div>
+                    <span className="pull-left">
+                        <a className="btn btn-primary" onClick={this.editDefaultSoaRedirect} role="button">edit soa</a>
+                    </span>
+                    <span className="pull-right">
+                        <a className="btn btn-primary" onClick={this.showAddRecordForm} role="button">add</a>
+                    </span>
                 </div>
                 <table className="table table-hover">
                     <thead>

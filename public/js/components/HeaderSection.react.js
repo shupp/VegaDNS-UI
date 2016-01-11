@@ -45,7 +45,8 @@ var HeaderSection = React.createClass({
                 menuGroups = <li className="active"><a href="#groups">Groups <span className="sr-only">(current)</span></a></li>
                 break;
             case "defaultRecords":
-            case "defaultRecordsEdit":
+            case "defaultRecordEdit":
+            case "defaultRecordEditSOA":
                 if (menuDefaultRecords !== null) {
                     menuDefaultRecords = <li className="active"><a href="#defaultRecords">Default Records <span className="sr-only">(current)</span></a></li>
                 }

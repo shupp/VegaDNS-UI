@@ -13,6 +13,7 @@ var GroupEdit = require('./GroupEdit.react');
 var RecordEdit = require('./RecordEdit.react');
 var DefaultRecordEdit = require('./DefaultRecordEdit.react');
 var RecordEditSOA = require('./RecordEditSOA.react');
+var DefaultRecordEditSOA = require('./DefaultRecordEditSOA.react');
 var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
@@ -101,6 +102,9 @@ var VegaDNSApp = React.createClass({
                     break;
                 case 'recordEditSOA':
                     Child = RecordEditSOA;
+                    break;
+                case 'defaultRecordEditSOA':
+                    Child = DefaultRecordEditSOA;
                     break;
                 case 'domains':
                 default:

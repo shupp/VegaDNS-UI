@@ -54,6 +54,11 @@ var VegaDNSActions = {
             recordId: recordId
         });
     },
+    getDefaultSOARecord: function() {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_DEFAULT_SOA_RECORD
+        });
+    },
     editDefaultRecord: function(default_record) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.EDIT_DEFAULT_RECORD,

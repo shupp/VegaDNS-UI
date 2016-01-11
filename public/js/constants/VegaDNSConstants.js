@@ -40,6 +40,7 @@ module.exports = keyMirror({
     GET_GROUP: null,
     GET_DEFAULT_RECORD: null,
     GET_SOA_RECORD: null,
+    GET_DEFAULT_SOA_RECORD: null,
 
     ADD_NOTIFICATION: null,
     DISMISS_NOTIFICATION: null,

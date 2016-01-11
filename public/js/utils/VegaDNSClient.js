@@ -82,6 +82,12 @@ VegaDNSClient.prototype.deleteDefaultRecord = function(recordId) {
     return this.send(url, "DELETE");
 }
 
+VegaDNSClient.prototype.getDefaultSOARecord = function() {
+    var url = this.getHost() + "/default_records?filter_record_type=soa";
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.getDefaultRecord = function(recordId) {
     var url = this.getHost() + "/default_records/" + recordId;
 
