@@ -147,15 +147,17 @@ var RecordList = React.createClass({
         var recordList = 
             <div>
                 <h2 className="text-center">Records for {domain}</h2>
-                <div>
-                    <span className="pull-left">
+                <div className="row">
+                    <div className="col-md-1">
                         <a className="btn btn-primary" onClick={this.editSoaRedirect} role="button">edit soa</a>
-                    </span>
-                    <span className="pull-right">
+                    </div>
+                    <div className="col-md-10 text-center">
+                        {pager}
+                    </div>
+                    <div className="col-md-1 pull-right">
                         <a className="btn btn-primary" onClick={this.showAddRecordForm} role="button">add</a>
-                    </span>
+                    </div>
                 </div>
-                {pager}
                 <table className="table table-hover">
                     <thead>
                         <tr>
