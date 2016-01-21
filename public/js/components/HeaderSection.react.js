@@ -28,11 +28,12 @@ var HeaderSection = React.createClass({
         }
 
         var menuDomains = <li><a href="#">Domains</a></li>
-        var menuAccounts = <li><a href="#accounts">Accounts</a></li>
+        var menuAccounts = null;
         var menuGroups = <li><a href="#groups">Groups</a></li>
         var menuDefaultRecords = null;
         if (this.state.account.account_type == "senior_admin") {
             var menuDefaultRecords = <li><a href="#defaultRecords">Default Records</a></li>
+            var menuAccounts = <li><a href="#accounts">Accounts</a></li>
         }
 
         switch (this.props.route) {
