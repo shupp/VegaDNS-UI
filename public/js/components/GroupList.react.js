@@ -48,6 +48,13 @@ var GroupList = React.createClass({
     render: function() {
         var groups = [];
 
+        var groupAddButton = null;
+        if (this.props.account.account_type == "senior_admin") {
+            groupAddButton = <div className="pull-right">
+                <a className="btn btn-primary" onClick={this.showAddGroupForm} role="button">add</a>
+            </div>
+        }
+
         for (var key in this.state.groups) {
             groups.push(<GroupListEntry key={key} group={this.state.groups[key]} />);
         }
@@ -59,9 +66,7 @@ var GroupList = React.createClass({
                     </div>
                     <div className="col-md-8">
                         <h2 className="text-center">Groups</h2>
-                        <div className="pull-right">
-                            <a className="btn btn-primary" onClick={this.showAddGroupForm} role="button">add</a>
-                        </div>
+                        {groupAddButton}
                         <table className="table table-hover">
                             <thead>
                                 <tr>
