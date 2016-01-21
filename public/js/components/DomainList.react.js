@@ -62,6 +62,7 @@ var DomainList = React.createClass({
                         <tr>
                             <th>name</th>
                             <th>status</th>
+                            <th>owner id</th>
                             <th>delete</th>
                             <th>id</th>
                         </tr>

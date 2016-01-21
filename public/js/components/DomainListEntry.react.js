@@ -64,6 +64,7 @@ var DomainListEntry = React.createClass({
             <tr>
                 <td><a href={url}>{domain.domain}</a></td>
                 <td>{statusCheckbox} {domain.status}</td>
+                <td>{domain.owner_id}</td>
                 <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
                 <td>{domain.domain_id}</td>
             </tr>
