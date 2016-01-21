@@ -46,7 +46,7 @@ var DomainList = React.createClass({
         var domains = [];
 
         for (var key in this.state.domains) {
-            domains.push(<DomainListEntry key={key} domain={this.state.domains[key]} />);
+            domains.push(<DomainListEntry key={key} domain={this.state.domains[key]} account={this.props.account} />);
         }
 
         var addDomainForm = <DomainAddForm hideCallback={this.hideAddDomainForm} />

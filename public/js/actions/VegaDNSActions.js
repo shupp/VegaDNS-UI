@@ -31,6 +31,13 @@ var VegaDNSActions = {
             domain: domain
         });
     },
+    updateDomainStatus: function(domainId, status) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.UPDATE_DOMAIN_STATUS,
+            domainId: domainId,
+            status: status
+        });
+    },
     listDefaultRecords: function() {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_DEFAULT_RECORDS

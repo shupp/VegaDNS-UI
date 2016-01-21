@@ -73,6 +73,23 @@ class DomainsStore extends EventEmitter {
         });
     }
 
+    updateDomainStatus(domainId, status) {
+        VegaDNSClient.updateDomainStatus(domainId, status)
+        .success(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Domain status updated successfully",
+                true
+            );
+            this.emitRefreshChange();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Domain status update was unsuccessful: " + data.responseJSON.message
+            );
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
@@ -104,6 +121,8 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.DELETE_DOMAIN:
             store.deleteDomain(action.domain);
+        case VegaDNSConstants.UPDATE_DOMAIN_STATUS:
+            store.updateDomainStatus(action.domainId, action.status);
             break;
     }
 });
