@@ -27,7 +27,11 @@ var RecordAddForm = React.createClass({
         for (var key in this.state) {
             payload[key] = this.state[key];
         }
-        payload["name"] = payload["name"] + "." + this.props.domain.domain;
+        if (payload["name"] == 0) {
+            payload["name"] = this.props.domain.domain;
+        } else {
+            payload["name"] = payload["name"] + "." + this.props.domain.domain;
+        }
         payload["domain_id"] = this.props.domain.domain_id;
         VegaDNSActions.addRecord(payload);
     },

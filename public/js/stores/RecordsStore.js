@@ -106,10 +106,13 @@ class RecordsStore extends EventEmitter {
             );
             this.emitRefreshChange();
         }).error(data => {
+            var message = "Unknown error creating record";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,
-                data.message,
-                true
+                message
             );
         });
     }
