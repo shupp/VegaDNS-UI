@@ -60,12 +60,17 @@ var DomainListEntry = React.createClass({
                 </tr>
             );
         }
+
+        var deleteButton = deleteButton = <button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button>
+        if (! domain.permissions.can_delete) {
+            deleteButton = <button type="button" disabled="disabled" className="btn btn-danger btn-xs">delete</button>
+        }
         return (
             <tr>
                 <td><a href={url}>{domain.domain}</a></td>
                 <td>{statusCheckbox} {domain.status}</td>
                 <td>{domain.owner_id}</td>
-                <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
+                <td>{deleteButton}</td>
                 <td>{domain.domain_id}</td>
             </tr>
         );
