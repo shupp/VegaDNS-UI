@@ -402,3 +402,20 @@ img.vegadns-logo {
     -webkit-transform: rotate(1turn);
   }
 }
+
+
+#domaininput {
+    width: 200px;
+}
+
+.searchclear {
+    position: absolute;
+    right: 20px;
+    top: 0;
+    bottom: 0;
+    height: 26px;
+    margin: auto;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ccc;
+}

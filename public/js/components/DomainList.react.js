@@ -8,6 +8,7 @@ var DomainAddForm = require('./DomainAddForm.react');
 var DomainList = React.createClass({
     getInitialState: function() {
         return {
+            search: false,
             domains: [],
             accounts: [],
             showAddForm: false
@@ -23,7 +24,7 @@ var DomainList = React.createClass({
     },
 
     componentWillMount: function() {
-        VegaDNSActions.listDomains();
+        VegaDNSActions.listDomains(this.state.search);
         VegaDNSActions.listAccounts();
     },
 
@@ -58,6 +59,23 @@ var DomainList = React.createClass({
         VegaDNSActions.listAccounts();
     },
 
+    searchDomains(e) {
+        var value = e.target.value;
+        if (value.length < 1) {
+            value = false;
+        }
+        this.setState({search: value});
+        VegaDNSActions.listDomains(value);
+    },
+
+    clearSearch() {
+        if (this.state.search !== false) {
+            console.log('here');
+            this.setState({search: false});
+            VegaDNSActions.listDomains();
+        }
+    },
+
     render: function() {
         var domains = [];
 
@@ -71,10 +89,27 @@ var DomainList = React.createClass({
         }
 
         var addDomainForm = <DomainAddForm hideCallback={this.hideAddDomainForm} />
+        var searchValue = this.state.search;
+        if (searchValue === false) {
+            searchValue = "";
+        }
 
         var domainList = 
             <div>
-                <h2 className="text-center">Domains</h2>
+                <div className="row">
+                    <h2 className="text-center">Domains</h2>
+                </div>
+                <div className="col-sm-6 pull left">
+                    <form className="form-horizontal">
+                        <div className="form-group">
+                            <label htmlFor="domain_search" className="col-sm-2 control-label">Search</label>
+                            <div className="col-sm-4 btn-group">
+                                <input type="text" className="form-control" onChange={this.searchDomains} id="domain_search" value={searchValue} />
+                                <span onClick={this.clearSearch} className="searchclear">x</span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
                 <div className="pull-right">
                     <a className="btn btn-primary" onClick={this.showAddDomainForm} role="button">add</a>
                 </div>
