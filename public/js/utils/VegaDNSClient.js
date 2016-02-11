@@ -127,10 +127,16 @@ VegaDNSClient.prototype.getRecord = function(recordId) {
 }
 
 VegaDNSClient.prototype.records = function(domain_id, page, perpage, sort, order) {
-    var url = this.getHost() + "/records?domain_id=" + domain_id;
-    url = url + "&page=" + page + "&perpage=" + perpage + "&sort=" + sort + "&order=" + order;
+    var url = this.getHost() + "/records"
+    var data = {
+        domain_id: domain_id,
+        perpage: perpage,
+        sort: sort,
+        order: order,
+        include_permissions: 1
+    }
 
-    return this.send(url, "GET");
+    return this.send(url, "GET", data);
 }
 
 VegaDNSClient.prototype.addRecord = function(payload) {

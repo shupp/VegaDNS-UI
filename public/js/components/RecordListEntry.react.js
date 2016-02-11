@@ -62,6 +62,14 @@ var RecordListEntry = React.createClass({
             );
         }
 
+        var editButton = <button type="button" onClick={this.handleEditRecord} className="btn btn-primary btn-xs">edit</button>
+        var deleteButton = <button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button>
+
+        if (! this.props.domain.permissions.can_write) {
+            editButton = <button type="button" className="btn btn-primary btn-xs" disabled="disabled">edit</button>
+            deleteButton = <button type="button" className="btn btn-danger btn-xs" disabled="disabled">delete</button>
+        }
+
         return (
             <tr>
                 <td>{record.name}</td>
@@ -71,8 +79,8 @@ var RecordListEntry = React.createClass({
                 <td>{distance}</td>
                 <td>{weight}</td>
                 <td>{port}</td>
-                <td><button type="button" onClick={this.handleEditRecord} className="btn btn-primary btn-xs">edit</button></td>
-                <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
+                <td>{editButton}</td>
+                <td>{deleteButton}</td>
                 <td>{record.record_id}</td>
             </tr>
         );
