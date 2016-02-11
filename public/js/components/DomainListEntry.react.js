@@ -48,6 +48,10 @@ var DomainListEntry = React.createClass({
 
     render: function() {
         var domain = this.props.domain;
+        var domain_owner = "none";
+        if (this.props.domain_owner != null) {
+            domain_owner = this.props.domain_owner.email;
+        }
         var url = "#records?domain-id=" + domain.domain_id;
         var confirmDeleteDialog = <ConfirmDialog confirmText={"Are you sure you wan't to delete the domain \"" + domain.domain + "\"?"} confirmCallback={this.handleDeleteDomain} cancelCallback={this.hideDeleteConfirmDialog} />
         var statusCheckbox = null;
@@ -69,7 +73,7 @@ var DomainListEntry = React.createClass({
             <tr>
                 <td><a href={url}>{domain.domain}</a></td>
                 <td>{statusCheckbox} {domain.status}</td>
-                <td>{domain.owner_id}</td>
+                <td>{domain_owner}</td>
                 <td>{deleteButton}</td>
                 <td>{domain.domain_id}</td>
             </tr>
