@@ -49,8 +49,8 @@ class AccountsStore extends EventEmitter {
         });
     }
 
-    fetchAccounts() {
-        VegaDNSClient.accounts()
+    fetchAccounts(search) {
+        VegaDNSClient.accounts(search)
         .success(data => {
             responseData = data;
             accounts = data.accounts;
@@ -139,7 +139,7 @@ var store = new AccountsStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_ACCOUNTS:
-            store.fetchAccounts();
+            store.fetchAccounts(action.search);
             break;
         case VegaDNSConstants.GET_ACCOUNT:
             store.fetchAccount(action.accountId);

@@ -27,8 +27,8 @@ class DomainsStore extends EventEmitter {
         return domains;
     }
 
-    fetchDomains() {
-        VegaDNSClient.domains()
+    fetchDomains(search) {
+        VegaDNSClient.domains(search)
         .success(data => {
             responseData = data;
             domains = data.domains;
@@ -114,7 +114,7 @@ var store = new DomainsStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_DOMAINS:
-            store.fetchDomains();
+            store.fetchDomains(action.search);
             break;
         case VegaDNSConstants.ADD_DOMAIN:
             store.addDomain(action.domain);

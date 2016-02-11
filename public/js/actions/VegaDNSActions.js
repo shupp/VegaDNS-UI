@@ -14,9 +14,10 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LOGOUT
         });
     },
-    listDomains: function() {
+    listDomains: function(search = false) {
         AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_DOMAINS
+            actionType: VegaDNSConstants.LIST_DOMAINS,
+            search: search
         });
     },
     addDomain: function(domain) {
@@ -186,9 +187,10 @@ var VegaDNSActions = {
             apiKeyId: apiKeyId
         });
     },
-    listAccounts: function() {
+    listAccounts: function(search = false) {
         AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_ACCOUNTS
+            actionType: VegaDNSConstants.LIST_ACCOUNTS,
+            search: search
         });
     },
     addAccount: function(account) {

@@ -70,7 +70,7 @@ var DomainGroupMapList = React.createClass({
     },
 
     searchDomains(input, callback) {
-        VegaDNSClient.searchDomains(input)
+        VegaDNSClient.domains(input)
         .success(data => {
             var options = [];
             for (var i = 0; i < data.domains.length; i++) {

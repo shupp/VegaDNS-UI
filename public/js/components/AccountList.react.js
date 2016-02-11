@@ -25,7 +25,7 @@ var AccountList = React.createClass({
     },
 
     listAccounts: function() {
-        VegaDNSActions.listAccounts(this.props.account.account_id);
+        VegaDNSActions.listAccounts();
     },
 
     componentDidMount: function() {

@@ -58,10 +58,15 @@ VegaDNSClient.prototype.logout = function() {
     return this.send(url, "POST");
 }
 
-VegaDNSClient.prototype.domains = function(filter) {
+VegaDNSClient.prototype.domains = function(search = false) {
+    var data = {include_permissions: 1};
+    if (search !== false) {
+        data.search = search;
+    }
+
     var url = this.getHost() + "/domains";
 
-    return this.send(url, "GET");
+    return this.send(url, "GET", data);
 }
 
 VegaDNSClient.prototype.updateDomainStatus = function(domain_id, status) {
@@ -177,22 +182,14 @@ VegaDNSClient.prototype.getAccount = function(accountId) {
     return this.send(url, "GET");
 }
 
-VegaDNSClient.prototype.accounts = function() {
+VegaDNSClient.prototype.accounts = function(search = false) {
+    var data = {}
+    if (search !== false) {
+        data.search = search;
+    }
     var url = this.getHost() + "/accounts";
 
-    return this.send(url, "GET");
-}
-
-VegaDNSClient.prototype.searchAccounts = function(search) {
-    var url = this.getHost() + "/accounts?search=" + search;
-
-    return this.send(url, "GET");
-}
-
-VegaDNSClient.prototype.searchDomains = function(search) {
-    var url = this.getHost() + "/domains?search=" + search;
-
-    return this.send(url, "GET");
+    return this.send(url, "GET", data);
 }
 
 VegaDNSClient.prototype.addAccount = function(data) {

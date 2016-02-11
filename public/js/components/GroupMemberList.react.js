@@ -48,7 +48,7 @@ var GroupMemberList = React.createClass({
     },
 
     searchAccounts(input, callback) {
-        VegaDNSClient.searchAccounts(input)
+        VegaDNSClient.accounts(input)
         .success(data => {
             /* Format account for display */
             var options = [];
