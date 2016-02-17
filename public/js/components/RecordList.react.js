@@ -4,6 +4,7 @@ var RecordsStore = require('../stores/RecordsStore');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
 var RecordAddForm = require('./RecordAddForm.react');
+var URI = require('urijs');
 
 var RecordList = React.createClass({
     getInitialState: function() {
@@ -28,6 +29,20 @@ var RecordList = React.createClass({
             order = 'asc';
         }
 
+        var search_name;
+        if (typeof this.props.params.search_name !== "undefined") {
+            search_name = this.props.params.search_name;
+        } else {
+            search_name = false;
+        }
+
+        var search_value;
+        if (typeof this.props.params.search_value !== "undefined") {
+            search_value = this.props.params.search_value;
+        } else {
+            search_value = false;
+        }
+
         return {
             records: [],
             domain: null,
@@ -36,6 +51,8 @@ var RecordList = React.createClass({
             sort: sort,
             order: order,
             perpage: 25,
+            search_name: search_name,
+            search_value: search_value,
             showAddForm: false
         }
     },
@@ -50,10 +67,26 @@ var RecordList = React.createClass({
 
     createSortChangeUrl: function(header) {
         var neworder = this.state.order == 'desc' ? 'asc' : 'desc';
-        var url = "#records?domain-id=" + this.props.params["domain-id"];
-        var url =  url + "&sort=" + header + "&order=" + neworder;
+        var params = {
+            order: neworder,
+            sort: header,
+            domain_id: this.props.params["domain-id"],
+            search_name: this.state.search_name,
+            search_value: this.state.search_value
+        }
 
-        return url;
+        var hashUrl = "#records";
+        var fakeQueryUrl = URI("index.html");
+        for (var key in params) {
+            if (params[key] !== false) {
+                var keytext = key;
+                if (key == "domain_id") {
+                    keytext = "domain-id";
+                }
+                fakeQueryUrl.addQuery(keytext, params[key]);
+            }
+        }
+        return hashUrl + fakeQueryUrl.search();
     },
 
     componentWillMount: function() {
@@ -61,25 +94,69 @@ var RecordList = React.createClass({
     },
 
     sortClickCallback: function(sort, order) {
-        this.setState({
-            sort: sort,
-            order: order,
-            page: 1
-        });
-        this.listRecordsCallback(1);
+        this.setState(
+            {
+                sort: sort,
+                order: order,
+                page: 1
+            },
+            this.listRecordsCallback
+        );
+    },
+
+    searchRecordName(e) {
+        var value = e.target.value;
+        if (value.length < 1) {
+            value = false;
+        }
+        this.setState(
+            {search_name: value},
+            this.listRecordsCallback
+        );
+    },
+
+    searchRecordValue(e) {
+        var value = e.target.value;
+        if (value.length < 1) {
+            value = false;
+        }
+        this.setState(
+            {search_value: value},
+            this.listRecordsCallback
+        );
+    },
+
+    clearSearchName() {
+        if (this.state.search_name !== false) {
+            this.setState(
+                {search_name: false},
+                this.listRecordsCallback
+            );
+        }
+    },
+
+    clearSearchValue() {
+        if (this.state.search_value !== false) {
+            this.setState(
+                {search_value: false},
+                this.listRecordsCallback
+            );
+        }
     },
 
     editSoaRedirect: function() {
         VegaDNSActions.redirect("recordEditSOA?domain-id=" + this.props.params["domain-id"]);
     },
 
-    listRecordsCallback: function(page) {
+    listRecordsCallback: function(page=1) {
         VegaDNSActions.listRecords(
             this.props.params["domain-id"],
             page,
             this.state.perpage,
             this.state.sort,
-            this.state.order
+            this.state.order,
+            this.state.search_name,
+            this.state.search_value
         )
     },
 
@@ -123,12 +200,19 @@ var RecordList = React.createClass({
             }
             records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} />);
         }
+        var pagerParams = this.props.params;
+        if (this.state.search_name !== false) {
+            pagerParams.search_name = this.state.search_name;
+        }
+        if (this.state.search_value !== false) {
+            pagerParams.search_value = this.state.search_value;
+        }
         var pager = <Pager
             page={this.state.page}
             perpage={this.state.perpage}
             total={this.state.total}
             route={this.props.route}
-            params={this.props.params}
+            params={pagerParams}
         />
 
         var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'edit', 'delete', 'id'];
@@ -144,9 +228,46 @@ var RecordList = React.createClass({
             }
         }
 
+        var searchName = this.state.search_name;
+        if (searchName === false) {
+            searchName = "";
+        }
+
+        var searchValue = this.state.search_value;
+        if (searchValue === false) {
+            searchValue = "";
+        }
+
         var recordList = 
             <div>
                 <h2 className="text-center">Records for {domain}</h2>
+                <div className="row">
+                    <div className="col-md-2 text-right">
+                        <strong>Search</strong>
+                    </div>
+                    <div className="col-md-5">
+                        <form className="form-horizontal">
+                            <div className="form-group">
+                                <label htmlFor="search_name" className="col-md-2 control-label">Name</label>
+                                <div className="btn-group">
+                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordName} id="search_name" value={searchName} />
+                                    <span onClick={this.clearSearchName} className="searchclear">x</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="col-md-5">
+                        <form className="form-horizontal">
+                            <div className="form-group">
+                                <label htmlFor="search_value" className="col-md-2 control-label">Value</label>
+                                <div className="btn-group">
+                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordValue} id="search_value" value={searchValue} />
+                                    <span onClick={this.clearSearchValue} className="searchclear">x</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
                 <div className="row">
                     <div className="col-md-1">
                         <a className="btn btn-primary" onClick={this.editSoaRedirect} role="button">edit soa</a>

@@ -64,8 +64,8 @@ class RecordsStore extends EventEmitter {
         });
     }
 
-    fetchRecords(domain_id, page, perpage, sort, order) {
-        VegaDNSClient.records(domain_id, page, perpage, sort, order)
+    fetchRecords(domain_id, page, perpage, sort, order, search_name, search_value) {
+        VegaDNSClient.records(domain_id, page, perpage, sort, order, search_name, search_value)
         .success(data => {
             responseData = data;
             records = data.records;
@@ -184,7 +184,15 @@ var store = new RecordsStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_RECORDS:
-            store.fetchRecords(action.domainId, action.page, action.perPage, action.sort, action.order);
+            store.fetchRecords(
+                action.domainId,
+                action.page,
+                action.perPage,
+                action.sort,
+                action.order,
+                action.search_name,
+                action.search_value
+            );
             break;
         case VegaDNSConstants.ADD_RECORD:
             store.addRecord(action.payload);

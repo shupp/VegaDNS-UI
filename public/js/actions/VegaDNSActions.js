@@ -73,14 +73,18 @@ var VegaDNSActions = {
             default_record: default_record
         });
     },
-    listRecords: function(domainId, page, perPage, sort, order) {
+    listRecords: function(
+        domainId, page, perPage, sort, order, search_name=false, search_value=false
+    ) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_RECORDS,
             domainId: domainId,
             page: page,
             perPage: perPage,
             sort: sort,
-            order: order
+            order: order,
+            search_name: search_name,
+            search_value: search_value
         });
     },
     getSOARecord: function(domainId) {
