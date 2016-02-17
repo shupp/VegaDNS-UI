@@ -70,7 +70,6 @@ var DomainList = React.createClass({
 
     clearSearch() {
         if (this.state.search !== false) {
-            console.log('here');
             this.setState({search: false});
             VegaDNSActions.listDomains();
         }
