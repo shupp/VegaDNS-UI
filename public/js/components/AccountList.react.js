@@ -52,13 +52,19 @@ var AccountList = React.createClass({
             accounts.push(<AccountListEntry key={key} account={this.state.accounts[key]} />);
         }
 
-        var addAccountForm = <AccountAddForm hideCallback={this.hideAddAccountForm} />
-        var keyList = 
-                <div>
+        var addAccountForm = 
+            <div className="row">
+                <AccountAddForm hideCallback={this.hideAddAccountForm} />
+            </div>
+        var accountList = 
+            <div>
+                <div className="row">
                     <h2 className="text-center">Accounts</h2>
                     <div className="pull-right">
                         <a className="btn btn-primary" onClick={this.showAddAccountForm} role="button">add</a>
                     </div>
+                </div>
+                <div className="row">
                     <table className="table table-hover">
                         <thead>
                             <tr>
@@ -77,10 +83,11 @@ var AccountList = React.createClass({
                         </tbody>
                     </table>
                 </div>
+            </div>
 
         return (
             <section id="accounts">
-                {this.state.showAddForm  ? addAccountForm : keyList}
+                {this.state.showAddForm  ? addAccountForm : accountList}
             </section>
         );
     }
