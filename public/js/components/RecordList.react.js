@@ -31,14 +31,14 @@ var RecordList = React.createClass({
 
         var search_name;
         if (typeof this.props.params.search_name !== "undefined") {
-            search_name = this.props.params.search_name;
+            search_name = decodeURIComponent(this.props.params.search_name);
         } else {
             search_name = false;
         }
 
         var search_value;
         if (typeof this.props.params.search_value !== "undefined") {
-            search_value = this.props.params.search_value;
+            search_value = decodeURIComponent(this.props.params.search_value);
         } else {
             search_value = false;
         }
