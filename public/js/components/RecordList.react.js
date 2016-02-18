@@ -184,7 +184,10 @@ var RecordList = React.createClass({
     },
 
     render: function() {
-        var addRecordForm = <RecordAddForm domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
+        var addRecordForm =
+            <div className="row">
+                <RecordAddForm domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
+            </div>
 
         var records = [];
         var domain = null;
@@ -240,28 +243,25 @@ var RecordList = React.createClass({
 
         var recordList = 
             <div>
-                <h2 className="text-center">Records for {domain}</h2>
                 <div className="row">
-                    <div className="col-md-2 text-right">
-                        <strong>Search</strong>
-                    </div>
-                    <div className="col-md-5">
+                    <h2 className="text-center">Records for {domain}</h2>
+                </div>
+                <div className="row">
+                    <div className="col-md-6 text-center">
                         <form className="form-horizontal">
                             <div className="form-group">
-                                <label htmlFor="search_name" className="col-md-2 control-label">Name</label>
                                 <div className="btn-group">
-                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordName} id="search_name" value={searchName} />
+                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordName} id="search_name" value={searchName} placeholder="search record name"/>
                                     <span onClick={this.clearSearchName} className="searchclear">x</span>
                                 </div>
                             </div>
                         </form>
                     </div>
-                    <div className="col-md-5">
+                    <div className="col-md-6 text-center">
                         <form className="form-horizontal">
                             <div className="form-group">
-                                <label htmlFor="search_value" className="col-md-2 control-label">Value</label>
                                 <div className="btn-group">
-                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordValue} id="search_value" value={searchValue} />
+                                    <input type="text" className="form-control col-md-3" onChange={this.searchRecordValue} id="search_value" value={searchValue} placeholder="search record value" />
                                     <span onClick={this.clearSearchValue} className="searchclear">x</span>
                                 </div>
                             </div>
@@ -269,26 +269,28 @@ var RecordList = React.createClass({
                     </div>
                 </div>
                 <div className="row">
-                    <div className="col-md-1">
+                    <div className="col-xs-3 col-md-2 text-center">
                         <a className="btn btn-primary" onClick={this.editSoaRedirect} role="button">edit soa</a>
                     </div>
-                    <div className="col-md-10 text-center">
+                    <div className="col-xs-6 col-md-8 text-center">
                         {pager}
                     </div>
-                    <div className="col-md-1 pull-right">
+                    <div className="col-xs-3 col-md-2 text-center">
                         <a className="btn btn-primary" onClick={this.showAddRecordForm} role="button">add</a>
                     </div>
                 </div>
-                <table className="table table-hover">
-                    <thead>
-                        <tr>
-                            {theads}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {records}
-                    </tbody>
-                </table>
+                <div className="row">
+                    <table className="table table-hover">
+                        <thead>
+                            <tr>
+                                {theads}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {records}
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
         return (
