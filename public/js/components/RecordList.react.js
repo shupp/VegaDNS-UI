@@ -206,9 +206,13 @@ var RecordList = React.createClass({
         var pagerParams = this.props.params;
         if (this.state.search_name !== false) {
             pagerParams.search_name = this.state.search_name;
+        } else {
+            delete pagerParams.search_name;
         }
         if (this.state.search_value !== false) {
             pagerParams.search_value = this.state.search_value;
+        } else {
+            delete pagerParams.search_value;
         }
         var pager = <Pager
             page={this.state.page}
