@@ -7,6 +7,7 @@ var AccountAddForm = require('./AccountAddForm.react');
 var AccountList = React.createClass({
     getInitialState: function() {
         return {
+            search: false,
             accounts: [],
             showAddForm: false
         }
@@ -25,7 +26,7 @@ var AccountList = React.createClass({
     },
 
     listAccounts: function() {
-        VegaDNSActions.listAccounts();
+        VegaDNSActions.listAccounts(this.state.search);
     },
 
     componentDidMount: function() {
@@ -45,11 +46,36 @@ var AccountList = React.createClass({
         });
     },
 
+    searchAccounts(e) {
+        var value = e.target.value;
+        if (value.length < 1) {
+            value = false;
+        }
+        this.setState(
+            {search: value},
+            this.listAccounts
+        );
+    },
+
+    clearSearch() {
+        if (this.state.search !== false) {
+            this.setState(
+                {search: false},
+                this.listAccounts
+            );
+        }
+    },
+
     render: function() {
         var accounts = [];
 
         for (var key in this.state.accounts) {
             accounts.push(<AccountListEntry key={key} account={this.state.accounts[key]} />);
+        }
+
+        var searchValue = this.state.search;
+        if (searchValue === false) {
+            searchValue = "";
         }
 
         var addAccountForm = 
@@ -62,7 +88,20 @@ var AccountList = React.createClass({
                     <div className="col-md-12">
                         <h2 className="text-center">Accounts</h2>
                     </div>
-                    <div className="col-md-12 pull-right">
+                </div>
+                <div className="row">
+                    <div className="col-sm-6 pull left">
+                        <form className="form-horizontal">
+                            <div className="form-group">
+                                <label htmlFor="accounts_search" className="col-sm-2 control-label">Search</label>
+                                <div className="col-sm-4 btn-group">
+                                    <input type="text" className="form-control" onChange={this.searchAccounts} id="account_search" value={searchValue} />
+                                    <span onClick={this.clearSearch} className="searchclear">x</span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div className="pull-right">
                         <a className="btn btn-primary" onClick={this.showAddAccountForm} role="button">add</a>
                     </div>
                 </div>
