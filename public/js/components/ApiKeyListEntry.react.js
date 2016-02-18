@@ -42,7 +42,7 @@ var ApiKeyListEntry = React.createClass({
                 <td>{apikey.key}</td>
                 <td>{apikey.secret}</td>
                 <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs" value={apikey.apikey_id}>delete</button></td>
-                <td>{apikey.apikey_id}</td>
+                <td className="hidden-xs">{apikey.apikey_id}</td>
             </tr>
         );
     }

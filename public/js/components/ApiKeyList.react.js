@@ -49,21 +49,31 @@ var ApiKeyList = React.createClass({
             apikeys.push(<ApiKeyListEntry key={key} apikey={this.state.apikeys[key]} />);
         }
 
-        var addKeyForm = <ApiKeyAddForm hideCallback={this.hideAddKeyForm} />
+        var addKeyForm = 
+            <div className="row">
+                <div className="col-md-12">
+                    <ApiKeyAddForm hideCallback={this.hideAddKeyForm} />
+                </div>
+            </div>
         var keyList = 
-                <div>
-                    <h2 className="text-center">API Keys</h2>
-                    <div className="pull-right">
-                        <a className="btn btn-primary" onClick={this.showAddKeyForm} role="button">add</a>
+            <div>
+                <div className="row">
+                    <div className="col-md-12 text-center">
+                        <h2>API Keys</h2>
+                        <div className="pull-right">
+                            <a className="btn btn-primary" onClick={this.showAddKeyForm} role="button">add</a>
+                        </div>
                     </div>
-                    <table className="table table-hover">
+                </div>
+                <div className="row">
+                    <table className="table table-hover table-responsive">
                         <thead>
                             <tr>
                                 <th>description</th>
                                 <th>key</th>
                                 <th>secret</th>
                                 <th>delete</th>
-                                <th>id</th>
+                                <th className="hidden-xs">id</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -71,6 +81,7 @@ var ApiKeyList = React.createClass({
                         </tbody>
                     </table>
                 </div>
+            </div>
 
         return (
             <section id="apikeys">
