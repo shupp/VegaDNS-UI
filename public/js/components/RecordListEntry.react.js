@@ -81,7 +81,7 @@ var RecordListEntry = React.createClass({
                 <td>{port}</td>
                 <td>{editButton}</td>
                 <td>{deleteButton}</td>
-                <td>{record.record_id}</td>
+                <td className="hidden-sm">{record.record_id}</td>
             </tr>
         );
     }

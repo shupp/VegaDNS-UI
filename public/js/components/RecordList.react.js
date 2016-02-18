@@ -224,7 +224,11 @@ var RecordList = React.createClass({
         for (var i = 0; i < tableheads.length; i++) {
             if (sortable.indexOf(tableheads[i]) == -1) {
                 // not sortable
-                theads.push(<th key={i}>{tableheads[i]}</th>)
+                if (tableheads[i] == 'id') {
+                    theads.push(<th key={i} className="hidden-sm">{tableheads[i]}</th>)
+                } else {
+                    theads.push(<th key={i}>{tableheads[i]}</th>)
+                }
             } else {
                 var arrow = this.state.sort == tableheads[i] ? ' ' + String.fromCharCode(order_arrow) : '';
                 theads.push(<th key={i}><a href={this.createSortChangeUrl(tableheads[i])}>{tableheads[i]}{arrow}</a></th>);
