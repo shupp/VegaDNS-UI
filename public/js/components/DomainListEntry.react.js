@@ -75,7 +75,7 @@ var DomainListEntry = React.createClass({
                 <td>{statusCheckbox} {domain.status}</td>
                 <td>{domain_owner}</td>
                 <td>{deleteButton}</td>
-                <td>{domain.domain_id}</td>
+                <td className="hidden-xs">{domain.domain_id}</td>
             </tr>
         );
     }

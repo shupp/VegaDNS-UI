@@ -119,7 +119,7 @@ var DomainList = React.createClass({
                             <th>status</th>
                             <th>owner</th>
                             <th>delete</th>
-                            <th>id</th>
+                            <th className="hidden-xs">id</th>
                         </tr>
                     </thead>
                     <tbody>
