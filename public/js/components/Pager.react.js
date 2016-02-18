@@ -54,7 +54,7 @@ var Pager = React.createClass({
     render: function() {
         // Determine key pages and ranges
         var currentPage = parseInt(this.props.page);
-        var showPages = 10;
+        var showPages = 5;
         var pageCount = Math.ceil(this.props.total / this.props.perpage);
 
         if (pageCount == 1) {
