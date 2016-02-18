@@ -59,29 +59,33 @@ var AccountList = React.createClass({
         var accountList = 
             <div>
                 <div className="row">
-                    <h2 className="text-center">Accounts</h2>
-                    <div className="pull-right">
+                    <div className="col-md-12">
+                        <h2 className="text-center">Accounts</h2>
+                    </div>
+                    <div className="col-md-12 pull-right">
                         <a className="btn btn-primary" onClick={this.showAddAccountForm} role="button">add</a>
                     </div>
                 </div>
                 <div className="row">
-                    <table className="table table-hover">
-                        <thead>
-                            <tr>
-                                <th>name</th>
-                                <th>email</th>
-                                <th>phone</th>
-                                <th>type</th>
-                                <th>status</th>
-                                <th>edit</th>
-                                <th>delete</th>
-                                <th>id</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {accounts}
-                        </tbody>
-                    </table>
+                    <div className="col-md-12">
+                        <table className="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>name</th>
+                                    <th>email</th>
+                                    <th>phone</th>
+                                    <th>type</th>
+                                    <th>status</th>
+                                    <th>edit</th>
+                                    <th>delete</th>
+                                    <th className="hidden-xs">id</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {accounts}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
 

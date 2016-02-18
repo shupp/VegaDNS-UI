@@ -49,7 +49,7 @@ var AccountListEntry = React.createClass({
                 <td>{account.status}</td>
                 <td><button type="button" onClick={this.handleEditAccount} className="btn btn-primary btn-xs">edit</button></td>
                 <td><button type="button" onClick={this.showDeleteConfirmDialog} className="btn btn-danger btn-xs">delete</button></td>
-                <td>{account.account_id}</td>
+                <td className="hidden-xs">{account.account_id}</td>
             </tr>
         );
     }
