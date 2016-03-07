@@ -13,6 +13,7 @@ var REFRESH_CHANGE_CONSTANT = 'REFRESH';
 var loggedInState = false;
 var responseData = null;
 var domains = [];
+var total_domains = 0;
 
 class DomainsStore extends EventEmitter {
     emitChange() {
@@ -27,11 +28,16 @@ class DomainsStore extends EventEmitter {
         return domains;
     }
 
-    fetchDomains(search) {
-        VegaDNSClient.domains(search)
+    getDomainTotal() {
+        return total_domains;
+    }
+
+    fetchDomains(page, perpage, sort, order, search) {
+        VegaDNSClient.domains(page, perpage, sort, order, search)
         .success(data => {
             responseData = data;
             domains = data.domains;
+            total_domains = data.total_domains;
             this.emitChange();
         }).error(data => {
             this.emitChange();
@@ -114,7 +120,13 @@ var store = new DomainsStore();
 AppDispatcher.register(function(action) {
     switch(action.actionType) {
         case VegaDNSConstants.LIST_DOMAINS:
-            store.fetchDomains(action.search);
+            store.fetchDomains(
+                action.page,
+                action.perpage,
+                action.sort,
+                action.order,
+                action.search
+            );
             break;
         case VegaDNSConstants.ADD_DOMAIN:
             store.addDomain(action.domain);

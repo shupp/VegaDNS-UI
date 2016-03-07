@@ -58,8 +58,14 @@ VegaDNSClient.prototype.logout = function() {
     return this.send(url, "POST");
 }
 
-VegaDNSClient.prototype.domains = function(search = false) {
-    var data = {include_permissions: 1};
+VegaDNSClient.prototype.domains = function(page, perpage, sort, order, search = false) {
+    var data = {
+        page: page,
+        perpage: perpage,
+        sort: sort,
+        order: order,
+        include_permissions: 1
+    };
     if (search !== false) {
         data.search = search;
     }

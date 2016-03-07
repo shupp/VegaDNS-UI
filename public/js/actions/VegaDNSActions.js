@@ -14,9 +14,13 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LOGOUT
         });
     },
-    listDomains: function(search = false) {
+    listDomains: function(page, perpage, sort, order, search = false) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_DOMAINS,
+            page: page,
+            perpage: perpage,
+            sort: sort,
+            order: order,
             search: search
         });
     },
