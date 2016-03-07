@@ -93,17 +93,6 @@ var RecordList = React.createClass({
         this.listRecordsCallback(this.state.page);
     },
 
-    sortClickCallback: function(sort, order) {
-        this.setState(
-            {
-                sort: sort,
-                order: order,
-                page: 1
-            },
-            this.listRecordsCallback
-        );
-    },
-
     searchRecordName(e) {
         var value = e.target.value;
         if (value.length < 1) {
