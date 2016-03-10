@@ -419,3 +419,22 @@ img.vegadns-logo {
     cursor: pointer;
     color: #ccc;
 }
+
+.search-label-padding {
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+.search-vertical-padding {
+    padding-top: 10px;
+}
+
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+
+@media (max-width: 767px) {
+    .xs-text-center { text-align: center; }
+}

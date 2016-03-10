@@ -191,22 +191,24 @@ var DomainList = React.createClass({
                 <div className="row">
                     <h2 className="text-center">Domains</h2>
                 </div>
-                <div className="col-sm-6 col-md-4 pull left">
-                    <form className="form-horizontal">
-                        <div className="form-group">
-                            <label htmlFor="domain_search" className="col-sm-2 control-label">Search</label>
-                            <div className="col-sm-4 btn-group">
-                                <input type="text" className="form-control" onChange={this.searchDomains} id="domain_search" value={searchValue} />
-                                <span onClick={this.clearSearch} className="searchclear">x</span>
+                <div className="row">
+                    <div className="col-xs-12 col-sm-4 col-md-4 xs-text-center text-left vcenter">
+                        <form className="search-vertical-padding form-horizontal">
+                            <div className="form-group">
+                                <label htmlFor="domain_search" className="control-label search-label-padding">Search</label>
+                                <div className="btn-group">
+                                    <input type="text" className="form-control" onChange={this.searchDomains} id="domain_search" value={searchValue} />
+                                    <span onClick={this.clearSearch} className="searchclear">x</span>
+                                </div>
                             </div>
-                        </div>
-                    </form>
-                </div>
-                <div className="col-sm-6 col-md-4">
-                    {pager}
-                </div>
-                <div className="pull-right">
-                    <a className="btn btn-primary" onClick={this.showAddDomainForm} role="button">add</a>
+                        </form>
+                    </div>
+                    <div className="col-xs-12 col-sm-6 col-md-4 xs-text-center vcenter">
+                        {pager}
+                    </div>
+                    <div className="col-xs-12 col-sm-2 col-md-4 text-right vcenter">
+                        <a className="btn btn-primary" onClick={this.showAddDomainForm} role="button">add</a>
+                    </div>
                 </div>
                 <table className="table table-hover">
                     <thead>
