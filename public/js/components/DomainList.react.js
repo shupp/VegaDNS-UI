@@ -77,7 +77,7 @@ var DomainList = React.createClass({
         this.setState({showAddForm: false});
     },
 
-    componentWillMount: function() {
+    listDomains() {
         VegaDNSActions.listDomains(
             this.state.page,
             this.state.perpage,
@@ -86,6 +86,10 @@ var DomainList = React.createClass({
             this.state.search
         );
         VegaDNSActions.listAccounts();
+    },
+
+    componentWillMount: function() {
+        this.listDomains();
     },
 
     componentDidMount: function() {
@@ -116,8 +120,7 @@ var DomainList = React.createClass({
     },
 
     onRefreshChange() {
-        VegaDNSActions.listDomains();
-        VegaDNSActions.listAccounts();
+        this.listDomains();
     },
 
     searchDomains(e) {
@@ -125,14 +128,12 @@ var DomainList = React.createClass({
         if (value.length < 1) {
             value = false;
         }
-        this.setState({search: value});
-        VegaDNSActions.listDomains(value);
+        this.setState({search: value}, this.listDomains);
     },
 
     clearSearch() {
         if (this.state.search !== false) {
-            this.setState({search: false});
-            VegaDNSActions.listDomains();
+            this.setState({search: false}, this.listDomains);
         }
     },
 
