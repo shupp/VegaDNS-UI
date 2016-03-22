@@ -42,12 +42,14 @@ var Notification = React.createClass({
                     break;
             }
             var alert = 
+                <div className="notification-fixed">
                     <div key="notification" id="notification" className={"alert " + bootstrapClass}>
                         <button onClick={this.handleDismissal} type="button" className="close" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4>{this.state.message}</h4>
                     </div>
+                </div>
 
 
             if (this.state.autoDismiss == true) {

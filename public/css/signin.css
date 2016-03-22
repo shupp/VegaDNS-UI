@@ -438,3 +438,11 @@ img.vegadns-logo {
 @media (max-width: 767px) {
     .xs-text-center { text-align: center; }
 }
+
+.notification-fixed {
+    text-align: center;
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
