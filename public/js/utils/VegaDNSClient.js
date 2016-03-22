@@ -60,12 +60,21 @@ VegaDNSClient.prototype.logout = function() {
 
 VegaDNSClient.prototype.domains = function(page, perpage, sort, order, search = false) {
     var data = {
-        page: page,
-        perpage: perpage,
-        sort: sort,
-        order: order,
         include_permissions: 1
     };
+
+    if (page !== false) {
+        data.page = page;
+    }
+    if (perpage !== false) {
+        data.perpage = perpage;
+    }
+    if (sort !== false) {
+        data.sort = sort;
+    }
+    if (order !== false) {
+        data.order = order;
+    }
     if (search !== false) {
         data.search = search;
     }
