@@ -9,6 +9,7 @@ var DefaultRecordList = require('./DefaultRecordList.react');
 var AccountList = require('./AccountList.react');
 var AccountEdit = require('./AccountEdit.react');
 var GroupList = require('./GroupList.react');
+var AuditLogList = require('./AuditLogList.react');
 var GroupEdit = require('./GroupEdit.react');
 var RecordEdit = require('./RecordEdit.react');
 var DefaultRecordEdit = require('./DefaultRecordEdit.react');
@@ -105,6 +106,9 @@ var VegaDNSApp = React.createClass({
                     break;
                 case 'defaultRecordEditSOA':
                     Child = DefaultRecordEditSOA;
+                    break;
+                case 'auditLogs':
+                    Child = AuditLogList;
                     break;
                 case 'domains':
                 default:

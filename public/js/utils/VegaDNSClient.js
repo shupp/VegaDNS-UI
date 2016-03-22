@@ -352,6 +352,22 @@ VegaDNSClient.prototype.deleteDomain = function(domainId) {
     return this.send(url, "DELETE");
 }
 
+VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, domainIds = false) {
+    var data = {
+        page: page,
+        perpage: perpage,
+        sort: sort,
+        order: order
+    };
+    if (domainIds !== false) {
+        data.domain_ids = domainIds;
+    }
+
+    var url = this.getHost() + "/audit_logs";
+
+    return this.send(url, "GET", data);
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");
