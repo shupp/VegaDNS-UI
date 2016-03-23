@@ -38,7 +38,7 @@ var Pager = React.createClass({
 
         // Fill in beginning
         var pages = pagesEnd - pagesStart;
-        while(pages < (showPages - 1) && pagesEnd < (pageCount - 1)) {
+        while (pages <= (showPages - 1) && pagesEnd < (pageCount - 1)) {
             pagesEnd++;
             pages++;
         }
