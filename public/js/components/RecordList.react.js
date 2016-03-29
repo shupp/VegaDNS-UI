@@ -218,7 +218,7 @@ var RecordList = React.createClass({
             if (sortable.indexOf(tableheads[i]) == -1) {
                 // not sortable
                 if (tableheads[i] == 'id') {
-                    theads.push(<th key={i} className="hidden-sm">{tableheads[i]}</th>)
+                    theads.push(<th key={i} className="hidden-sm hidden-xs">{tableheads[i]}</th>)
                 } else {
                     theads.push(<th key={i}>{tableheads[i]}</th>)
                 }
