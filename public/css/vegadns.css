@@ -446,3 +446,8 @@ img.vegadns-logo {
     right: 20px;
     z-index: 1000;
 }
+
+table.break-word {
+    table-layout: fixed;
+    word-wrap: break-word;
+}

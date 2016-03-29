@@ -66,14 +66,14 @@ var ApiKeyList = React.createClass({
                     </div>
                 </div>
                 <div className="row">
-                    <table className="table table-hover table-responsive">
+                    <table className="table table-hover break-word">
                         <thead>
                             <tr>
                                 <th>description</th>
                                 <th>key</th>
                                 <th>secret</th>
                                 <th>delete</th>
-                                <th className="hidden-xs">id</th>
+                                <th className="hidden-sm hidden-xs">id</th>
                             </tr>
                         </thead>
                         <tbody>
