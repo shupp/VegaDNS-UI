@@ -49,7 +49,7 @@ class LogInStore extends EventEmitter {
         });
     }
 
-    checkLoginState() {
+    checkLoginState(updateData = false) {
         var originalState = loggedInState ? true : false;
 
         VegaDNSClient.checkLogin()
@@ -60,7 +60,9 @@ class LogInStore extends EventEmitter {
             } else {
                 loggedInState = false;
             }
-            if (originalState != loggedInState) {
+            if (updateData) {
+                this.emitChange();
+            } else if (originalState != loggedInState) {
                 this.emitChange();
             }
         }).error(data => {
@@ -126,6 +128,9 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.LOGOUT:
             store.logout();
+            break;
+        case VegaDNSConstants.UPDATE_LOGIN:
+            store.checkLoginState(true);
             break;
     }
 });

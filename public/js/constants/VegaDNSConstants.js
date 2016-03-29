@@ -44,6 +44,7 @@ module.exports = keyMirror({
     GET_DEFAULT_SOA_RECORD: null,
 
     UPDATE_DOMAIN_STATUS: null,
+    UPDATE_LOGIN: null,
 
     ADD_NOTIFICATION: null,
     DISMISS_NOTIFICATION: null,

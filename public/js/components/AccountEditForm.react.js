@@ -23,6 +23,11 @@ var AccountEditForm = React.createClass({
     editAccount: function(e) {
         e.preventDefault();
 
+        var isMyAccount = false;
+        if (typeof this.props.isMyAccount != 'undefined') {
+            isMyAccount = true;
+        }
+
         var payload = {}
         for (var key in this.state) {
             if (key == "password") {
@@ -35,14 +40,41 @@ var AccountEditForm = React.createClass({
             }
         }
         payload["account_id"] = this.props.account.account_id;
-        VegaDNSActions.editAccount(payload);
+        VegaDNSActions.editAccount(payload, isMyAccount);
     },
 
     render: function() {
+        var accountType = null;
+        var accountStatus = null;
+        var title = "Edit My Account";
+        if (typeof this.props.isMyAccount == 'undefined') {
+            title = "Edit Account";
+            accountType =
+                <div className="form-group">
+                    <label htmlFor="account_type" className="col-sm-4 control-label">User Type</label>
+                    <div className="col-sm-3">
+                        <select id="account_type" onChange={this.handleChange.bind(this, 'account_type')} className="form-control" value={this.state.account_type}>
+                            <option value="senior_admin">Senior Admin</option>
+                            <option value="user">User</option>
+                        </select>
+                    </div>
+                </div>
+            accountStatus =
+                <div className="form-group">
+                    <label htmlFor="status" className="col-sm-4 control-label">Account Status</label>
+                    <div className="col-sm-3">
+                        <select id="status" onChange={this.handleChange.bind(this, 'status')} className="form-control" value={this.state.status}>
+                            <option value="active">Active</option>
+                            <option value="inactive">Inactive</option>
+                        </select>
+                    </div>
+                </div>
+        }
+
         return (
             <div className="row">
                 <div className="col-md-12">
-                    <h3 className="text-center">Edit Account</h3>
+                    <h3 className="text-center">{title}</h3>
                 </div>
                 <div className="col-md-12">
                     <form className="form-horizontal" autoComplete="off">
@@ -70,24 +102,8 @@ var AccountEditForm = React.createClass({
                                 <input type="password" onChange={this.handleChange.bind(this, 'password')} className="form-control" />
                             </div>
                         </div>
-                        <div className="form-group">
-                            <label htmlFor="account_type" className="col-sm-4 control-label">User Type</label>
-                            <div className="col-sm-3">
-                                <select id="account_type" onChange={this.handleChange.bind(this, 'account_type')} className="form-control" value={this.state.account_type}>
-                                    <option value="senior_admin">Senior Admin</option>
-                                    <option value="user">User</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="status" className="col-sm-4 control-label">Account Status</label>
-                            <div className="col-sm-3">
-                                <select id="status" onChange={this.handleChange.bind(this, 'status')} className="form-control" value={this.state.status}>
-                                    <option value="active">Active</option>
-                                    <option value="inactive">Inactive</option>
-                                </select>
-                            </div>
-                        </div>
+                        {accountType}
+                        {accountStatus}
                         <div className="form-group">
                             <div className="col-sm-4"></div>
                             <div className="col-sm-8">

@@ -42,6 +42,8 @@ var HeaderSection = React.createClass({
             case "accountEdit":
                 menuAccounts = <li className="active"><a href="#accounts">Accounts <span className="sr-only">(current)</span></a></li>
                 break;
+            case "myAccountEdit":
+                break;
             case "groups":
             case "groupEdit":
                 menuGroups = <li className="active"><a href="#groups">Groups <span className="sr-only">(current)</span></a></li>
@@ -93,6 +95,7 @@ var HeaderSection = React.createClass({
                       <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{account} <span className="caret"></span></a>
                       <ul className="dropdown-menu">
                         <li><a href="#apikeys">API Keys</a></li>
+                        <li><a href="#myAccountEdit">My Account</a></li>
                         <li role="separator" className="divider"></li>
                         <li><a href="#" onClick={this.submitLogOut}>Sign Out</a></li>
                       </ul>

@@ -81,7 +81,7 @@ class AccountsStore extends EventEmitter {
         });
     }
 
-    editAccount(account) {
+    editAccount(account, isMyAccount) {
         VegaDNSClient.editAccount(account)
         .success(data => {
             VegaDNSActions.addNotification(
@@ -89,7 +89,12 @@ class AccountsStore extends EventEmitter {
                 "Account " + account.email + " updated successfully",
                 true
             );
-            VegaDNSActions.redirect("accounts");
+            if (isMyAccount) {
+                VegaDNSActions.updateLogin();
+                VegaDNSActions.redirect("");
+            } else {
+                VegaDNSActions.redirect("accounts");
+            }
         }).error(data => {
             VegaDNSActions.addNotification(
                 VegaDNSConstants.NOTIFICATION_DANGER,
@@ -148,7 +153,7 @@ AppDispatcher.register(function(action) {
             store.addAccount(action.account);
             break;
         case VegaDNSConstants.EDIT_ACCOUNT:
-            store.editAccount(action.account);
+            store.editAccount(action.account, action.isMyAccount);
             break;
         case VegaDNSConstants.DELETE_ACCOUNT:
             store.deleteAccount(action.account);

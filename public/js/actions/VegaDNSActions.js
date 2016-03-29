@@ -14,6 +14,11 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.LOGOUT
         });
     },
+    updateLogin: function() {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.UPDATE_LOGIN
+        });
+    },
     listDomains: function(page, perpage, sort, order, search = false) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_DOMAINS,
@@ -213,10 +218,11 @@ var VegaDNSActions = {
             accountId: accountId
         });
     },
-    editAccount: function(account) {
+    editAccount: function(account, isMyAccount = false) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.EDIT_ACCOUNT,
-            account: account
+            account: account,
+            isMyAccount: isMyAccount
         });
     },
     deleteAccount: function(account) {

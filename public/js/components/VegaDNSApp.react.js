@@ -15,6 +15,7 @@ var RecordEdit = require('./RecordEdit.react');
 var DefaultRecordEdit = require('./DefaultRecordEdit.react');
 var RecordEditSOA = require('./RecordEditSOA.react');
 var DefaultRecordEditSOA = require('./DefaultRecordEditSOA.react');
+var MyAccountEdit = require('./MyAccountEdit.react');
 var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
@@ -91,6 +92,9 @@ var VegaDNSApp = React.createClass({
                     break;
                 case 'accountEdit':
                     Child = AccountEdit;
+                    break;
+                case 'myAccountEdit':
+                    Child = MyAccountEdit;
                     break;
                 case 'groups':
                     Child = GroupList;
