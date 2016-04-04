@@ -93,6 +93,15 @@ VegaDNSClient.prototype.updateDomainStatus = function(domain_id, status) {
     return this.send(url, "PUT", data);
 }
 
+VegaDNSClient.prototype.updateDomainOwner = function(domain_id, owner_id) {
+    var url = this.getHost() + "/domains/" + domain_id;
+    var data = {
+        owner_id: owner_id
+    }
+
+    return this.send(url, "PUT", data);
+}
+
 VegaDNSClient.prototype.defaultRecords = function() {
     var url = this.getHost() + "/default_records";
 
@@ -333,6 +342,12 @@ VegaDNSClient.prototype.deleteGroup = function(groupId) {
 
 VegaDNSClient.prototype.getGroup = function(groupId) {
     var url = this.getHost() + "/groups/" + groupId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.getDomain = function(domainId) {
+    var url = this.getHost() + "/domains/" + domainId;
 
     return this.send(url, "GET");
 }

@@ -29,6 +29,12 @@ var VegaDNSActions = {
             search: search
         });
     },
+    getDomain: function(domainId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_DOMAIN,
+            domainId: domainId
+        });
+    },
     addDomain: function(domain) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_DOMAIN,
@@ -45,6 +51,14 @@ var VegaDNSActions = {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.UPDATE_DOMAIN_STATUS,
             domainId: domainId,
+            status: status
+        });
+    },
+    updateDomainOwner: function(domainId, ownerId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.UPDATE_DOMAIN_OWNER,
+            domainId: domainId,
+            ownerId: ownerId,
             status: status
         });
     },

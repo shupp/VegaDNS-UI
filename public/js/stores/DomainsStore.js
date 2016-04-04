@@ -13,6 +13,7 @@ var REFRESH_CHANGE_CONSTANT = 'REFRESH';
 var loggedInState = false;
 var responseData = null;
 var domains = [];
+var domain = {};
 var total_domains = 0;
 
 class DomainsStore extends EventEmitter {
@@ -32,12 +33,27 @@ class DomainsStore extends EventEmitter {
         return total_domains;
     }
 
+    getDomain() {
+        return domain;
+    }
+
     fetchDomains(page, perpage, sort, order, search) {
         VegaDNSClient.domains(page, perpage, sort, order, search)
         .success(data => {
             responseData = data;
             domains = data.domains;
             total_domains = data.total_domains;
+            this.emitChange();
+        }).error(data => {
+            this.emitChange();
+        });
+    }
+
+    fetchDomain(domainId) {
+        VegaDNSClient.getDomain(domainId)
+        .success(data => {
+            responseData = data;
+            domain = data.domain;
             this.emitChange();
         }).error(data => {
             this.emitChange();
@@ -96,6 +112,23 @@ class DomainsStore extends EventEmitter {
         });
     }
 
+    updateDomainOwner(domainId, ownerId) {
+        VegaDNSClient.updateDomainOwner(domainId, ownerId)
+        .success(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_SUCCESS,
+                "Domain owner updated successfully",
+                true
+            );
+            VegaDNSActions.redirect('domains');
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                VegaDNSConstants.NOTIFICATION_DANGER,
+                "Domain owner update was unsuccessful: " + data.responseJSON.message
+            );
+        });
+    }
+
     addChangeListener(callback) {
         this.on(CHANGE_CONSTANT, callback);
     }
@@ -128,6 +161,9 @@ AppDispatcher.register(function(action) {
                 action.search
             );
             break;
+        case VegaDNSConstants.GET_DOMAIN:
+            store.fetchDomain(action.domainId);
+            break;
         case VegaDNSConstants.ADD_DOMAIN:
             store.addDomain(action.domain);
             break;
@@ -135,6 +171,8 @@ AppDispatcher.register(function(action) {
             store.deleteDomain(action.domain);
         case VegaDNSConstants.UPDATE_DOMAIN_STATUS:
             store.updateDomainStatus(action.domainId, action.status);
+        case VegaDNSConstants.UPDATE_DOMAIN_OWNER:
+            store.updateDomainOwner(action.domainId, action.ownerId);
             break;
     }
 });
