@@ -17,6 +17,8 @@ var RecordEditSOA = require('./RecordEditSOA.react');
 var DefaultRecordEditSOA = require('./DefaultRecordEditSOA.react');
 var MyAccountEdit = require('./MyAccountEdit.react');
 var DomainOwnerEdit = require('./DomainOwnerEdit.react');
+var PasswordResetRequest = require('./PasswordResetRequest.react');
+var PasswordReset = require('./PasswordReset.react');
 var Redirect = require('../utils/Redirect');
 
 var VegaDNSApp = React.createClass({
@@ -42,39 +44,69 @@ var VegaDNSApp = React.createClass({
         });
     },
 
-    render: function() {
-        if (this.state.loggedIn == false) {
-            return (
-            <div>
-                <LogIn />
-            </div>
-            );
-        } else {
-            var Params = {};
-            var Route = "";
+    getRoute() {
+        var Route = "";
+        if (this.props.route != undefined) {
+            var RouteParts = this.props.route.split("?");
+            var Route = RouteParts[0];
+        }
 
-            if (this.props.route != undefined) {
-                var RouteParts = this.props.route.split("?");
+        return Route;
+    },
+
+    getParams() {
+        var Params = {};
+
+        if (this.props.route != undefined) {
+            var RouteParts = this.props.route.split("?");
+            var Route = RouteParts[0];
+
+            // Parse out faux query string within fragment
+            if (RouteParts.length > 1) {
                 var Route = RouteParts[0];
+                var QueryString = RouteParts[1];
 
-                // Parse out faux query string within fragment
-                if (RouteParts.length > 1) {
-                    var Route = RouteParts[0];
-                    var QueryString = RouteParts[1];
-
-                    var Pairs = QueryString.split("&");
-                    for (var i = 0; i < Pairs.length; i++) {
-                        var pair = Pairs[i].split("=");
-                        if (pair.length == 1) {
-                            Params[pair[0]] = null;
-                        } else {
-                            Params[pair[0]] = pair[1];
-                        }
+                var Pairs = QueryString.split("&");
+                for (var i = 0; i < Pairs.length; i++) {
+                    var pair = Pairs[i].split("=");
+                    if (pair.length == 1) {
+                        Params[pair[0]] = null;
+                    } else {
+                        Params[pair[0]] = pair[1];
                     }
                 }
             }
+        }
 
-            var Child;
+        return Params;
+    },
+
+    render: function() {
+        var Route = this.getRoute();
+        var Params = this.getParams();
+        var Child;
+        var Key = Route;
+
+        if (this.state.loggedIn == false) {
+            switch (Route) {
+                case 'passwordResetRequest':
+                    Child = PasswordResetRequest;
+                    break;
+                case 'passwordReset':
+                    Child = PasswordReset;
+                    break;
+                default:
+                    Key = "LogIn";
+                    Child = LogIn;
+                    break;
+            }
+
+            return (
+                <div>
+                    <Child key={Key} route={Route} params={Params} />
+                </div>
+            );
+        } else {
             switch (Route) {
                 case 'records':
                     Child = RecordList;

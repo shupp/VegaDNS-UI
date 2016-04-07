@@ -30,6 +30,7 @@ var LogIn = React.createClass({
                     </div>
                     */}
                     <button className="btn btn-lg btn-primary btn-block" onClick={this.submitLogIn} type="submit">Sign in</button>
+                    <div style={{marginTop: "10px"}}><a href="#passwordResetRequest">Forgot password?</a></div>
                 </form>
             </section>
         );

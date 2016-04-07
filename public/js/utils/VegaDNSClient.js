@@ -383,6 +383,30 @@ VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, domain
     return this.send(url, "GET", data);
 }
 
+VegaDNSClient.prototype.passwordResetRequest = function(email) {
+    var url = this.getHost() + "/password_reset_tokens";
+    var data = {
+        email: email
+    };
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.passwordReset = function(password, token) {
+    var url = this.getHost() + "/password_reset_tokens/" + token;
+    var data = {
+        password: password
+    };
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.passwordResetTokenCheck = function(token) {
+    var url = this.getHost() + "/password_reset_tokens/" + token;
+
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.healthcheck = function() {
     var url = this.getHost(false) + "/healthcheck";
     return this.send(url, "GET");
