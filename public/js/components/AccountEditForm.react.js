@@ -8,6 +8,7 @@ var AccountEditForm = React.createClass({
             'first_name': this.props.account.first_name,
             'last_name': this.props.account.last_name,
             'email': this.props.account.email,
+            'phone': this.props.account.phone,
             'password': "",
             'account_type': this.props.account.account_type,
             'phone': this.props.account.phone,
@@ -94,6 +95,12 @@ var AccountEditForm = React.createClass({
                             <label htmlFor="email" className="col-sm-4 control-label">Email Address</label>
                             <div className="col-sm-8">
                                 <input type="email" onChange={this.handleChange.bind(this, 'email')} className="form-control" autoComplete="off" value={this.state.email} />
+                            </div>
+                        </div>
+                        <div className="form-group">
+                            <label htmlFor="phone" className="col-sm-4 control-label">Phone</label>
+                            <div className="col-sm-8">
+                                <input type="tel" onChange={this.handleChange.bind(this, 'phone')} className="form-control" autoComplete="off" value={this.state.phone} />
                             </div>
                         </div>
                         <div className="form-group">
