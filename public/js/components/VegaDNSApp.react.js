@@ -9,6 +9,10 @@ var DefaultRecordList = require('./DefaultRecordList.react');
 var AccountList = require('./AccountList.react');
 var AccountEdit = require('./AccountEdit.react');
 var GroupList = require('./GroupList.react');
+var LocationList = require('./LocationList.react');
+var LocationEdit = require('./LocationEdit.react');
+var LocationPrefixList = require('./LocationPrefixList.react');
+var LocationPrefixEdit = require('./LocationPrefixEdit.react');
 var AuditLogList = require('./AuditLogList.react');
 var GroupEdit = require('./GroupEdit.react');
 var RecordEdit = require('./RecordEdit.react');
@@ -146,6 +150,18 @@ var VegaDNSApp = React.createClass({
                     break;
                 case 'defaultRecordEditSOA':
                     Child = DefaultRecordEditSOA;
+                    break;
+                case 'locations':
+                    Child = LocationList;
+                    break;
+                case 'locationEdit':
+                    Child = LocationEdit;
+                    break;
+                case 'locationPrefixes':
+                    Child = LocationPrefixList;
+                    break;
+                case 'locationPrefixEdit':
+                    Child = LocationPrefixEdit;
                     break;
                 case 'auditLogs':
                     Child = AuditLogList;

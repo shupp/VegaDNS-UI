@@ -367,6 +367,86 @@ VegaDNSClient.prototype.deleteDomain = function(domainId) {
     return this.send(url, "DELETE");
 }
 
+VegaDNSClient.prototype.locations = function() {
+    var url = this.getHost() + "/locations";
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.getLocation = function(locationId) {
+    var url = this.getHost() + "/locations/" + locationId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addLocation = function(locationName, locationDescription) {
+    var url = this.getHost() + "/locations";
+    var data = {
+        location: locationName,
+        location_description: locationDescription
+    }
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editLocation = function(locationId, locationName, locationDescription) {
+    var url = this.getHost() + "/locations/" + locationId;
+    var data = {
+        location: locationName,
+        location_description: locationDescription
+    }
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteLocation = function(locationId) {
+    var url = this.getHost() + "/locations/" + locationId;
+
+    return this.send(url, "DELETE");
+}
+
+VegaDNSClient.prototype.locationPrefixes = function(locationId) {
+    var url = this.getHost() + "/location_prefixes";
+    var data = {location_id: locationId}
+
+    return this.send(url, "GET", data);
+}
+
+VegaDNSClient.prototype.getLocationPrefix = function(prefixId) {
+    var url = this.getHost() + "/location_prefixes/" + prefixId;
+
+    return this.send(url, "GET");
+}
+
+VegaDNSClient.prototype.addLocationPrefix = function(locationId, prefix, prefixDescription, prefixType) {
+    var url = this.getHost() + "/location_prefixes";
+    var data = {
+        location_id: locationId,
+        prefix: prefix,
+        prefix_description: prefixDescription,
+        prefix_type: prefixType
+    }
+
+    return this.send(url, "POST", data);
+}
+
+VegaDNSClient.prototype.editLocationPrefix = function(prefixId, prefix, prefixDescription, prefixType) {
+    var url = this.getHost() + "/location_prefixes/" + prefixId;
+    var data = {
+        prefix: prefix,
+        prefix_description: prefixDescription,
+        prefix_type: prefixType
+    }
+
+    return this.send(url, "PUT", data);
+}
+
+VegaDNSClient.prototype.deleteLocationPrefix = function(prefixId) {
+    var url = this.getHost() + "/location_prefixes/" + prefixId;
+
+    return this.send(url, "DELETE");
+}
+
 VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, domainIds = false) {
     var data = {
         page: page,

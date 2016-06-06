@@ -35,6 +35,7 @@ var HeaderSection = React.createClass({
             var menuDefaultRecords = <li><a href="#defaultRecords">Default Records</a></li>
             var menuAccounts = <li><a href="#accounts">Accounts</a></li>
         }
+        var menuLocations = <li><a href="#locations">Locations</a></li>
         var menuAuditLogs = <li><a href="#auditLogs">Audit Logs</a></li>
 
         switch (this.props.route) {
@@ -54,6 +55,9 @@ var HeaderSection = React.createClass({
                 if (menuDefaultRecords !== null) {
                     menuDefaultRecords = <li className="active"><a href="#defaultRecords">Default Records <span className="sr-only">(current)</span></a></li>
                 }
+                break;
+            case "locations":
+                menuLocations = <li className="active"><a href="#locations">Locations <span className="sr-only">(current)</span></a></li>
                 break;
             case "auditLogs":
                 menuAuditLogs = <li className="active"><a href="#auditLogs">Audit Logs <span className="sr-only">(current)</span></a></li>
@@ -86,6 +90,7 @@ var HeaderSection = React.createClass({
                         {menuAccounts}
                         {menuGroups}
                         {menuDefaultRecords}
+                        {menuLocations}
                         {menuAuditLogs}
                     </ul>
 

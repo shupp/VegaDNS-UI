@@ -1,17 +1,20 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
+var LocationsStore = require('../stores/LocationsStore');
 var RecordEditForm = require('./RecordEditForm.react');
 
 var RecordEdit = React.createClass({
     getInitialState: function() {
         return {
-            record: {}
+            record: {},
+            locations: []
         }
     },
 
     componentWillMount: function() {
         this.getRecord();
+        VegaDNSActions.listLocations();
     },
 
     getRecord: function() {
@@ -20,10 +23,12 @@ var RecordEdit = React.createClass({
 
     componentDidMount: function() {
         RecordsStore.addChangeListener(this.onChange);
+        LocationsStore.addChangeListener(this.getLocations);
     },
 
     componentWillUnmount: function() {
         RecordsStore.removeChangeListener(this.onChange);
+        LocationsStore.removeChangeListener(this.getLocations);
     },
 
     handleCancel: function() {
@@ -34,11 +39,15 @@ var RecordEdit = React.createClass({
         this.setState({record: RecordsStore.getRecord()});
     },
 
+    getLocations() {
+        this.setState({locations: LocationsStore.getLocationList()});
+    },
+
     render: function() {
         if (Object.keys(this.state.record).length) {
             return (
                 <section id="record_edit">
-                    <RecordEditForm key={this.state.record.record_id} record={this.state.record} cancelCallback={this.handleCancel} />
+                    <RecordEditForm locations={this.state.locations} key={this.state.record.record_id} record={this.state.record} cancelCallback={this.handleCancel} />
                 </section>
             );
         }

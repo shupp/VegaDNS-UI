@@ -1,6 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
+var LocationsStore = require('../stores/LocationsStore');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
 var RecordAddForm = require('./RecordAddForm.react');
@@ -45,6 +46,7 @@ var RecordList = React.createClass({
 
         return {
             records: [],
+            locations: [],
             domain: null,
             total: 0,
             page: page,
@@ -91,6 +93,7 @@ var RecordList = React.createClass({
 
     componentWillMount: function() {
         this.listRecordsCallback(this.state.page);
+        VegaDNSActions.listLocations();
     },
 
     searchRecordName(e) {
@@ -152,11 +155,17 @@ var RecordList = React.createClass({
     componentDidMount: function() {
         RecordsStore.addChangeListener(this.onChange);
         RecordsStore.addRefreshChangeListener(this.onRefreshChange);
+        LocationsStore.addChangeListener(this.updateLocations);
     },
 
     componentWillUnmount: function() {
         RecordsStore.removeChangeListener(this.onChange);
         RecordsStore.removeRefreshChangeListener(this.onRefreshChange);
+        LocationsStore.removeChangeListener(this.updateLocations);
+    },
+
+    updateLocations() {
+        this.setState({locations: LocationsStore.getLocationList()});
     },
 
     onChange() {
@@ -175,7 +184,7 @@ var RecordList = React.createClass({
     render: function() {
         var addRecordForm =
             <div className="row">
-                <RecordAddForm domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
+                <RecordAddForm locations={this.state.locations} domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
             </div>
 
         var records = [];
@@ -190,7 +199,7 @@ var RecordList = React.createClass({
             if (this.state.records[key].record_type == "SOA") {
                 continue;
             }
-            records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} />);
+            records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} locations={this.state.locations} />);
         }
         var pagerParams = this.props.params;
         if (this.state.search_name !== false) {
@@ -211,7 +220,7 @@ var RecordList = React.createClass({
             params={pagerParams}
         />
 
-        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'edit', 'delete', 'id'];
+        var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'location', 'edit', 'delete', 'id'];
         var sortable = ['name', 'type', 'value', 'ttl', 'distance'];
         var theads = [];
         for (var i = 0; i < tableheads.length; i++) {

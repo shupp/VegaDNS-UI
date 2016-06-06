@@ -11,7 +11,8 @@ var RecordListEntry = React.createClass({
     },
 
     propTypes: {
-        record: ReactPropTypes.object.isRequired
+        record: ReactPropTypes.object.isRequired,
+        locations: ReactPropTypes.array.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -32,6 +33,16 @@ var RecordListEntry = React.createClass({
         VegaDNSActions.redirect(
             "recordEdit?record-id=" + this.props.record.record_id + "&domain-id=" + this.props.domain.domain_id
         );
+    },
+
+    getLocationName(location_id) {
+        for (var i = 0; i < this.props.locations.length; i++) {
+            if (this.props.locations[i].location_id == location_id) {
+                return this.props.locations[i].location;
+            }
+        }
+
+        return location_id;
     },
 
     render: function() {
@@ -70,6 +81,11 @@ var RecordListEntry = React.createClass({
             deleteButton = <button type="button" className="btn btn-danger btn-xs" disabled="disabled">delete</button>
         }
 
+        var locationName = "";
+        if (record.location_id != null) {
+            locationName = <a href={"#locationPrefixes?location_id=" + record.location_id}>{this.getLocationName(record.location_id)}</a>
+        }
+
         return (
             <tr>
                 <td>{record.name}</td>
@@ -79,6 +95,7 @@ var RecordListEntry = React.createClass({
                 <td>{distance}</td>
                 <td>{weight}</td>
                 <td>{port}</td>
+                <td>{locationName}</td>
                 <td>{editButton}</td>
                 <td>{deleteButton}</td>
                 <td className="hidden-sm hidden-xs">{record.record_id}</td>

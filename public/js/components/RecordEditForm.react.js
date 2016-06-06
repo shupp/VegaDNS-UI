@@ -10,7 +10,8 @@ var RecordEditForm = React.createClass({
             'distance': "",
             'weight': "",
             'port': "",
-            'ttl': 3600
+            'ttl': 3600,
+            'location_id': ""
         }
         var values = defaults;
         for (var key in this.props.record) {
@@ -72,6 +73,11 @@ var RecordEditForm = React.createClass({
                 </div>
         }
 
+        var locationList = [];
+        for (var i = 0; i < this.props.locations.length; i++) {
+            locationList.push(<option key={i} value={this.props.locations[i].location_id}>{this.props.locations[i].location}</option>);
+        }
+
         return (
             <section id="add_record">
                 <h3 className="text-center">Edit {this.state.record_type} record "{this.state.name}"</h3>
@@ -101,6 +107,15 @@ var RecordEditForm = React.createClass({
                         <label htmlFor="ttl" className="col-sm-4 control-label">TTL (seconds)</label>
                         <div className="col-sm-2">
                             <input onChange={this.handleChange.bind(this, 'ttl')} className="form-control" id="ttl" value={this.state.ttl} />
+                        </div>
+                    </div>
+                    <div className="form-group">
+                        <label htmlFor="location_id" className="col-sm-4 control-label">Location</label>
+                        <div className="col-sm-2">
+                            <select id="location_id" onChange={this.handleChange.bind(this, 'location_id')} className="form-control" value={this.state.location_id}>
+                                <option value={null}></option>
+                                {locationList}
+                            </select>
                         </div>
                     </div>
                     <div className="form-group">

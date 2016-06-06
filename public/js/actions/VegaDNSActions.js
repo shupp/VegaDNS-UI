@@ -274,6 +274,74 @@ var VegaDNSActions = {
             group: group
         });
     },
+    listLocations: function() {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.LIST_LOCATIONS
+        });
+    },
+    getLocation: function(locationId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_LOCATION,
+            locationId: locationId
+        });
+    },
+    addLocation: function(locationName, locationDescription) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_LOCATION,
+            locationName: locationName,
+            locationDescription: locationDescription
+        });
+    },
+    editLocation: function(locationId, locationName, locationDescription) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.EDIT_LOCATION,
+            locationId: locationId,
+            locationName: locationName,
+            locationDescription: locationDescription
+        });
+    },
+    deleteLocation: function(locationId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_LOCATION,
+            locationId: locationId
+        });
+    },
+    listLocationPrefixes: function(locationId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.LIST_LOCATION_PREFIXES,
+            locationId: locationId
+        });
+    },
+    getLocationPrefix: function(prefixId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.GET_LOCATION_PREFIX,
+            prefixId: prefixId
+        });
+    },
+    addLocationPrefix: function(locationId, prefix, prefixDescription, prefixType) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.ADD_LOCATION_PREFIX,
+            locationId: locationId,
+            prefix: prefix,
+            prefixDescription: prefixDescription,
+            prefixType: prefixType
+        });
+    },
+    editLocationPrefix: function(prefixId, prefix, prefixDescription, prefixType) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.EDIT_LOCATION_PREFIX,
+            prefixId: prefixId,
+            prefix: prefix,
+            prefixDescription: prefixDescription,
+            prefixType: prefixType
+        });
+    },
+    deleteLocationPrefix: function(prefixId) {
+        AppDispatcher.dispatch({
+            actionType: VegaDNSConstants.DELETE_LOCATION_PREFIX,
+            prefixId: prefixId
+        });
+    },
     listAuditLogs: function(page, perpage, sort, order, domainIds = false) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_AUDIT_LOGS,
