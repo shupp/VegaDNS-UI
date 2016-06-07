@@ -1,4 +1,4 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
+var React = require('react');
 var ApiKeysStore = require('../stores/ApiKeysStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
