@@ -60,7 +60,7 @@ var AccountList = React.createClass({
         var accounts = [];
 
         for (var key in this.state.accounts) {
-            accounts.push(<AccountListEntry key={key} account={this.state.accounts[key]} />);
+            accounts.push(<AccountListEntry key={key} account={this.state.accounts[key]}  listCallback={this.listAccounts} />);
         }
 
         var searchValue = this.state.search;
@@ -70,7 +70,7 @@ var AccountList = React.createClass({
 
         var addAccountForm = 
             <div className="row">
-                <AccountAddForm hideCallback={this.hideAddAccountForm} />
+                <AccountAddForm hideCallback={this.hideAddAccountForm} listCallback={this.listAccounts} />
             </div>
         var accountList = 
             <div>

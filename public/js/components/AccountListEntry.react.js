@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var AccountListEntry = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,8 @@ var AccountListEntry = React.createClass({
     },
 
     propTypes: {
-        account: ReactPropTypes.object.isRequired
+        account: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -23,7 +25,15 @@ var AccountListEntry = React.createClass({
     },
 
     handleDeleteAccount: function() {
-        VegaDNSActions.deleteAccount(this.props.account);
+        let account = this.props.account;
+
+        VegaDNSClient.deleteAccount(account.account_id)
+        .success(data => {
+            VegaDNSActions.successNotification("Account " + account.email + " deleted successfully");
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification("Account deletion failed: ", data);
+        });
         this.setState({showConfirmDeleteDialog: false});
     },
 

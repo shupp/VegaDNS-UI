@@ -1,6 +1,6 @@
 var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var AccountsStore = require('../stores/AccountsStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var AccountAddForm = React.createClass({
     getInitialState: function() {
@@ -27,7 +27,16 @@ var AccountAddForm = React.createClass({
         for (var key in this.state) {
             payload[key] = this.state[key];
         }
-        VegaDNSActions.addAccount(payload);
+
+        VegaDNSClient.addAccount(payload)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Account " + payload.email + " created successfully",
+            );
+            this.props.listCallback()
+        }).error(data => {
+            VegaDNSActions.errorNotification("Error creating account: ", data);
+        });
     },
 
     render: function() {
