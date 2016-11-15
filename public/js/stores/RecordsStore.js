@@ -73,6 +73,10 @@ class RecordsStore extends EventEmitter {
             domain = data.domain;
             this.emitChange();
         }).error(data => {
+            records = [];
+            total_records = 0;
+            domain = null;
+            VegaDNSActions.errorNotification("Unable to retrieve records: ", data);
             this.emitChange();
         });
     }
