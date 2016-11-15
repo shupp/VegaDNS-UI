@@ -1,8 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var AccountsStore = require('../stores/AccountsStore');
 var AccountListEntry = require('./AccountListEntry.react');
 var AccountAddForm = require('./AccountAddForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var AccountList = React.createClass({
     getInitialState: function() {
@@ -26,23 +26,13 @@ var AccountList = React.createClass({
     },
 
     listAccounts: function() {
-        VegaDNSActions.listAccounts(this.state.search);
-    },
-
-    componentDidMount: function() {
-        AccountsStore.addChangeListener(this.onChange);
-        AccountsStore.addRefreshChangeListener(this.listAccounts);
-    },
-
-    componentWillUnmount: function() {
-        AccountsStore.removeChangeListener(this.onChange);
-        AccountsStore.removeRefreshChangeListener(this.listAccounts);
-    },
-
-    onChange() {
-        this.setState({
-            accounts: AccountsStore.getAccountList(),
-            showAddForm: false
+        VegaDNSClient.accounts(this.state.search).success(data => {
+            this.setState({
+                accounts: data.accounts,
+                showAddForm: false
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve accounts: ", data);
         });
     },
 
