@@ -3,7 +3,6 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var Select = require('react-select');
 var VegaDNSClient = require('../utils/VegaDNSClient');
-var AccountsStore = require('../stores/AccountsStore');
 var DomainsStore = require('../stores/DomainsStore');
 var accounts = [];
 
@@ -21,12 +20,10 @@ var DomainOwnerEdit = React.createClass({
     },
 
     componentDidMount: function() {
-        AccountsStore.addChangeListener(this.onAccountChange);
         DomainsStore.addChangeListener(this.onDomainChange);
     },
 
     componentWillUnmount: function() {
-        AccountsStore.removeChangeListener(this.onAccountChange);
         DomainsStore.removeChangeListener(this.onDomainChange);
     },
 
@@ -36,14 +33,15 @@ var DomainOwnerEdit = React.createClass({
 
     fetchAccount: function() {
         if (this.state.domain.owner_id != 0) {
-            VegaDNSActions.getAccount(this.state.domain.owner_id);
+            VegaDNSClient.getAccount(this.state.domain.owner_id)
+            .success(data => {
+                this.setState({
+                    account: data.account
+                });
+            }).error(data => {
+                VegaDNSActions.errorNotification("Unable to retrieve account: ", data);
+            });
         }
-    },
-
-    onAccountChange: function() {
-        this.setState({
-            account: AccountsStore.getAccount()
-        });
     },
 
     selectAccountId(accountId) {
