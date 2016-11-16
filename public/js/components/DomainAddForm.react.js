@@ -1,5 +1,6 @@
 var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DomainAddForm = React.createClass({
     handleDomainChange: function(e) {
@@ -8,7 +9,15 @@ var DomainAddForm = React.createClass({
 
     addDomain: function(e) {
         e.preventDefault();
-        VegaDNSActions.addDomain(this.state.domain);
+
+        VegaDNSClient.addDomain(this.state.domain)
+        .success(data => {
+            var new_id = data.domain.domain_id;
+            VegaDNSActions.successNotification("Domain created successfully");
+            VegaDNSActions.redirect("records?domain-id=" + new_id);
+        }).error(data => {
+            VegaDNSActions.errorNotification("Domain creation was unsuccessful: ", data);
+        });
     },
 
     render: function() {

@@ -77,6 +77,11 @@ var DomainList = React.createClass({
     },
 
     listDomains() {
+        this.setState({
+            showAddForm: false,
+            domains: []
+        });
+
         VegaDNSClient.domains(
             this.state.page,
             this.state.perpage,
@@ -139,7 +144,15 @@ var DomainList = React.createClass({
             if (typeof this.state.accounts[domain.owner_id] !== "undefined") {
                 domain_owner = this.state.accounts[domain.owner_id];
             }
-            domains.push(<DomainListEntry key={key} domain={this.state.domains[key]} domain_owner={domain_owner} account={this.props.account} />);
+            domains.push(
+                <DomainListEntry
+                    key={domain.domain}
+                    domain={this.state.domains[key]}
+                    domain_owner={domain_owner}
+                    account={this.props.account}
+                    listCallback={this.listDomains}
+                />
+            );
         }
 
         var addDomainForm = <DomainAddForm hideCallback={this.hideAddDomainForm} />

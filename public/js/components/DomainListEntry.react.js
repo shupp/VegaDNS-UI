@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DomainListEntry = React.createClass({
     getInitialState: function() {
@@ -12,7 +13,8 @@ var DomainListEntry = React.createClass({
     },
 
     propTypes: {
-        domain: ReactPropTypes.object.isRequired
+        domain: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -25,8 +27,16 @@ var DomainListEntry = React.createClass({
 
     handleDeleteDomain: function(e) {
         e.preventDefault();
-        VegaDNSActions.deleteDomain(this.props.domain);
-        this.setState({showConfirmDeleteDialog: false});
+
+        let domain = this.props.domain;
+        VegaDNSClient.deleteDomain(domain.domain_id)
+        .success(data => {
+            VegaDNSActions.successNotification("Domain \"" + domain.domain + "\" deleted successfully");
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification("Domain deletion was unsuccessful: ", data);
+        });
+
     },
 
     componentWillReceiveProps: function(props) {
