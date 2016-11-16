@@ -214,37 +214,6 @@ var VegaDNSActions = {
             apiKeyId: apiKeyId
         });
     },
-    listAccounts: function(search = false) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_ACCOUNTS,
-            search: search
-        });
-    },
-    addAccount: function(account) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_ACCOUNT,
-            account: account
-        });
-    },
-    getAccount: function(accountId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_ACCOUNT,
-            accountId: accountId
-        });
-    },
-    editAccount: function(account, isMyAccount = false) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_ACCOUNT,
-            account: account,
-            isMyAccount: isMyAccount
-        });
-    },
-    deleteAccount: function(account) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_ACCOUNT,
-            account: account
-        });
-    },
     listGroups: function() {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_GROUPS
