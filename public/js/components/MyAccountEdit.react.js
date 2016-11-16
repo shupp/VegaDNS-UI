@@ -2,6 +2,7 @@ var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var LogInStore = require('../stores/LogInStore');
 var AccountEditForm = require('./AccountEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var MyAccountEdit = React.createClass({
     getInitialState: function() {
@@ -17,7 +18,7 @@ var MyAccountEdit = React.createClass({
     getAccount: function() {
         var account = LogInStore.getAccount();
 
-        VegaDNSClient.getAccount(accountId)
+        VegaDNSClient.getAccount(account.account_id)
         .success(data => {
             this.setState({
                 account: data.account
