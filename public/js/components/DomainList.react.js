@@ -131,7 +131,12 @@ var DomainList = React.createClass({
         if (value.length < 1) {
             value = false;
         }
-        this.setState({search: value}, this.listDomains);
+        this.setState(
+            {
+                search: value,
+                page: 1
+            }
+        , this.listDomains);
     },
 
     clearSearch() {
