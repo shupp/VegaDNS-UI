@@ -156,6 +156,7 @@ VegaDNSClient.prototype.records = function(
     var url = this.getHost() + "/records"
     var data = {
         domain_id: domain_id,
+        page: page,
         perpage: perpage,
         sort: sort,
         order: order,
