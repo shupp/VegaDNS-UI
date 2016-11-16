@@ -1,11 +1,11 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var DomainsStore = require('../stores/DomainsStore');
-var AccountsStore = require('../stores/AccountsStore');
 var DomainListEntry = require('./DomainListEntry.react');
 var DomainAddForm = require('./DomainAddForm.react');
 var URI = require('urijs');
 var Pager = require('./Pager.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DomainList = React.createClass({
     getInitialState: function() {
@@ -85,7 +85,20 @@ var DomainList = React.createClass({
             this.state.order,
             this.state.search
         );
-        VegaDNSActions.listAccounts();
+
+        VegaDNSClient.accounts()
+        .success(data => {
+            let accounts = data.accounts;
+            let accountHash = {}
+            for (let account in accounts) {
+                accountHash[accounts[account].account_id] = accounts[account];
+            }
+            this.setState({
+                accounts: accountHash
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve accounts: ", data);
+        });
     },
 
     componentWillMount: function() {
@@ -95,27 +108,17 @@ var DomainList = React.createClass({
     componentDidMount: function() {
         DomainsStore.addRefreshChangeListener(this.onRefreshChange);
         DomainsStore.addChangeListener(this.onChange);
-        AccountsStore.addRefreshChangeListener(this.onRefreshChange);
-        AccountsStore.addChangeListener(this.onChange);
     },
 
     componentWillUnmount: function() {
         DomainsStore.removeRefreshChangeListener(this.onRefreshChange);
         DomainsStore.removeChangeListener(this.onChange);
-        AccountsStore.removeRefreshChangeListener(this.onRefreshChange);
-        AccountsStore.removeChangeListener(this.onChange);
     },
 
     onChange() {
-        var accounts = AccountsStore.getAccountList();
-        var accountHash = {}
-        for (var account in accounts) {
-            accountHash[accounts[account].account_id] = accounts[account];
-        }
         this.setState({
             domains: DomainsStore.getDomainList(),
-            total: DomainsStore.getDomainTotal(),
-            accounts: accountHash
+            total: DomainsStore.getDomainTotal()
         });
     },
 
