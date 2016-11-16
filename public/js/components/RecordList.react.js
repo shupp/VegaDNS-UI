@@ -102,7 +102,10 @@ var RecordList = React.createClass({
             value = false;
         }
         this.setState(
-            {search_name: value},
+            {
+                search_name: value,
+                page: 1
+            },
             this.listRecordsCallback
         );
     },
@@ -113,7 +116,10 @@ var RecordList = React.createClass({
             value = false;
         }
         this.setState(
-            {search_value: value},
+            {
+                search_value: value,
+                page: 1
+            },
             this.listRecordsCallback
         );
     },
