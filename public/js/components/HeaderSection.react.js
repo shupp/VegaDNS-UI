@@ -16,9 +16,7 @@ var HeaderSection = React.createClass({
     },
 
     onChange() {
-        if (this.isMounted()) {
-            this.setState({account: LogInStore.getAccount()});
-        }
+        this.setState({account: LogInStore.getAccount()});
     },
 
     render: function() {

@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var AccountsStore = require('../stores/AccountsStore');
 var LogInStore = require('../stores/LogInStore');
 var AccountEditForm = require('./AccountEditForm.react');
 
@@ -17,30 +16,26 @@ var MyAccountEdit = React.createClass({
 
     getAccount: function() {
         var account = LogInStore.getAccount();
-        VegaDNSActions.getAccount(account.account_id);
-    },
 
-    componentDidMount: function() {
-        AccountsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        AccountsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getAccount(accountId)
+        .success(data => {
+            this.setState({
+                account: data.account
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to load account: ", data);
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("");
     },
 
-    onChange() {
-        this.setState({account: AccountsStore.getAccount()});
-    },
-
     render: function() {
         if (Object.keys(this.state.account).length) {
             return (
                 <section id="my_account_edit">
-                    <AccountEditForm isMyAccount={true} key={this.state.account.account_id} account={this.state.account} cancelCallback={this.handleCancel} />
+                    <AccountEditForm isMyAccount={true} homeRedirect={true} key={this.state.account.account_id} account={this.state.account} cancelCallback={this.handleCancel} />
                 </section>
             );
         }

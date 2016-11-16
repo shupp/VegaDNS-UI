@@ -1,7 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var AccountsStore = require('../stores/AccountsStore');
 var AccountEditForm = require('./AccountEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
+var LogInStore = require('../stores/LogInStore');
 
 var AccountEdit = React.createClass({
     getInitialState: function() {
@@ -15,30 +16,28 @@ var AccountEdit = React.createClass({
     },
 
     getAccount: function() {
-        VegaDNSActions.getAccount(this.props.params["account-id"]);
-    },
-
-    componentDidMount: function() {
-        AccountsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        AccountsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getAccount(this.props.params["account-id"])
+        .success(data => {
+            this.setState({account: data.account});
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve account: ", data);
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("accounts");
     },
 
-    onChange() {
-        this.setState({account: AccountsStore.getAccount()});
-    },
-
     render: function() {
         if (Object.keys(this.state.account).length) {
+            var isMyAccount;
+            var loginAccount = LogInStore.getAccount();
+            if (loginAccount != null && this.state.account.account_id == loginAccount.account_id) {
+                isMyAccount = true;
+            }
             return (
                 <section id="account_edit">
-                    <AccountEditForm key={this.state.account.account_id} account={this.state.account} cancelCallback={this.handleCancel} />
+                    <AccountEditForm isMyAccount={isMyAccount} key={this.state.account.account_id} account={this.state.account} cancelCallback={this.handleCancel} />
                 </section>
             );
         }

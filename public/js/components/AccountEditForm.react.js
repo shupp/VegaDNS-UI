@@ -1,6 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var AccountsStore = require('../stores/AccountsStore');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var AccountEditForm = React.createClass({
     getInitialState: function() {
@@ -15,6 +15,7 @@ var AccountEditForm = React.createClass({
             'status': this.props.account.status,
         }
     },
+
     handleChange: function(name, e) {
         var change = {};
         change[name] = e.target.value;
@@ -29,6 +30,11 @@ var AccountEditForm = React.createClass({
             isMyAccount = true;
         }
 
+        var homeRedirect = false;
+        if (typeof this.props.homeRedirect != 'undefined') {
+            homeRedirect = true;
+        }
+
         var payload = {}
         for (var key in this.state) {
             if (key == "password") {
@@ -41,7 +47,21 @@ var AccountEditForm = React.createClass({
             }
         }
         payload["account_id"] = this.props.account.account_id;
-        VegaDNSActions.editAccount(payload, isMyAccount);
+
+        VegaDNSClient.editAccount(payload).success(data => {
+            VegaDNSActions.successNotification("Account " + payload.email + " updated successfully");
+            if (isMyAccount) {
+                VegaDNSActions.updateLogin();
+            }
+
+            if (homeRedirect) {
+                VegaDNSActions.redirect("");
+            } else {
+                VegaDNSActions.redirect("accounts");
+            }
+        }).error(data => {
+            VegaDNSActions.errorNotification("Account edit failed: ", data);
+        });
     },
 
     render: function() {
