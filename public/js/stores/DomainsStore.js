@@ -169,8 +169,10 @@ AppDispatcher.register(function(action) {
             break;
         case VegaDNSConstants.DELETE_DOMAIN:
             store.deleteDomain(action.domain);
+            break;
         case VegaDNSConstants.UPDATE_DOMAIN_STATUS:
             store.updateDomainStatus(action.domainId, action.status);
+            break;
         case VegaDNSConstants.UPDATE_DOMAIN_OWNER:
             store.updateDomainOwner(action.domainId, action.ownerId);
             break;
