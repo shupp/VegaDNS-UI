@@ -3,7 +3,6 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var Select = require('react-select');
 var VegaDNSClient = require('../utils/VegaDNSClient');
-var DomainsStore = require('../stores/DomainsStore');
 var accounts = [];
 
 var DomainOwnerEdit = React.createClass({
@@ -16,19 +15,17 @@ var DomainOwnerEdit = React.createClass({
     },
 
     componentWillMount: function() {
-        VegaDNSActions.getDomain(this.props.params.domain_id);
-    },
-
-    componentDidMount: function() {
-        DomainsStore.addChangeListener(this.onDomainChange);
-    },
-
-    componentWillUnmount: function() {
-        DomainsStore.removeChangeListener(this.onDomainChange);
-    },
-
-    onDomainChange: function() {
-        this.setState({domain: DomainsStore.getDomain()}, this.fetchAccount);
+        VegaDNSClient.getDomain(this.props.params.domain_id)
+        .success(data => {
+            this.setState(
+                {
+                    domain: data.domain
+                },
+                this.fetchAccount
+            );
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve domain: ", data);
+        });
     },
 
     fetchAccount: function() {
@@ -85,19 +82,30 @@ var DomainOwnerEdit = React.createClass({
                 true
             );
         } else {
-            VegaDNSActions.updateDomainOwner(
+            VegaDNSClient.updateDomainOwner(
                 this.state.domain.domain_id,
                 this.state.selected_account
-            );
+            ).success(data => {
+                VegaDNSActions.successNotification("Domain owner updated successfully");
+                VegaDNSActions.redirect('domains');
+            }).error(data => {
+                VegaDNSActions.errorNotification("Domain owner update was unsuccessful: ", data);
+            });
         }
     },
 
     removeDomainOwner: function(e) {
         e.preventDefault();
-        VegaDNSActions.updateDomainOwner(
+
+        VegaDNSClient.updateDomainOwner(
             this.state.domain.domain_id,
             0
-        );
+        ).success(data => {
+            VegaDNSActions.successNotification("Domain owner removed successfully");
+            VegaDNSActions.redirect('domains');
+        }).error(data => {
+            VegaDNSActions.errorNotification("Domain owner update was unsuccessful: ", data);
+        });
     },
 
     render: function() {
