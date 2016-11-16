@@ -3,7 +3,6 @@ var keyMirror = require('keymirror');
 module.exports = keyMirror({
     LOGIN: null,
     LOGOUT: null,
-    LIST_DOMAINS: null,
     LIST_RECORDS: null,
     LIST_GROUPS: null,
     LIST_GROUP_MEMBERS: null,
@@ -13,7 +12,6 @@ module.exports = keyMirror({
     LIST_AUDIT_LOGS: null,
     LIST_LOCATIONS: null,
     LIST_LOCATION_PREFIXES: null,
-    ADD_DOMAIN: null,
     ADD_RECORD: null,
     ADD_GROUP: null,
     ADD_GROUP_MEMBER: null,
@@ -31,7 +29,6 @@ module.exports = keyMirror({
     EDIT_DEFAULT_RECORD: null,
     EDIT_LOCATION: null,
     EDIT_LOCATION_PREFIX: null,
-    DELETE_DOMAIN: null,
     DELETE_RECORD: null,
     DELETE_GROUP: null,
     DELETE_GROUP_MEMBER: null,
@@ -45,12 +42,9 @@ module.exports = keyMirror({
     GET_DEFAULT_RECORD: null,
     GET_SOA_RECORD: null,
     GET_DEFAULT_SOA_RECORD: null,
-    GET_DOMAIN: null,
     GET_LOCATION: null,
     GET_LOCATION_PREFIX: null,
 
-    UPDATE_DOMAIN_STATUS: null,
-    UPDATE_DOMAIN_OWNER: null,
     UPDATE_LOGIN: null,
 
     ADD_NOTIFICATION: null,

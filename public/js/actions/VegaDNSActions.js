@@ -19,49 +19,6 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.UPDATE_LOGIN
         });
     },
-    listDomains: function(page, perpage, sort, order, search = false) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_DOMAINS,
-            page: page,
-            perpage: perpage,
-            sort: sort,
-            order: order,
-            search: search
-        });
-    },
-    getDomain: function(domainId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_DOMAIN,
-            domainId: domainId
-        });
-    },
-    addDomain: function(domain) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_DOMAIN,
-            domain: domain
-        });
-    },
-    deleteDomain: function(domain) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_DOMAIN,
-            domain: domain
-        });
-    },
-    updateDomainStatus: function(domainId, status) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.UPDATE_DOMAIN_STATUS,
-            domainId: domainId,
-            status: status
-        });
-    },
-    updateDomainOwner: function(domainId, ownerId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.UPDATE_DOMAIN_OWNER,
-            domainId: domainId,
-            ownerId: ownerId,
-            status: status
-        });
-    },
     listDefaultRecords: function() {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_DEFAULT_RECORDS
