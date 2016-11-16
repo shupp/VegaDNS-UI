@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var DomainsStore = require('../stores/DomainsStore');
 var DomainListEntry = require('./DomainListEntry.react');
 var DomainAddForm = require('./DomainAddForm.react');
 var URI = require('urijs');
@@ -78,13 +77,20 @@ var DomainList = React.createClass({
     },
 
     listDomains() {
-        VegaDNSActions.listDomains(
+        VegaDNSClient.domains(
             this.state.page,
             this.state.perpage,
             this.state.sort,
             this.state.order,
             this.state.search
-        );
+        ).success(data => {
+            this.setState({
+                domains: data.domains,
+                total: data.total_domains
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve domains: ", data);
+        });
 
         VegaDNSClient.accounts()
         .success(data => {
@@ -102,27 +108,6 @@ var DomainList = React.createClass({
     },
 
     componentWillMount: function() {
-        this.listDomains();
-    },
-
-    componentDidMount: function() {
-        DomainsStore.addRefreshChangeListener(this.onRefreshChange);
-        DomainsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        DomainsStore.removeRefreshChangeListener(this.onRefreshChange);
-        DomainsStore.removeChangeListener(this.onChange);
-    },
-
-    onChange() {
-        this.setState({
-            domains: DomainsStore.getDomainList(),
-            total: DomainsStore.getDomainTotal()
-        });
-    },
-
-    onRefreshChange() {
         this.listDomains();
     },
 
