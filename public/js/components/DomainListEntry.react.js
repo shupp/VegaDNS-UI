@@ -53,7 +53,14 @@ var DomainListEntry = React.createClass({
         } else {
             newStatus = "active";
         }
-        VegaDNSActions.updateDomainStatus(this.props.domain.domain_id, newStatus);
+
+        VegaDNSClient.updateDomainStatus(this.props.domain.domain_id, newStatus)
+        .success(data => {
+            VegaDNSActions.successNotification("Domain status updated successfully");
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification("Domain status update was unsuccessful: ", data);
+        });
     },
 
     render: function() {
