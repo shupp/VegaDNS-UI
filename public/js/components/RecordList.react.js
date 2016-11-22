@@ -1,11 +1,11 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
-var LocationsStore = require('../stores/LocationsStore');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
 var RecordAddForm = require('./RecordAddForm.react');
 var URI = require('urijs');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordList = React.createClass({
     getInitialState: function() {
@@ -93,7 +93,21 @@ var RecordList = React.createClass({
 
     componentWillMount: function() {
         this.listRecordsCallback(this.state.page);
-        VegaDNSActions.listLocations();
+        this.listLocations();
+    },
+
+    listLocations: function() {
+        VegaDNSClient.locations()
+        .success(data => {
+            this.setState({
+                locations: data.locations
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotifcation(
+                "Unable to retrieve locations: ",
+                data
+            );
+        });
     },
 
     searchRecordName(e) {
@@ -161,17 +175,11 @@ var RecordList = React.createClass({
     componentDidMount: function() {
         RecordsStore.addChangeListener(this.onChange);
         RecordsStore.addRefreshChangeListener(this.onRefreshChange);
-        LocationsStore.addChangeListener(this.updateLocations);
     },
 
     componentWillUnmount: function() {
         RecordsStore.removeChangeListener(this.onChange);
         RecordsStore.removeRefreshChangeListener(this.onRefreshChange);
-        LocationsStore.removeChangeListener(this.updateLocations);
-    },
-
-    updateLocations() {
-        this.setState({locations: LocationsStore.getLocationList()});
     },
 
     onChange() {

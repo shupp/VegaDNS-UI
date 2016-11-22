@@ -1,6 +1,6 @@
 var React = require('react');
-var LocationsStore = require('../stores/LocationsStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationEditForm = React.createClass({
     getInitialState: function() {
@@ -25,11 +25,22 @@ var LocationEditForm = React.createClass({
     editLocation: function(e) {
         e.preventDefault();
 
-        VegaDNSActions.editLocation(
+        VegaDNSClient.editLocation(
             this.props.location.location_id,
             this.state.location,
             this.state.location_description
-        );
+        )
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Location edited successfully"
+            );
+            VegaDNSActions.redirect("locations");
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to edit location: ",
+                data
+            );
+        });
     },
 
 

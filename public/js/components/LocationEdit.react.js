@@ -1,7 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var LocationsStore = require('../stores/LocationsStore');
 var LocationEditForm = require('./LocationEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationEdit = React.createClass({
     getInitialState: function() {
@@ -15,23 +15,21 @@ var LocationEdit = React.createClass({
     },
 
     getLocation: function() {
-        VegaDNSActions.getLocation(this.props.params["location_id"]);
-    },
-
-    componentDidMount: function() {
-        LocationsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        LocationsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getLocation(this.props.params["location_id"])
+        .success(data => {
+            this.setState({
+                location: data.location
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Location not found: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("locations");
-    },
-
-    onChange() {
-        this.setState({location: LocationsStore.getLocation()});
     },
 
     render: function() {

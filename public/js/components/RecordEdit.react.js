@@ -1,8 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordsStore = require('../stores/RecordsStore');
-var LocationsStore = require('../stores/LocationsStore');
 var RecordEditForm = require('./RecordEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordEdit = React.createClass({
     getInitialState: function() {
@@ -14,7 +14,7 @@ var RecordEdit = React.createClass({
 
     componentWillMount: function() {
         this.getRecord();
-        VegaDNSActions.listLocations();
+        this.listLocations();
     },
 
     getRecord: function() {
@@ -23,12 +23,10 @@ var RecordEdit = React.createClass({
 
     componentDidMount: function() {
         RecordsStore.addChangeListener(this.onChange);
-        LocationsStore.addChangeListener(this.getLocations);
     },
 
     componentWillUnmount: function() {
         RecordsStore.removeChangeListener(this.onChange);
-        LocationsStore.removeChangeListener(this.getLocations);
     },
 
     handleCancel: function() {
@@ -39,8 +37,20 @@ var RecordEdit = React.createClass({
         this.setState({record: RecordsStore.getRecord()});
     },
 
-    getLocations() {
-        this.setState({locations: LocationsStore.getLocationList()});
+    listLocations() {
+        this.setState({locations: []});
+
+        VegaDNSClient.locations()
+        .success(data => {
+            this.setState({
+                locations: data.locations
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotifcation(
+                "Unable to retrieve locations: ",
+                data
+            );
+        });
     },
 
     render: function() {

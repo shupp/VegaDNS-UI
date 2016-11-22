@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationListEntry = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,8 @@ var LocationListEntry = React.createClass({
     },
 
     propTypes: {
-        location_entry: ReactPropTypes.object.isRequired
+        location_entry: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -24,7 +26,20 @@ var LocationListEntry = React.createClass({
 
     handleDeleteLocation: function(e) {
         e.preventDefault();
-        VegaDNSActions.deleteLocation(this.props.location_entry.location_id);
+
+        VegaDNSClient.deleteLocation(this.props.location_entry.location_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Location deleted successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to delete location: ", data
+            );
+        });
+
+        return false;
     },
 
     handleEditLocation: function(e) {

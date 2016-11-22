@@ -1,6 +1,6 @@
 var React = require('react');
-var LocationsStore = require('../stores/LocationsStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationAddForm = React.createClass({
     getInitialState: function() {
@@ -8,6 +8,11 @@ var LocationAddForm = React.createClass({
             location: "",
             location_description: ""
         }
+    },
+
+    propTypes: {
+        listCallback: React.PropTypes.func.isRequired,
+        hideCallback: React.PropTypes.func.isRequired
     },
 
     handleLocationChange: function(e) {
@@ -23,7 +28,18 @@ var LocationAddForm = React.createClass({
     },
 
     addLocation: function(e) {
-        VegaDNSActions.addLocation(this.state.location, this.state.location_description);
+        VegaDNSClient.addLocation(this.state.location, this.state.location_description)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Location \"" + this.state.location + "\" created successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to create location: ",
+                data
+            );
+        });
     },
 
     render: function() {

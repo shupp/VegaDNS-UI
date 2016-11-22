@@ -1,5 +1,4 @@
 var React = require('react');
-var LocationsStore = require('../stores/LocationsStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
 var LocationPrefixAddForm = React.createClass({

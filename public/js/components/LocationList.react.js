@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var LocationsStore = require('../stores/LocationsStore');
 var LocationListEntry = require('./LocationListEntry.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var LocationAddForm = require('./LocationAddForm.react');
@@ -18,28 +17,22 @@ var LocationList = React.createClass({
     },
 
     listLocations: function() {
-        VegaDNSActions.listLocations();
-    },
-
-    componentDidMount: function() {
-        LocationsStore.addChangeListener(this.onChange);
-        LocationsStore.addRefreshChangeListener(this.onRefreshChange);
-    },
-
-    componentWillUnmount: function() {
-        LocationsStore.removeChangeListener(this.onChange);
-        LocationsStore.removeRefreshChangeListener(this.onRefreshChange);
-    },
-
-    onChange() {
         this.setState({
             showAddForm: false,
-            locations: LocationsStore.getLocationList()
+            locations: []
         });
-    },
 
-    onRefreshChange() {
-        this.listLocations();
+        VegaDNSClient.locations()
+        .success(data => {
+            this.setState({
+                locations: data.locations
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotifcation(
+                "Unable to retrieve locations: ",
+                data
+            );
+        });
     },
 
     showAddLocationForm: function() {
@@ -60,13 +53,18 @@ var LocationList = React.createClass({
                     key={key}
                     location_entry={this.state.locations[key]}
                     account={this.props.account}
+                    listCallback={this.listLocations}
                 />
             );
         }
 
         var addLocationForm =
             <div className="row">
-                <LocationAddForm hideCallback={this.hideAddLocationForm} />
+                <div className="col-xs-12">
+                    <div className="col-xs-offset-4 col-xs-4">
+                        <LocationAddForm listCallback={this.listLocations} hideCallback={this.hideAddLocationForm} />
+                    </div>
+                </div>
             </div>
 
         var addButton = <a className="btn btn-primary" onClick={this.showAddLocationForm} role="button">add</a>
