@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var ApiKeyListEntry = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,8 @@ var ApiKeyListEntry = React.createClass({
     },
 
     propTypes: {
-        apikey: ReactPropTypes.object.isRequired
+        apikey: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -23,8 +25,18 @@ var ApiKeyListEntry = React.createClass({
     },
 
     handleDeleteApiKey: function() {
-        VegaDNSActions.deleteApiKey(this.props.apikey.apikey_id);
-        this.setState({showConfirmDeleteDialog: false});
+        VegaDNSClient.deleteApiKey(this.props.apikey.apikey_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "API key deleted successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "API key deletion failed: ",
+                data
+            );
+        });
     },
 
     render: function() {

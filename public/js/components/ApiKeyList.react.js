@@ -1,8 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var ApiKeysStore = require('../stores/ApiKeysStore');
 var ApiKeyListEntry = require('./ApiKeyListEntry.react');
 var ApiKeyAddForm = require('./ApiKeyAddForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var ApiKeyList = React.createClass({
     getInitialState: function() {
@@ -25,34 +25,35 @@ var ApiKeyList = React.createClass({
     },
 
     listApiKeys: function() {
-        VegaDNSActions.listApiKeys(this.props.account.account_id);
-    },
+        this.setState({
+            showAddForm: false,
+            apikeys: []
+        });
 
-    componentDidMount: function() {
-        ApiKeysStore.addChangeListener(this.onChange);
-        ApiKeysStore.addRefreshChangeListener(this.listApiKeys);
-    },
-
-    componentWillUnmount: function() {
-        ApiKeysStore.removeChangeListener(this.onChange);
-        ApiKeysStore.removeRefreshChangeListener(this.listApiKeys);
-    },
-
-    onChange() {
-        this.setState({apikeys: ApiKeysStore.getApiKeyList()});
+        VegaDNSClient.apikeys(this.props.account.account_id)
+        .success(data => {
+            this.setState({
+                apikeys: data.apikeys
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve apikeys: ",
+                data
+            );
+        });
     },
 
     render: function() {
         var apikeys = [];
 
         for (var key in this.state.apikeys) {
-            apikeys.push(<ApiKeyListEntry key={key} apikey={this.state.apikeys[key]} />);
+            apikeys.push(<ApiKeyListEntry key={key} apikey={this.state.apikeys[key]} listCallback={this.listApiKeys} />);
         }
 
         var addKeyForm = 
             <div className="row">
                 <div className="col-md-12">
-                    <ApiKeyAddForm hideCallback={this.hideAddKeyForm} />
+                    <ApiKeyAddForm hideCallback={this.hideAddKeyForm} listCallback={this.listApiKeys} />
                 </div>
             </div>
         var keyList = 

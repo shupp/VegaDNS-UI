@@ -152,25 +152,6 @@ var VegaDNSActions = {
             groupmemberId: groupmemberId
         });
     },
-    listApiKeys: function(accountIds) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_APIKEYS,
-            accountIds: accountIds
-        });
-    },
-    addApiKey: function(accountId, description) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_APIKEY,
-            accountId: accountId,
-            description: description
-        });
-    },
-    deleteApiKey: function(apiKeyId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_APIKEY,
-            apiKeyId: apiKeyId
-        });
-    },
     listGroups: function() {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_GROUPS
