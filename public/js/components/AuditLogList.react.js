@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var AuditLogsStore = require('../stores/AuditLogsStore');
 var AuditLogListEntry = require('./AuditLogListEntry.react');
 var Pager = require('./Pager.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
@@ -81,13 +80,29 @@ var AuditLogList = React.createClass({
         if (this.state.domainIds.length > 0) {
             domainIds = this.state.domainIds;
         }
-        VegaDNSActions.listAuditLogs(
+
+        this.setState({
+            logs: [],
+            total: 0
+        });
+
+        VegaDNSClient.audit_logs(
             this.state.page,
             25, // perpage
             this.state.sort,
             this.state.order,
             domainIds
-        );
+        ).success(data => {
+            this.setState({
+                logs: data.audit_logs,
+                total: data.total_audit_logs
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Error retrieving audit logs: ",
+                data
+            );
+        });
     },
 
     selectDomainIds(domainIds, selectedOptions) {
@@ -99,23 +114,6 @@ var AuditLogList = React.createClass({
             },
             this.listAuditLogs
         );
-    },
-
-    componentDidMount: function() {
-        AuditLogsStore.addChangeListener(this.onChange);
-        AuditLogsStore.addRefreshChangeListener(this.listAuditLogs);
-    },
-
-    componentWillUnmount: function() {
-        AuditLogsStore.removeChangeListener(this.onChange);
-        AuditLogsStore.removeRefreshChangeListener(this.listAuditLogs);
-    },
-
-    onChange() {
-        this.setState({
-            logs: AuditLogsStore.getAuditLogList(),
-            total: AuditLogsStore.getAuditLogTotal()
-        });
     },
 
     lookupDomainName(id) {

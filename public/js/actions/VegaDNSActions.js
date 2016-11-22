@@ -249,16 +249,6 @@ var VegaDNSActions = {
             prefixId: prefixId
         });
     },
-    listAuditLogs: function(page, perpage, sort, order, domainIds = false) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_AUDIT_LOGS,
-            page: page,
-            perpage: perpage,
-            sort: sort,
-            order: order,
-            domainIds: domainIds
-        });
-    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,
