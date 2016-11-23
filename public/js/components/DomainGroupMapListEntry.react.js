@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DomainGroupMapListEntry = React.createClass({
     getInitialState: function() {
@@ -14,7 +15,8 @@ var DomainGroupMapListEntry = React.createClass({
     },
 
     propTypes: {
-        domaingroupmap: ReactPropTypes.object.isRequired
+        domaingroupmap: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -26,8 +28,18 @@ var DomainGroupMapListEntry = React.createClass({
     },
 
     handleDeleteDomainGroupMap: function() {
-        VegaDNSActions.deleteDomainGroupMap(this.props.domaingroupmap);
-        this.setState({showConfirmDeleteDialog: false});
+        VegaDNSClient.deleteDomainGroupMap(this.props.domaingroupmap.map_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Domain removed from group successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Domain removal from group failed: ",
+                data
+            );
+        });
     },
 
     changePermissions: function(e) {
@@ -49,12 +61,27 @@ var DomainGroupMapListEntry = React.createClass({
             can_delete: this.state.can_delete ? 1 : 0
         }
 
-        VegaDNSActions.editDomainGroupMap(this.props.domaingroupmap.map_id, permissions);
+        VegaDNSClient.editDomainGroupMap(this.props.domaingroupmap.map_id, permissions)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Group permissions on domain updated successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Group permissions update on domain failed: ",
+                data
+            );
+        });
     },
 
     render: function() {
         var domaingroupmap = this.props.domaingroupmap;
-        var confirmDeleteDialog = <ConfirmDialog confirmText={"Are you sure you wan't to delete the domain " + domaingroupmap.domain.domain + " from this group?"} confirmCallback={this.handleDeleteDomainGroupMap} cancelCallback={this.hideDeleteConfirmDialog} />
+        var confirmDeleteDialog = <ConfirmDialog
+                                    confirmText={"Are you sure you wan't to delete the domain " + domaingroupmap.domain.domain + " from this group?"}
+                                    confirmCallback={this.handleDeleteDomainGroupMap}
+                                    cancelCallback={this.hideDeleteConfirmDialog}
+                                  />
 
         if (this.state.showConfirmDeleteDialog) {
             return (<tr>

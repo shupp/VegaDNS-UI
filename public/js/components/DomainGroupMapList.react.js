@@ -1,7 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var DomainGroupMapsStore = require('../stores/DomainGroupMapsStore');
-var VegaDNSActions = require('../actions/VegaDNSActions');
 var Select = require('react-select');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var DomainGroupMapListEntry = require('./DomainGroupMapListEntry.react');
@@ -22,22 +20,20 @@ var DomainGroupMapList = React.createClass({
     },
 
     listDomainGroupMaps: function() {
-        VegaDNSActions.listDomainGroupMaps(this.props.group.group_id);
-    },
-
-    componentDidMount: function() {
-        DomainGroupMapsStore.addChangeListener(this.onChange);
-        DomainGroupMapsStore.addRefreshChangeListener(this.listDomainGroupMaps);
-    },
-
-    componentWillUnmount: function() {
-        DomainGroupMapsStore.removeChangeListener(this.onChange);
-        DomainGroupMapsStore.removeRefreshChangeListener(this.listDomainGroupMaps);
-    },
-
-    onChange() {
         this.setState({
-            domaingroupmaps: DomainGroupMapsStore.getDomainGroupMapList()
+            domaingroupmaps: [],
+        });
+
+        VegaDNSClient.domaingroupmaps(this.props.group.group_id)
+        .success(data => {
+            this.setState({
+                domaingroupmaps: data.domaingroupmaps
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve domain group maps: ",
+                data
+            );
         });
     },
 
@@ -57,12 +53,31 @@ var DomainGroupMapList = React.createClass({
 
     addDomainGroupMap: function(e) {
         e.preventDefault();
+
         var permissions = {
             can_read: this.state.can_read ? 1 : 0,
             can_write: this.state.can_write ? 1 : 0,
             can_delete:this.state.can_delete ? 1 : 0
         }
-        VegaDNSActions.addDomainGroupMap(this.props.group, domains[this.state.selected_domain], permissions);
+
+        let domain = domains[this.state.selected_domain];
+        let group = this.props.group;
+
+        VegaDNSClient.addDomainGroupMap(group.group_id, domain.domain_id, permissions)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                domain.domain + " added to group \"" + group.name + "\" successfully",
+                true
+            );
+            this.listDomainGroupMaps();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Adding domain to group failed: ",
+                data
+            );
+        });
+
+        return false;
     },
 
     selectDomainId(domainId) {
@@ -99,7 +114,7 @@ var DomainGroupMapList = React.createClass({
     render: function() {
         var domaingroupmaps = [];
         for (var key in this.state.domaingroupmaps) {
-            domaingroupmaps.push(<DomainGroupMapListEntry key={key} domaingroupmap={this.state.domaingroupmaps[key]} group={this.props.group} />);
+            domaingroupmaps.push(<DomainGroupMapListEntry key={key} domaingroupmap={this.state.domaingroupmaps[key]} group={this.props.group} listCallback={this.listDomainGroupMaps} />);
         }
 
         return (

@@ -97,33 +97,6 @@ var VegaDNSActions = {
             recordId: recordId
         });
     },
-    listDomainGroupMaps: function(groupId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_DOMAIN_GROUP_MAPS,
-            groupId: groupId
-        });
-    },
-    addDomainGroupMap: function(group, domain, permissions) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_DOMAIN_GROUP_MAP,
-            group: group,
-            domain: domain,
-            permissions: permissions
-        });
-    },
-    editDomainGroupMap: function(domaingroupmapId, permissions) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_DOMAIN_GROUP_MAP,
-            domaingroupmapId: domaingroupmapId,
-            permissions: permissions
-        });
-    },
-    deleteDomainGroupMap: function(domaingroupmap) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_DOMAIN_GROUP_MAP,
-            domaingroupmap: domaingroupmap
-        });
-    },
     listGroupMembers: function(groupmemberId) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.LIST_GROUP_MEMBERS,
