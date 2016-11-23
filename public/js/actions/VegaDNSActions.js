@@ -19,50 +19,6 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.UPDATE_LOGIN
         });
     },
-    listRecords: function(
-        domainId, page, perPage, sort, order, search_name=false, search_value=false
-    ) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_RECORDS,
-            domainId: domainId,
-            page: page,
-            perPage: perPage,
-            sort: sort,
-            order: order,
-            search_name: search_name,
-            search_value: search_value
-        });
-    },
-    getSOARecord: function(domainId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_SOA_RECORD,
-            domainId: domainId
-        });
-    },
-    getRecord: function(recordId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_RECORD,
-            recordId: recordId
-        });
-    },
-    addRecord: function(payload) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_RECORD,
-            payload: payload
-        });
-    },
-    editRecord: function(record) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_RECORD,
-            record: record
-        });
-    },
-    deleteRecord: function(recordId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_RECORD,
-            recordId: recordId
-        });
-    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,

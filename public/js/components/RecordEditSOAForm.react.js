@@ -1,6 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var RecordsStore = require('../stores/RecordsStore');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordEditSOAForm = React.createClass({
     getInitialState: function() {
@@ -38,7 +38,20 @@ var RecordEditSOAForm = React.createClass({
         payload["record_id"] = this.props.record.record_id;
         payload["record_type"] = this.props.record.record_type;
 
-        VegaDNSActions.editRecord(payload);
+        let record = payload;
+
+        VegaDNSClient.editRecord(record)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "SOA record updated successfully"
+            );
+            VegaDNSActions.redirect("records?domain-id=" + record.domain_id);
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to edit SOA record: ",
+                data
+            );
+        });
     },
 
     render: function() {

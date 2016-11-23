@@ -1,5 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordAddForm = React.createClass({
     getInitialState: function() {
@@ -13,6 +14,10 @@ var RecordAddForm = React.createClass({
             'location_id': null,
             'ttl': 3600,
         }
+    },
+
+    propTypes: {
+        listCallback: React.PropTypes.func.isRequired
     },
 
     handleChange: function(name, e) {
@@ -34,7 +39,19 @@ var RecordAddForm = React.createClass({
             payload["name"] = payload["name"] + "." + this.props.domain.domain;
         }
         payload["domain_id"] = this.props.domain.domain_id;
-        VegaDNSActions.addRecord(payload);
+
+        VegaDNSClient.addRecord(payload)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                data.record.record_type + " record \"" + data.record.name + "\" created successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to create record: ",
+                data
+            );
+        });
     },
 
     render: function() {

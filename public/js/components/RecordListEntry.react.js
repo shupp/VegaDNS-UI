@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordListEntry = React.createClass({
     getInitialState: function() {
@@ -12,7 +13,8 @@ var RecordListEntry = React.createClass({
 
     propTypes: {
         record: ReactPropTypes.object.isRequired,
-        locations: ReactPropTypes.array.isRequired
+        locations: ReactPropTypes.array.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -25,7 +27,18 @@ var RecordListEntry = React.createClass({
 
     handleDeleteRecord: function(e) {
         e.preventDefault();
-        VegaDNSActions.deleteRecord(this.props.record.record_id);
+        VegaDNSClient.deleteRecord(this.props.record.record_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Record deleted successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to delete record: ",
+                data
+            );
+        });
     },
 
     handleEditRecord: function(e) {

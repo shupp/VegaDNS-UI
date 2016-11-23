@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var RecordsStore = require('../stores/RecordsStore');
 var RecordEditForm = require('./RecordEditForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
@@ -18,23 +17,25 @@ var RecordEdit = React.createClass({
     },
 
     getRecord: function() {
-        VegaDNSActions.getRecord(this.props.params["record-id"]);
-    },
-
-    componentDidMount: function() {
-        RecordsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        RecordsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getRecord(this.props.params["record-id"])
+        .success(data => {
+            this.setState({
+                record: data.record
+            });
+        }).error(data => {
+            var message = "Record not found";
+            if (typeof data.responseJSON.message != 'undefined') {
+                message = "Error: " + data.responseJSON.message;
+            }
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve record: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("records?domain-id=" + this.props.params["domain-id"]);
-    },
-
-    onChange() {
-        this.setState({record: RecordsStore.getRecord()});
     },
 
     listLocations() {

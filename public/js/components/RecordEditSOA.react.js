@@ -1,7 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var RecordsStore = require('../stores/RecordsStore');
 var RecordEditSOAForm = require('./RecordEditSOAForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var RecordEditSOA = React.createClass({
     getInitialState: function() {
@@ -16,26 +16,22 @@ var RecordEditSOA = React.createClass({
     },
 
     getSOARecord: function() {
-        VegaDNSActions.getSOARecord(this.props.params["domain-id"]);
-    },
-
-    componentDidMount: function() {
-        RecordsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        RecordsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getSOARecord(this.props.params["domain-id"])
+        .success(data => {
+            this.setState({
+                record: data.records[0],
+                domain: data.domain
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve SOA record: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("records?domain-id=" + this.props.params["domain-id"]);
-    },
-
-    onChange() {
-        this.setState({
-            record: RecordsStore.getSOARecord(),
-            domain: RecordsStore.getDomain()
-        });
     },
 
     render: function() {

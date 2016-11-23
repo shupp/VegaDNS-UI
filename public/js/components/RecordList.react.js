@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var RecordsStore = require('../stores/RecordsStore');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
 var RecordAddForm = require('./RecordAddForm.react');
@@ -92,7 +91,7 @@ var RecordList = React.createClass({
     },
 
     componentWillMount: function() {
-        this.listRecordsCallback(this.state.page);
+        this.listRecords(this.state.page);
         this.listLocations();
     },
 
@@ -120,7 +119,7 @@ var RecordList = React.createClass({
                 search_name: value,
                 page: 1
             },
-            this.listRecordsCallback
+            this.listRecords
         );
     },
 
@@ -134,7 +133,7 @@ var RecordList = React.createClass({
                 search_value: value,
                 page: 1
             },
-            this.listRecordsCallback
+            this.listRecords
         );
     },
 
@@ -142,7 +141,7 @@ var RecordList = React.createClass({
         if (this.state.search_name !== false) {
             this.setState(
                 {search_name: false},
-                this.listRecordsCallback
+                this.listRecords
             );
         }
     },
@@ -151,7 +150,7 @@ var RecordList = React.createClass({
         if (this.state.search_value !== false) {
             this.setState(
                 {search_value: false},
-                this.listRecordsCallback
+                this.listRecords
             );
         }
     },
@@ -160,8 +159,14 @@ var RecordList = React.createClass({
         VegaDNSActions.redirect("recordEditSOA?domain-id=" + this.props.params["domain-id"]);
     },
 
-    listRecordsCallback: function(page=1) {
-        VegaDNSActions.listRecords(
+    listRecords: function(page=1) {
+        this.setState({
+            showAddForm: false,
+            records: [],
+            total: 0
+        });
+
+        VegaDNSClient.records(
             this.props.params["domain-id"],
             page,
             this.state.perpage,
@@ -169,36 +174,21 @@ var RecordList = React.createClass({
             this.state.order,
             this.state.search_name,
             this.state.search_value
-        )
-    },
-
-    componentDidMount: function() {
-        RecordsStore.addChangeListener(this.onChange);
-        RecordsStore.addRefreshChangeListener(this.onRefreshChange);
-    },
-
-    componentWillUnmount: function() {
-        RecordsStore.removeChangeListener(this.onChange);
-        RecordsStore.removeRefreshChangeListener(this.onRefreshChange);
-    },
-
-    onChange() {
-        this.setState({
-            showAddForm: false,
-            records: RecordsStore.getRecordList(),
-            total: RecordsStore.getRecordTotal(),
-            domain: RecordsStore.getDomain()
+        ).success(data => {
+            this.setState({
+                records: data.records,
+                total: data.total_records,
+                domain: data.domain
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification("Unable to retrieve records: ", data);
         });
-    },
-
-    onRefreshChange() {
-        this.listRecordsCallback(this.state.page);
     },
 
     render: function() {
         var addRecordForm =
             <div className="row">
-                <RecordAddForm locations={this.state.locations} domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
+                <RecordAddForm locations={this.state.locations} domain={this.state.domain} hideCallback={this.hideAddRecordForm} listCallback={this.listRecords} />
             </div>
 
         var records = [];
@@ -213,7 +203,7 @@ var RecordList = React.createClass({
             if (this.state.records[key].record_type == "SOA") {
                 continue;
             }
-            records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} locations={this.state.locations} />);
+            records.push(<RecordListEntry key={key} record={this.state.records[key]} domain={this.state.domain} locations={this.state.locations} listCallback={this.listRecords} />);
         }
         var pagerParams = this.props.params;
         if (this.state.search_name !== false) {
