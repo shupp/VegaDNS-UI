@@ -1,7 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var DefaultRecordsStore = require('../stores/DefaultRecordsStore');
 var DefaultRecordEditSOAForm = require('./DefaultRecordEditSOAForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DefaultRecordEditSOA = React.createClass({
     getInitialState: function() {
@@ -15,25 +15,21 @@ var DefaultRecordEditSOA = React.createClass({
     },
 
     getDefaultSOARecord: function() {
-        VegaDNSActions.getDefaultSOARecord();
-    },
-
-    componentDidMount: function() {
-        DefaultRecordsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        DefaultRecordsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getDefaultSOARecord()
+        .success(data => {
+            this.setState({
+                record: data.default_records[0]
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Default SOA Record not found: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
-        VegaDNSActions.redirect("");
-    },
-
-    onChange() {
-        this.setState({
-            record: DefaultRecordsStore.getDefaultSOARecord()
-        });
+        VegaDNSActions.redirect("defaultRecords");
     },
 
     render: function() {

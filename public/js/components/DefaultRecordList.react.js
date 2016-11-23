@@ -1,8 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var DefaultRecordsStore = require('../stores/DefaultRecordsStore');
 var DefaultRecordListEntry = require('./DefaultRecordListEntry.react');
 var DefaultRecordAddForm = require('./DefaultRecordAddForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DefaultRecordList = React.createClass({
     getInitialState: function() {
@@ -25,36 +25,30 @@ var DefaultRecordList = React.createClass({
     },
 
     componentWillMount: function() {
-        this.listDefaultRecordsCallback();
+        this.listDefaultRecords();
     },
 
-    listDefaultRecordsCallback: function() {
-        VegaDNSActions.listDefaultRecords();
-    },
-
-    componentDidMount: function() {
-        DefaultRecordsStore.addChangeListener(this.onChange);
-        DefaultRecordsStore.addRefreshChangeListener(this.onRefreshChange);
-    },
-
-    componentWillUnmount: function() {
-        DefaultRecordsStore.removeChangeListener(this.onChange);
-        DefaultRecordsStore.removeRefreshChangeListener(this.onRefreshChange);
-    },
-
-    onChange() {
+    listDefaultRecords: function() {
         this.setState({
             showAddForm: false,
-            records: DefaultRecordsStore.getDefaultRecordList()
+            records: []
+        });
+
+        VegaDNSClient.defaultRecords()
+        .success(data => {
+            this.setState({
+                records: data.default_records
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve default records: ",
+                data
+            );
         });
     },
 
-    onRefreshChange() {
-        this.listDefaultRecordsCallback();
-    },
-
     render: function() {
-        var addRecordForm = <DefaultRecordAddForm domain={this.state.domain} hideCallback={this.hideAddRecordForm} />
+        var addRecordForm = <DefaultRecordAddForm domain={this.state.domain} hideCallback={this.hideAddRecordForm} listCallback={this.listDefaultRecords} />
 
         var records = [];
 
@@ -62,7 +56,7 @@ var DefaultRecordList = React.createClass({
             if (this.state.records[key].record_type == "SOA") {
                 continue;
             }
-            records.push(<DefaultRecordListEntry key={key} record={this.state.records[key]} />);
+            records.push(<DefaultRecordListEntry key={key} record={this.state.records[key]} listCallback={this.listDefaultRecords} />);
         }
 
         var tableheads = ['name', 'type', 'value', 'ttl', 'distance', 'weight', 'port', 'edit', 'delete', 'id'];

@@ -1,6 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var DefaultRecordsStore = require('../stores/DefaultRecordsStore');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DefaultRecordEditForm = React.createClass({
     getInitialState: function() {
@@ -35,7 +35,19 @@ var DefaultRecordEditForm = React.createClass({
         }
         payload["record_id"] = this.props.record.record_id;
 
-        VegaDNSActions.editDefaultRecord(payload);
+        let default_record = payload;
+        VegaDNSClient.editDefaultRecord(default_record)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Default Record " + default_record.name + " updated successfully"
+            );
+            VegaDNSActions.redirect("defaultRecords");
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Default Record edit failed: ",
+                data
+            );
+        });
     },
 
     render: function() {

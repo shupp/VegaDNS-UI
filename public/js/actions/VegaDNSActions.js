@@ -19,40 +19,6 @@ var VegaDNSActions = {
             actionType: VegaDNSConstants.UPDATE_LOGIN
         });
     },
-    listDefaultRecords: function() {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_DEFAULT_RECORDS
-        });
-    },
-    addDefaultRecord: function(payload) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_DEFAULT_RECORD,
-            payload: payload
-        });
-    },
-    deleteDefaultRecord: function(recordId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_DEFAULT_RECORD,
-            recordId: recordId
-        });
-    },
-    getDefaultRecord: function(recordId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_DEFAULT_RECORD,
-            recordId: recordId
-        });
-    },
-    getDefaultSOARecord: function() {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_DEFAULT_SOA_RECORD
-        });
-    },
-    editDefaultRecord: function(default_record) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_DEFAULT_RECORD,
-            default_record: default_record
-        });
-    },
     listRecords: function(
         domainId, page, perPage, sort, order, search_name=false, search_value=false
     ) {

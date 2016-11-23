@@ -1,7 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var DefaultRecordsStore = require('../stores/DefaultRecordsStore');
 var DefaultRecordEditForm = require('./DefaultRecordEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var DefaultRecordEdit = React.createClass({
     getInitialState: function() {
@@ -15,23 +15,21 @@ var DefaultRecordEdit = React.createClass({
     },
 
     getDefaultRecord: function() {
-        VegaDNSActions.getDefaultRecord(this.props.params["record-id"]);
-    },
-
-    componentDidMount: function() {
-        DefaultRecordsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        DefaultRecordsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getDefaultRecord(this.props.params["record-id"])
+        .success(data => {
+            this.setState({
+                record: data.default_record
+            });
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Unable to retrieve default record: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("defaultRecords");
-    },
-
-    onChange() {
-        this.setState({record: DefaultRecordsStore.getDefaultRecord()});
     },
 
     render: function() {
