@@ -1,7 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var GroupMembersStore = require('../stores/GroupMembersStore');
-var VegaDNSActions = require('../actions/VegaDNSActions');
 var Select = require('react-select');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var GroupMemberListEntry = require('./GroupMemberListEntry.react');
@@ -19,28 +17,40 @@ var GroupMemberList = React.createClass({
     },
 
     listGroupMembers: function() {
-        VegaDNSActions.listGroupMembers(this.props.group.group_id);
-    },
-
-    componentDidMount: function() {
-        GroupMembersStore.addChangeListener(this.onChange);
-        GroupMembersStore.addRefreshChangeListener(this.listGroupMembers);
-    },
-
-    componentWillUnmount: function() {
-        GroupMembersStore.removeChangeListener(this.onChange);
-        GroupMembersStore.removeRefreshChangeListener(this.listGroupMembers);
-    },
-
-    onChange() {
         this.setState({
-            groupmembers: GroupMembersStore.getGroupMemberList()
+            groupmembers: []
+        });
+        VegaDNSClient.groupmembers(this.props.group.group_id)
+        .success(data => {
+            this.setState({
+                groupmembers: data.groupmembers
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve group members: ",
+                data
+            );
         });
     },
 
     addGroupMember: function(e) {
         e.preventDefault();
-        VegaDNSActions.addGroupMember(this.props.group, accounts[this.state.selected_account]);
+
+        let group = this.props.group;
+        let account = accounts[this.state.selected_account];
+
+        VegaDNSClient.addGroupMember(group.group_id, account.account_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                account.first_name + " " + account.last_name + " added to group \"" + group.name + "\" successfully"
+            );
+            this.listGroupMembers();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Adding account to group failed: ",
+                data
+            );
+        });
     },
 
     selectAccountId(accountId) {
@@ -78,7 +88,7 @@ var GroupMemberList = React.createClass({
     render: function() {
         var groupmembers = [];
         for (var key in this.state.groupmembers) {
-            groupmembers.push(<GroupMemberListEntry key={key} groupmember={this.state.groupmembers[key]} group={this.props.group} />);
+            groupmembers.push(<GroupMemberListEntry key={key} groupmember={this.state.groupmembers[key]} group={this.props.group} listCallback={this.listGroupMembers} />);
         }
 
         return (

@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupMemberListEntry = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,8 @@ var GroupMemberListEntry = React.createClass({
     },
 
     propTypes: {
-        groupmember: ReactPropTypes.object.isRequired
+        groupmember: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -23,13 +25,39 @@ var GroupMemberListEntry = React.createClass({
     },
 
     handleDeleteGroupMember: function() {
-        VegaDNSActions.deleteGroupMember(this.props.group, this.props.groupmember.account, this.props.groupmember.member_id);
-        this.setState({showConfirmDeleteDialog: false});
+        VegaDNSClient.deleteGroupMember(this.props.groupmember.member_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Groupmember deleted successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Groupmember deletion failed: ",
+                data
+            );
+        });
     },
 
     changeAdminStatus: function(e) {
-        var newValue = e.target.checked == true ? 1 : 0;
-        VegaDNSActions.editGroupMember(this.props.groupmember.member_id, newValue);
+        var isAdmin = e.target.checked == true ? 1 : 0;
+        VegaDNSClient.editGroupMember(this.props.groupmember.member_id, isAdmin)
+        .success(data => {
+            if (isAdmin) {
+                var message = "Group member now has group admin privileges";
+            } else {
+                var message = "Group member no longer has group admin privileges";
+            }
+            VegaDNSActions.successNotification(
+                message
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Group member admin status edit failed: ",
+                data
+            );
+        });
     },
 
     render: function() {

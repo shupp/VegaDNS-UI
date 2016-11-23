@@ -97,34 +97,6 @@ var VegaDNSActions = {
             recordId: recordId
         });
     },
-    listGroupMembers: function(groupmemberId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_GROUP_MEMBERS,
-            groupmemberId: groupmemberId
-        });
-    },
-    addGroupMember: function(group, account) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_GROUP_MEMBER,
-            group: group,
-            account: account
-        });
-    },
-    editGroupMember: function(groupmemberId, isAdmin) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_GROUP_MEMBER,
-            groupmemberId: groupmemberId,
-            isAdmin: isAdmin
-        });
-    },
-    deleteGroupMember: function(group, account, groupmemberId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_GROUP_MEMBER,
-            group: group,
-            account: account,
-            groupmemberId: groupmemberId
-        });
-    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,
