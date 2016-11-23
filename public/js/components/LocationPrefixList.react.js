@@ -1,6 +1,5 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var LocationPrefixesStore = require('../stores/LocationPrefixesStore');
 var LocationPrefixListEntry = require('./LocationPrefixListEntry.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var LocationPrefixAddForm = require('./LocationPrefixAddForm.react');
@@ -19,29 +18,24 @@ var LocationPrefixList = React.createClass({
     },
 
     listLocationPrefixes: function() {
-        VegaDNSActions.listLocationPrefixes(this.props.params["location_id"]);
-    },
-
-    componentDidMount: function() {
-        LocationPrefixesStore.addChangeListener(this.onChange);
-        LocationPrefixesStore.addRefreshChangeListener(this.onRefreshChange);
-    },
-
-    componentWillUnmount: function() {
-        LocationPrefixesStore.removeChangeListener(this.onChange);
-        LocationPrefixesStore.removeRefreshChangeListener(this.onRefreshChange);
-    },
-
-    onChange() {
         this.setState({
             showAddForm: false,
-            locationPrefixes: LocationPrefixesStore.getLocationPrefixList(),
-            location: LocationPrefixesStore.getLocation()
+            location: {},
+            locationPrefixes: []
         });
-    },
 
-    onRefreshChange() {
-        this.listLocationPrefixes();
+        VegaDNSClient.locationPrefixes(this.props.params["location_id"])
+        .success(data => {
+            this.setState({
+                location: data.location,
+                locationPrefixes: data.location_prefixes
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve location prefixes: ",
+                data
+            );
+        });
     },
 
     showAddLocationPrefixForm: function() {
@@ -63,13 +57,14 @@ var LocationPrefixList = React.createClass({
                     location_prefix={this.state.locationPrefixes[key]}
                     location={this.state.location}
                     account={this.props.account}
+                    listCallback={this.listLocationPrefixes}
                 />
             );
         }
 
         var addLocationPrefixForm =
             <div className="row">
-                <LocationPrefixAddForm location={this.state.location} hideCallback={this.hideAddLocationPrefixForm} />
+                <LocationPrefixAddForm location={this.state.location} hideCallback={this.hideAddLocationPrefixForm} listCallback={this.listLocationPrefixes} />
             </div>
 
         var addButton = <a className="btn btn-primary" onClick={this.showAddLocationPrefixForm} role="button">add</a>

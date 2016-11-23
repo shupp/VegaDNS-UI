@@ -1,6 +1,6 @@
 var React = require('react');
-var LocationPrefixesStore = require('../stores/LocationPrefixesStore');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationPrefixEditForm = React.createClass({
     getInitialState: function() {
@@ -32,12 +32,24 @@ var LocationPrefixEditForm = React.createClass({
     editLocationPrefix: function(e) {
         e.preventDefault();
 
-        VegaDNSActions.editLocationPrefix(
+        VegaDNSClient.editLocationPrefix(
             this.props.location_prefix.prefix_id,
             this.state.prefix,
             this.state.prefix_description,
             this.state.prefix_type
-        );
+        ).success(data => {
+            VegaDNSActions.successNotification(
+                "Location prefix edited successfully"
+            );
+            VegaDNSActions.redirect("locationPrefixes?location_id=" + data.location_prefix.location_id);
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Unable to edit location prefix: ",
+                data
+            );
+        });
+
+        return false;
     },
 
     handleCancel: function(e) {

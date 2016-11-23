@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationPrefixesListEntry = React.createClass({
     getInitialState: function() {
@@ -12,7 +13,8 @@ var LocationPrefixesListEntry = React.createClass({
 
     propTypes: {
         location: ReactPropTypes.object.isRequired,
-        location_prefix: ReactPropTypes.object.isRequired
+        location_prefix: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -25,7 +27,19 @@ var LocationPrefixesListEntry = React.createClass({
 
     handleDeleteLocationPrefix: function(e) {
         e.preventDefault();
-        VegaDNSActions.deleteLocationPrefix(this.props.location_prefix.prefix_id);
+
+        VegaDNSClient.deleteLocationPrefix(this.props.location_prefix.prefix_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Location prefix deleted successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to delete location prefix: ",
+                data
+            );
+        });
     },
 
     handleEditLocationPrefix: function(e) {

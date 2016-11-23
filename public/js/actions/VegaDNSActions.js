@@ -181,42 +181,6 @@ var VegaDNSActions = {
             group: group
         });
     },
-    listLocationPrefixes: function(locationId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_LOCATION_PREFIXES,
-            locationId: locationId
-        });
-    },
-    getLocationPrefix: function(prefixId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_LOCATION_PREFIX,
-            prefixId: prefixId
-        });
-    },
-    addLocationPrefix: function(locationId, prefix, prefixDescription, prefixType) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_LOCATION_PREFIX,
-            locationId: locationId,
-            prefix: prefix,
-            prefixDescription: prefixDescription,
-            prefixType: prefixType
-        });
-    },
-    editLocationPrefix: function(prefixId, prefix, prefixDescription, prefixType) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_LOCATION_PREFIX,
-            prefixId: prefixId,
-            prefix: prefix,
-            prefixDescription: prefixDescription,
-            prefixType: prefixType
-        });
-    },
-    deleteLocationPrefix: function(prefixId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_LOCATION_PREFIX,
-            prefixId: prefixId
-        });
-    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,

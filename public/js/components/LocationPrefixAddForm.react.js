@@ -1,5 +1,6 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationPrefixAddForm = React.createClass({
     getInitialState: function() {
@@ -8,6 +9,11 @@ var LocationPrefixAddForm = React.createClass({
             prefix_description: "",
             prefix_type: "ipv4"
         }
+    },
+
+    propTypes: {
+        location: React.PropTypes.object.isRequired,
+        listCallback: React.PropTypes.func.isRequired
     },
 
     handlePrefixChange: function(e) {
@@ -29,12 +35,26 @@ var LocationPrefixAddForm = React.createClass({
     },
 
     addLocationPrefix: function(e) {
-        VegaDNSActions.addLocationPrefix(
+        e.preventDefault();
+
+        VegaDNSClient.addLocationPrefix(
             this.props.location.location_id,
             this.state.prefix,
             this.state.prefix_description,
             this.state.prefix_type
-        );
+        ).success(data => {
+            VegaDNSActions.successNotification(
+                "Location prefix \"" + this.state.prefix + "\" added successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to add prefix: ",
+                data
+            );
+        });
+
+        return false;
     },
 
     render: function() {

@@ -1,7 +1,7 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var LocationPrefixesStore = require('../stores/LocationPrefixesStore');
 var LocationPrefixEditForm = require('./LocationPrefixEditForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var LocationPrefixEdit = React.createClass({
     getInitialState: function() {
@@ -15,23 +15,21 @@ var LocationPrefixEdit = React.createClass({
     },
 
     getLocationPrefix: function() {
-        VegaDNSActions.getLocationPrefix(this.props.params["prefix_id"]);
-    },
-
-    componentDidMount: function() {
-        LocationPrefixesStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        LocationPrefixesStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getLocationPrefix(this.props.params["prefix_id"])
+        .success(data => {
+            this.setState({
+                location_prefix: data.location_prefix
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retrieve location prefix: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("locationPrefixes?location_id=" + this.props.params["location_id"]);
-    },
-
-    onChange() {
-        this.setState({location_prefix: LocationPrefixesStore.getLocationPrefix()});
     },
 
     render: function() {
