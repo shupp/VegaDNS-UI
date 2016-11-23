@@ -1,6 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var GroupsStore = require('../stores/GroupsStore');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupAddForm = React.createClass({
     getInitialState: function() {
@@ -8,6 +8,11 @@ var GroupAddForm = React.createClass({
             'name': ""
         }
     },
+
+    propTypes: {
+        listCallback: React.PropTypes.func.isRequired
+    },
+
     handleChange: function(name, e) {
         var change = {};
         change[name] = e.target.value;
@@ -21,7 +26,19 @@ var GroupAddForm = React.createClass({
         for (var key in this.state) {
             payload[key] = this.state[key];
         }
-        VegaDNSActions.addGroup(payload);
+
+        VegaDNSClient.addGroup(payload)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Group \"" + payload.name + "\" created successfully"
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Group creation failed: ",
+                data
+            );
+        });
     },
 
     render: function() {

@@ -125,35 +125,6 @@ var VegaDNSActions = {
             groupmemberId: groupmemberId
         });
     },
-    listGroups: function() {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.LIST_GROUPS
-        });
-    },
-    addGroup: function(group) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.ADD_GROUP,
-            group: group
-        });
-    },
-    getGroup: function(groupId) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.GET_GROUP,
-            groupId: groupId
-        });
-    },
-    editGroup: function(group) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.EDIT_GROUP,
-            group: group
-        });
-    },
-    deleteGroup: function(group) {
-        AppDispatcher.dispatch({
-            actionType: VegaDNSConstants.DELETE_GROUP,
-            group: group
-        });
-    },
     addNotification: function(messageType, message, autoDismiss) {
         AppDispatcher.dispatch({
             actionType: VegaDNSConstants.ADD_NOTIFICATION,

@@ -1,9 +1,9 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var GroupsStore = require('../stores/GroupsStore');
 var GroupEditForm = require('./GroupEditForm.react');
 var GroupMemberList = require('./GroupMemberList.react');
 var DomainGroupMapList = require('./DomainGroupMapList.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupEdit = React.createClass({
     getInitialState: function() {
@@ -17,23 +17,21 @@ var GroupEdit = React.createClass({
     },
 
     getGroup: function() {
-        VegaDNSActions.getGroup(this.props.params["group-id"]);
-    },
-
-    componentDidMount: function() {
-        GroupsStore.addChangeListener(this.onChange);
-    },
-
-    componentWillUnmount: function() {
-        GroupsStore.removeChangeListener(this.onChange);
+        VegaDNSClient.getGroup(this.props.params["group-id"])
+        .success(data => {
+            this.setState({
+                group: data.group
+            });
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Unable to retreive group: ",
+                data
+            );
+        });
     },
 
     handleCancel: function() {
         VegaDNSActions.redirect("groups");
-    },
-
-    onChange() {
-        this.setState({group: GroupsStore.getGroup()});
     },
 
     render: function() {

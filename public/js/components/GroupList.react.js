@@ -1,8 +1,8 @@
 var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var GroupsStore = require('../stores/GroupsStore');
 var GroupListEntry = require('./GroupListEntry.react');
 var GroupAddForm = require('./GroupAddForm.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupList = React.createClass({
     getInitialState: function() {
@@ -25,23 +25,20 @@ var GroupList = React.createClass({
     },
 
     listGroups: function() {
-        VegaDNSActions.listGroups();
-    },
-
-    componentDidMount: function() {
-        GroupsStore.addChangeListener(this.onChange);
-        GroupsStore.addRefreshChangeListener(this.listGroups);
-    },
-
-    componentWillUnmount: function() {
-        GroupsStore.removeChangeListener(this.onChange);
-        GroupsStore.removeRefreshChangeListener(this.listGroups);
-    },
-
-    onChange() {
         this.setState({
-            groups: GroupsStore.getGroupList(),
+            groups: [],
             showAddForm: false
+        });
+
+        VegaDNSClient.groups()
+        .success(data => {
+            this.setState({
+                groups: data.groups,
+                showAddForm: false
+            });
+        }).error(data => {
+            "Unable to retreive groups: ",
+            data
         });
     },
 
@@ -56,10 +53,10 @@ var GroupList = React.createClass({
         }
 
         for (var key in this.state.groups) {
-            groups.push(<GroupListEntry key={key} group={this.state.groups[key]} />);
+            groups.push(<GroupListEntry key={key} group={this.state.groups[key]} listCallback={this.listGroups} />);
         }
 
-        var addGroupForm = <GroupAddForm hideCallback={this.hideAddGroupForm} />
+        var addGroupForm = <GroupAddForm hideCallback={this.hideAddGroupForm} listCallback={this.listGroups} />
         var keyList = 
                 <div className="row">
                     <div className="col-md-2">

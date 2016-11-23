@@ -2,6 +2,7 @@ var React = require('react');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupListEntry = React.createClass({
     getInitialState: function() {
@@ -11,7 +12,8 @@ var GroupListEntry = React.createClass({
     },
 
     propTypes: {
-        group: ReactPropTypes.object.isRequired
+        group: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     showDeleteConfirmDialog: function() {
@@ -23,8 +25,18 @@ var GroupListEntry = React.createClass({
     },
 
     handleDeleteGroup: function() {
-        VegaDNSActions.deleteGroup(this.props.group);
-        this.setState({showConfirmDeleteDialog: false});
+        VegaDNSClient.deleteGroup(this.props.group.group_id)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Group \"" + this.props.group.name + "\" deleted successfully",
+            );
+            this.props.listCallback();
+        }).error(data => {
+            VegaDNSActions.errorNotification(
+                "Group deletion failed: ",
+                data
+            );
+        });
     },
 
     handleEditGroup: function() {

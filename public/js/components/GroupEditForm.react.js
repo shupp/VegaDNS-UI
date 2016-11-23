@@ -1,6 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
-var GroupsStore = require('../stores/GroupsStore');
+var React = require('react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
+var VegaDNSClient = require('../utils/VegaDNSClient');
 
 var GroupEditForm = React.createClass({
     getInitialState: function() {
@@ -22,7 +22,17 @@ var GroupEditForm = React.createClass({
             payload[key] = this.state[key];
         }
         payload["group_id"] = this.props.group.group_id;
-        VegaDNSActions.editGroup(payload);
+        VegaDNSClient.editGroup(payload)
+        .success(data => {
+            VegaDNSActions.successNotification(
+                "Group \"" + payload.name + "\" updated successfully"
+            );
+        }).error(data => {
+            VegaDNSActions.addNotification(
+                "Group edit failed: ",
+                data
+            );
+        });
     },
 
     render: function() {
