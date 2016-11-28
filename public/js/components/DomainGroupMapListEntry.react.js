@@ -7,10 +7,7 @@ var VegaDNSClient = require('../utils/VegaDNSClient');
 var DomainGroupMapListEntry = React.createClass({
     getInitialState: function() {
         return {
-            showConfirmDeleteDialog: false,
-            can_read: this.props.domaingroupmap.can_read,
-            can_write: this.props.domaingroupmap.can_write,
-            can_read: this.props.domaingroupmap.can_delete
+            showConfirmDeleteDialog: false
         }
     },
 
@@ -43,22 +40,22 @@ var DomainGroupMapListEntry = React.createClass({
     },
 
     changePermissions: function(e) {
-        switch (e.target.name) {
-            case "can_read":
-                this.state.can_read = e.target.checked;
-                break;
-            case "can_write":
-                this.state.can_write = e.target.checked;
-                break;
-            case "can_delete":
-                this.state.can_delete = e.target.checked;
-                break;
+        let permissions = {
+            can_read: this.props.domaingroupmap.can_read ? 1 : 0,
+            can_write: this.props.domaingroupmap.can_write ? 1 : 0,
+            can_delete: this.props.domaingroupmap.can_delete ? 1 :0
         }
 
-        var permissions = {
-            can_read: this.state.can_read ? 1 : 0,
-            can_write: this.state.can_write ? 1 : 0,
-            can_delete: this.state.can_delete ? 1 : 0
+        switch (e.target.name) {
+            case "can_read":
+                permissions.can_read = e.target.checked ? 1 : 0;
+                break;
+            case "can_write":
+                permissions.can_write = e.target.checked ? 1 : 0;
+                break;
+            case "can_delete":
+                permissions.can_delete = e.target.checked ? 1 : 0;
+                break;
         }
 
         VegaDNSClient.editDomainGroupMap(this.props.domaingroupmap.map_id, permissions)
