@@ -55,6 +55,9 @@ var HeaderSection = React.createClass({
                 }
                 break;
             case "locations":
+            case "locationEdit":
+            case "locationPrefixes":
+            case "locationPrefixEdit":
                 menuLocations = <li className="active"><a href="#locations">Locations <span className="sr-only">(current)</span></a></li>
                 break;
             case "auditLogs":
