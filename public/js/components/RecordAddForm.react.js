@@ -31,7 +31,12 @@ var RecordAddForm = React.createClass({
 
         var payload = {} 
         for (var key in this.state) {
-            payload[key] = this.state[key];
+            if (this.state.record_type == "CNAME" && key == "value") {
+                // Trim CNAME value
+                payload[key] = String(this.state[key]).replace(/^\s+|\s+$/g, '');
+            } else {
+                payload[key] = this.state[key];
+            }
         }
         if (payload["name"] == 0) {
             payload["name"] = this.props.domain.domain;
@@ -153,7 +158,7 @@ var RecordAddForm = React.createClass({
                     <div className="form-group">
                         <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
                         <div className="col-sm-8">
-                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" placeholder="See example below"/>
+                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" value={this.state.value} placeholder="See example below"/>
                             Example: {example}
                         </div>
                     </div>

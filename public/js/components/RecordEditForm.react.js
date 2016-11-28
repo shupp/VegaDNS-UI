@@ -32,7 +32,12 @@ var RecordEditForm = React.createClass({
 
         var payload = {}
         for (var key in this.state) {
-            payload[key] = this.state[key];
+            if (key == "value" && this.state.record_type == "CNAME") {
+                // Trim CNAME value
+                payload[key] = String(this.state[key]).replace(/^\s+|\s+$/g, '');
+            } else {
+                payload[key] = this.state[key];
+            }
         }
         payload["record_id"] = this.props.record.record_id;
 
