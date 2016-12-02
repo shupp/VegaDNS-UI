@@ -7,6 +7,9 @@ if (typeof VegaDNSAPIVersion !== "undefined") {
     VegaDNSConfig["version"] = VegaDNSAPIVersion;
 }
 
+// CSS imports
+import 'react-select/dist/react-select.css';
+
 var React = require('react');
 var ReactDOM = require('react-dom');
 var VegaDNSApp = require('./components/VegaDNSApp.react');
