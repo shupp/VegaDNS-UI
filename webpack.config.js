@@ -1,4 +1,18 @@
 var webpack = require('webpack');
+var plugins = [];
+var devtool = "inline-source-map";
+
+if (process.env.hasOwnProperty('ENV') && process.env.ENV === 'production') {
+    devtool = "source-map";
+
+    plugins.push(
+        new webpack.DefinePlugin({
+            'process.env': {
+                'NODE_ENV': JSON.stringify('production')
+            }
+        })
+    );
+}
 
 // webpack.config.js
 module.exports = {
@@ -15,10 +29,22 @@ module.exports = {
             {
                 test: /\.js$/,
                 loader: 'babel',
-                exclude: /(node_modules)/
-            }
+                exclude: /node_modules/,
+                query: {
+                    cacheDirectory: true,
+                    presets: ['es2015', 'react']
+                }
+            },
+            {
+                test: /\.css$/,
+                loader: 'style-loader!css-loader'
+            },
         ]
     },
-    devtool: "inline-source-map",
-    debug: true
+    plugins: plugins,
+    devtool: devtool,
+    debug: true,
+    node: {
+        fs: "empty"
+    }
 };
