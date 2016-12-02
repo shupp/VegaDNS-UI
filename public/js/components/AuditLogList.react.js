@@ -32,7 +32,7 @@ var AuditLogList = React.createClass({
 
         var domainIds = "";
         if (typeof this.props.params.domainIds !== "undefined") {
-            domainIds = this.props.params.domainIds;
+            domainIds = URI.decode(this.props.params.domainIds);
         }
 
         var selectedOptions = [];
