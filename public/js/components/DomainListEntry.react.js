@@ -73,7 +73,7 @@ var DomainListEntry = React.createClass({
         var confirmDeleteDialog = <ConfirmDialog confirmText={"Are you sure you wan't to delete the domain \"" + domain.domain + "\"?"} confirmCallback={this.handleDeleteDomain} cancelCallback={this.hideDeleteConfirmDialog} />
         var statusCheckbox = null;
         if (this.props.account.account_type == "senior_admin") {
-            statusCheckbox = <input type="checkbox" defaultChecked={domain.status == "active"} checked={this.state.statusChecked} onChange={this.changeStatus} />
+            statusCheckbox = <input type="checkbox" checked={this.state.statusChecked} onChange={this.changeStatus} />
         }
         if (this.state.showConfirmDeleteDialog) {
             return (<tr>
