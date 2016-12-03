@@ -37,7 +37,7 @@ var PasswordResetRequest = React.createClass({
         var emailForm = <form className="form-signin">
             <h4 className="form-signin-heading">Please enter your email address to reset your password</h4>
             <label htmlFor="inputEmail" className="sr-only">Email address</label>
-            <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" autofocus />
+            <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" autoFocus />
             <button className="btn btn-lg btn-primary btn-block" onClick={this.requestPasswordReset} type="submit">Submit</button>
             <div style={{marginTop: "10px"}}><a href="#">Back to log in</a></div>
         </form>

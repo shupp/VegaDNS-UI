@@ -85,9 +85,9 @@ var PasswordReset = React.createClass({
         var passwordResetForm = <form className="form-signin">
             <h4 className="form-signin-heading">Please enter and confirm your new password</h4>
             <label htmlFor="password1" className="sr-only">New Password</label>
-            <input type="password" onChange={this.handlePassword1Change} id="password1" className="form-control" placeholder="New Password" autofocus />
+            <input type="password" onChange={this.handlePassword1Change} id="password1" className="form-control" placeholder="New Password" autoFocus />
             <label htmlFor="password2" className="sr-only">Confirm New Password</label>
-            <input type="password" onChange={this.handlePassword2Change} id="password2" className="form-control" placeholder="Confirm New Password" autofocus />
+            <input type="password" onChange={this.handlePassword2Change} id="password2" className="form-control" placeholder="Confirm New Password" autoFocus />
             <button className="btn btn-lg btn-primary btn-block" onClick={this.passwordReset} type="submit">Submit</button>
             <div style={{marginTop: "10px"}}><a href="#">Back to log in</a></div>
         </form>

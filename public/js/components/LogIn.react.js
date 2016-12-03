@@ -19,7 +19,7 @@ var LogIn = React.createClass({
                 <form className="form-signin">
                     <h2 className="form-signin-heading">Please sign in</h2>
                     <label htmlFor="inputEmail" className="sr-only">Email address</label>
-                    <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" autofocus />
+                    <input type="email" onChange={this.handleEmailChange} id="inputEmail" className="form-control" placeholder="Email address" autoFocus />
                     <label htmlFor="inputPassword" className="sr-only">Password</label>
                     <input type="password" onChange={this.handlePasswordChange} id="inputPassword" className="form-control" placeholder="Password" required />
                     {/*
