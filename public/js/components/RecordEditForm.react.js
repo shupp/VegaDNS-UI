@@ -15,6 +15,9 @@ var RecordEditForm = React.createClass({
         }
         var values = defaults;
         for (var key in this.props.record) {
+            if (key == "location_id" && this.props.record[key] === null) {
+                continue;
+            }
             values[key] = this.props.record[key];
         }
 

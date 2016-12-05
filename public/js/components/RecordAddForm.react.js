@@ -11,7 +11,7 @@ var RecordAddForm = React.createClass({
             'distance': "",
             'weight': "",
             'port': "",
-            'location_id': null,
+            'location_id': "",
             'ttl': 3600,
         }
     },
