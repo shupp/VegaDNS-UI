@@ -30,11 +30,6 @@ var AuditLogList = React.createClass({
             order = 'desc';
         }
 
-        var domainIds = "";
-        if (typeof this.props.params.domainIds !== "undefined") {
-            domainIds = URI.decode(this.props.params.domainIds);
-        }
-
         var selectedOptions = [];
         if (typeof this.props.params.selectedOptions !== "undefined") {
             selectedOptions = JSON.parse(URI.decode(this.props.params.selectedOptions));
@@ -46,7 +41,6 @@ var AuditLogList = React.createClass({
             perpage: 25,
             sort: sort,
             order: order,
-            domainIds: domainIds,
             options: [],
             selectedOptions: selectedOptions,
             logs: []
@@ -77,8 +71,12 @@ var AuditLogList = React.createClass({
 
     listAuditLogs: function() {
         var domainIds = false;
-        if (this.state.domainIds.length > 0) {
-            domainIds = this.state.domainIds;
+        if (this.state.selectedOptions.length > 0) {
+            let domainIdList = [];
+            for (let i = 0; i < this.state.selectedOptions.length;i++) {
+                domainIdList.push(this.state.selectedOptions[i].value);
+            }
+            domainIds = domainIdList.join(',');
         }
 
         this.setState({
@@ -105,11 +103,10 @@ var AuditLogList = React.createClass({
         });
     },
 
-    selectDomainIds(domainIds, selectedOptions) {
+    selectDomainIds(selectedOptions) {
         this.setState(
             {
                 page: 1,
-                domainIds: domainIds,
                 selectedOptions: selectedOptions
             },
             this.listAuditLogs
@@ -131,9 +128,6 @@ var AuditLogList = React.createClass({
             sort: header
         };
 
-        if (this.state.domainIds.length > 0) {
-            params.domainIds = this.state.domainIds;
-        }
         if (this.state.selectedOptions.length > 0) {
             params.selectedOptions = JSON.stringify(this.state.selectedOptions);
         }
@@ -166,11 +160,6 @@ var AuditLogList = React.createClass({
         }
 
         var pagerParams = this.props.params;
-        if (this.state.domainIds.length > 0) {
-            pagerParams.domainIds = this.state.domainIds;
-        } else {
-            delete pagerParams.domainIds;
-        }
         if (this.state.selectedOptions.length > 0) {
             pagerParams.selectedOptions = JSON.stringify(this.state.selectedOptions);
         } else {
