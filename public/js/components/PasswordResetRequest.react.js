@@ -13,7 +13,9 @@ var PasswordResetRequest = React.createClass({
     },
 
     handleEmailChange: function(e) {
-        this.state.email = e.target.value;
+        this.setState({
+            email: e.target.value
+        });
     },
 
     requestPasswordReset: function(e) {

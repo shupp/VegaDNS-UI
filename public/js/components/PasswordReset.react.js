@@ -20,11 +20,15 @@ var PasswordReset = React.createClass({
     },
 
     handlePassword1Change: function(e) {
-        this.state.password1 = e.target.value;
+        this.setState({
+            password1: e.target.value
+        });
     },
 
     handlePassword2Change: function(e) {
-        this.state.password2 = e.target.value;
+        this.setState({
+            password2: e.target.value
+        });
     },
 
     checkTokenStatus: function () {
