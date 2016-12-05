@@ -102,6 +102,7 @@ var HeaderSection = React.createClass({
                       <ul className="dropdown-menu">
                         <li><a href="#apikeys">API Keys</a></li>
                         <li><a href="#myAccountEdit">My Account</a></li>
+                        <li><a href="#about">About</a></li>
                         <li role="separator" className="divider"></li>
                         <li><a href="#" onClick={this.submitLogOut}>Sign Out</a></li>
                       </ul>

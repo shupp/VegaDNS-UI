@@ -493,6 +493,11 @@ VegaDNSClient.prototype.healthcheck = function() {
     return this.send(url, "GET");
 }
 
+VegaDNSClient.prototype.releaseVersion = function() {
+    var url = this.getHost() + "/release_version";
+    return this.send(url, "GET");
+}
+
 VegaDNSClient.prototype.containsAuthError = function(data) {
     if ("status" in data) {
         if (data.status == "error") {
