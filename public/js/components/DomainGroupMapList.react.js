@@ -11,7 +11,8 @@ var DomainGroupMapList = React.createClass({
             domaingroupmaps: [],
             can_read: false,
             can_write: false,
-            can_delete: false
+            can_delete: false,
+            selected_domain: null
         }
     },
 
@@ -22,6 +23,10 @@ var DomainGroupMapList = React.createClass({
     listDomainGroupMaps: function() {
         this.setState({
             domaingroupmaps: [],
+            can_read: false,
+            can_write: false,
+            can_delete: false,
+            selected_domain: null
         });
 
         VegaDNSClient.domaingroupmaps(this.props.group.group_id)
@@ -40,13 +45,19 @@ var DomainGroupMapList = React.createClass({
     setNewDomainPermission: function(e) {
         switch (e.target.name) {
             case "can_read":
-                this.state.can_read = e.target.checked;
+                this.setState({
+                    can_read: e.target.checked
+                });
                 break;
             case "can_write":
-                this.state.can_write = e.target.checked;
+                this.setState({
+                    can_write: e.target.checked
+                });
                 break;
             case "can_delete":
-                this.state.can_delete = e.target.checked;
+                this.setState({
+                    can_delete:e.target.checked
+                });
                 break;
         }
     },
@@ -60,7 +71,7 @@ var DomainGroupMapList = React.createClass({
             can_delete:this.state.can_delete ? 1 : 0
         }
 
-        let domain = domains[this.state.selected_domain];
+        let domain = domains[this.state.selected_domain.value];
         let group = this.props.group;
 
         VegaDNSClient.addDomainGroupMap(group.group_id, domain.domain_id, permissions)
@@ -81,7 +92,9 @@ var DomainGroupMapList = React.createClass({
     },
 
     selectDomainId(domainId) {
-        this.state.selected_domain = domainId;
+        this.setState({
+            selected_domain: domainId
+        });
     },
 
     searchDomains(input, callback) {
@@ -124,15 +137,17 @@ var DomainGroupMapList = React.createClass({
                     <div className="form-group">
                         <label htmlFor="domain" className="col-sm-2 control-label">Domain</label>
                         <div className="col-sm-8">
-                            <Select
+                            <Select.Async
                                 name="selected_domain"
-                                autoload={false}
-                                asyncOptions={this.searchDomains}
+                                isLoading={true}
+                                cache={false}
+                                loadOptions={this.searchDomains}
                                 onChange={this.selectDomainId}
+                                value={this.state.selected_domain}
                             />
-                            <input type="checkbox" onClick={this.setNewDomainPermission} defaultChecked={this.state.can_read} name="can_read" /> read | &nbsp;
-                            <input type="checkbox" onClick={this.setNewDomainPermission} defaultChecked={this.state.can_write} name="can_write" /> write | &nbsp;
-                            <input type="checkbox" onClick={this.setNewDomainPermission} defaultChecked={this.state.can_delete} name="can_delete" /> delete
+                            <input type="checkbox" onClick={this.setNewDomainPermission} checked={this.state.can_read} name="can_read" /> read | &nbsp;
+                            <input type="checkbox" onClick={this.setNewDomainPermission} checked={this.state.can_write} name="can_write" /> write | &nbsp;
+                            <input type="checkbox" onClick={this.setNewDomainPermission} checked={this.state.can_delete} name="can_delete" /> delete
                         </div>
                         <div className="col-sm-2">
                             <button type="submit" onClick={this.addDomainGroupMap} className="btn btn-primary">add</button>

@@ -8,7 +8,8 @@ var accounts = [];
 var GroupMemberList = React.createClass({
     getInitialState: function() {
         return {
-            groupmembers: []
+            groupmembers: [],
+            selected_account: null
         }
     },
 
@@ -18,7 +19,8 @@ var GroupMemberList = React.createClass({
 
     listGroupMembers: function() {
         this.setState({
-            groupmembers: []
+            groupmembers: [],
+            selected_account: null
         });
         VegaDNSClient.groupmembers(this.props.group.group_id)
         .success(data => {
@@ -37,7 +39,7 @@ var GroupMemberList = React.createClass({
         e.preventDefault();
 
         let group = this.props.group;
-        let account = accounts[this.state.selected_account];
+        let account = accounts[this.state.selected_account.value];
 
         VegaDNSClient.addGroupMember(group.group_id, account.account_id)
         .success(data => {
@@ -54,7 +56,9 @@ var GroupMemberList = React.createClass({
     },
 
     selectAccountId(accountId) {
-        this.state.selected_account = accountId;
+        this.setState({
+            selected_account: accountId
+        });
     },
 
     searchAccounts(input, callback) {
@@ -98,11 +102,13 @@ var GroupMemberList = React.createClass({
                     <div className="form-group">
                         <label htmlFor="name" className="col-md-2 control-label">Account </label>
                         <div className="col-md-8">
-                            <Select
+                            <Select.Async
                                 name="selected_account_id"
-                                autoload={false}
-                                asyncOptions={this.searchAccounts}
+                                isLoading={true}
+                                cache={false}
+                                loadOptions={this.searchAccounts}
                                 onChange={this.selectAccountId}
+                                value={this.state.selected_account}
                             />
                         </div>
                         <div className="col-md-1">

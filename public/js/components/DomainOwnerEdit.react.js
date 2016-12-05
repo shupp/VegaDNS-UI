@@ -10,7 +10,7 @@ var DomainOwnerEdit = React.createClass({
         return {
             domain: {},
             account: {account_id: 0},
-            selected_account: false,
+            selected_account: null
         }
     },
 
@@ -42,7 +42,9 @@ var DomainOwnerEdit = React.createClass({
     },
 
     selectAccountId(accountId) {
-        this.state.selected_account = accountId;
+        this.setState({
+            selected_account: accountId
+        });
     },
 
     searchAccounts(input, callback) {
@@ -84,7 +86,7 @@ var DomainOwnerEdit = React.createClass({
         } else {
             VegaDNSClient.updateDomainOwner(
                 this.state.domain.domain_id,
-                this.state.selected_account
+                this.state.selected_account.value
             ).success(data => {
                 VegaDNSActions.successNotification("Domain owner updated successfully");
                 VegaDNSActions.redirect('domains');
@@ -142,11 +144,12 @@ var DomainOwnerEdit = React.createClass({
                             <div className="form-group">
                                 <label htmlFor="name" className="col-xs-3 col-sm-4 col-md-2 control-label">Select New Owner</label>
                                 <div className="col-xs-7 col-sm-7 col-md-6">
-                                    <Select
+                                    <Select.Async
                                         name="selected_account_id"
-                                        autoload={false}
-                                        asyncOptions={this.searchAccounts}
+                                        cache={false}
+                                        loadOptions={this.searchAccounts}
                                         onChange={this.selectAccountId}
+                                        value={this.state.selected_account}
                                     />
                                 </div>
                             </div>
