@@ -448,7 +448,7 @@ VegaDNSClient.prototype.deleteLocationPrefix = function(prefixId) {
     return this.send(url, "DELETE");
 }
 
-VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, domainIds = false) {
+VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, search = false, domainIds = false) {
     var data = {
         page: page,
         perpage: perpage,
@@ -457,6 +457,9 @@ VegaDNSClient.prototype.audit_logs = function(page, perpage, sort, order, domain
     };
     if (domainIds !== false) {
         data.domain_ids = domainIds;
+    }
+    if (search !== false) {
+        data.search = search;
     }
 
     var url = this.getHost() + "/audit_logs";

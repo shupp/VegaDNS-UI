@@ -35,6 +35,13 @@ var AuditLogList = React.createClass({
             selectedOptions = JSON.parse(URI.decode(this.props.params.selectedOptions));
         }
 
+        var search;
+        if (typeof this.props.params.search !== "undefined") {
+            search = decodeURIComponent(this.props.params.search);
+        } else {
+            search = false;
+        }
+
         return {
             total: 0,
             page: page,
@@ -43,6 +50,7 @@ var AuditLogList = React.createClass({
             order: order,
             options: [],
             selectedOptions: selectedOptions,
+            search: search,
             logs: []
         }
     },
@@ -89,6 +97,7 @@ var AuditLogList = React.createClass({
             25, // perpage
             this.state.sort,
             this.state.order,
+            this.state.search,
             domainIds
         ).success(data => {
             this.setState({
@@ -146,6 +155,25 @@ var AuditLogList = React.createClass({
         return hashUrl + fakeQueryUrl.search();
     },
 
+    searchLogs(e) {
+        var value = e.target.value;
+        if (value.length < 1) {
+            value = false;
+        }
+        this.setState(
+            {
+                search: value,
+                page: 1
+            }
+        , this.listAuditLogs);
+    },
+
+    clearSearch() {
+        if (this.state.search !== false) {
+            this.setState({search: false}, this.listAuditLogs);
+        }
+    },
+
     render: function() {
         var logs = [];
 
@@ -159,7 +187,17 @@ var AuditLogList = React.createClass({
             );
         }
 
+        var searchValue = this.state.search;
+        if (searchValue === false) {
+            searchValue = "";
+        }
+
         var pagerParams = this.props.params;
+        if (this.state.search !== false) {
+            pagerParams.search = this.state.search;
+        } else {
+            delete pagerParams.search;
+        }
         if (this.state.selectedOptions.length > 0) {
             pagerParams.selectedOptions = JSON.stringify(this.state.selectedOptions);
         } else {
@@ -208,6 +246,17 @@ var AuditLogList = React.createClass({
                                 </div>
                                 <div className="col-sm-12">
                                     <br />
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div>
+                        <form className="search-vertical-padding form-horizontal" autoComplete="off">
+                            <div className="form-group">
+                                <label htmlFor="domain_search" className="col-sm-2 control-label search-label-padding">Search Entry</label>
+                                <div className="col-sm-8 btn-group">
+                                    <input type="text" className="form-control" onChange={this.searchLogs} id="domain_search" value={searchValue} />
+                                    <span onClick={this.clearSearch} className="searchclear">x</span>
                                 </div>
                             </div>
                         </form>
