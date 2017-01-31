@@ -25,7 +25,9 @@ var AuditLogListEntry = React.createClass({
     render: function() {
         var audit_log = this.props.audit_log;
         var domainName = audit_log.domain_id;
-        if (this.state.domainName !== false) {
+        if (audit_log.domain_id == 0) {
+            domainName = "n/a";
+        } else if (this.state.domainName !== false) {
             domainName = this.state.domainName;
         }
 
