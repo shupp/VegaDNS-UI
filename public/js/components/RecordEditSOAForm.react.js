@@ -110,9 +110,9 @@ var RecordEditSOAForm = React.createClass({
                     <div className="form-group">
                         <div className="col-sm-4"></div>
                         <div className="col-sm-8">
-                            <button type="submit" onClick={this.editRecord} className="btn btn-success">edit</button>
+                            <button type="submit" onClick={this.editRecord} className="btn btn-success">Edit</button>
                             &nbsp;
-                            <button type="submit" onClick={this.props.cancelCallback} className="btn btn-danger">Cancel</button>
+                            <button type="submit" onClick={this.props.cancelCallback} className="btn btn-primary">Cancel</button>
                         </div>
                     </div>
                 </form>

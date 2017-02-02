@@ -174,6 +174,15 @@ VegaDNSClient.prototype.records = function(
     return this.send(url, "GET", data);
 }
 
+VegaDNSClient.prototype.addDefaultSOA = function(domain) {
+    var url = this.getHost() + "/domains/" + domain + "/create_default_soa" ;
+    var data = {
+        domain: domain
+    }
+
+    return this.send(url, "POST", data);
+}
+
 VegaDNSClient.prototype.addRecord = function(payload) {
     var url = this.getHost() + "/records";
 
@@ -353,10 +362,13 @@ VegaDNSClient.prototype.getDomain = function(domainId) {
     return this.send(url, "GET");
 }
 
-VegaDNSClient.prototype.addDomain = function(domain) {
+VegaDNSClient.prototype.addDomain = function(domain, skipSoa = false) {
     var url = this.getHost() + "/domains" ;
     var data = {
         domain: domain
+    }
+    if (skipSoa !== false) {
+        data.skip_soa = 1;
     }
 
     return this.send(url, "POST", data);
