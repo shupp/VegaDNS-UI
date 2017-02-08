@@ -63,7 +63,12 @@ var AuditLogList = React.createClass({
     loadDomains() {
         VegaDNSClient.domains(false, false, false, false, false)
         .success(data => {
-            var options = [];
+            var options = [
+                {
+                    value: 0,
+                    label: "Group Member Changes"
+                }
+            ];
             for (var i = 0; i < data.domains.length; i++) {
                 // Local lookups for domain name
                 domains[data.domains[i].domain_id] = data.domains[i];
@@ -234,7 +239,7 @@ var AuditLogList = React.createClass({
                     <div>
                         <form className="form-horizontal" autoComplete="off">
                             <div className="form-group">
-                                <label htmlFor="domain" className="col-sm-2 control-label">Filter by Domain</label>
+                                <label htmlFor="domain" className="col-sm-2 control-label">Filter</label>
                                 <div className="col-sm-8">
                                     <Select
                                         options={this.state.options}
