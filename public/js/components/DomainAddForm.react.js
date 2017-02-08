@@ -6,7 +6,9 @@ var DomainAddForm = React.createClass({
     getInitialState: function() {
         return {
             domain: "",
-            skipSoa: false
+            skipSoa: false,
+            skipDefaultRecords: false,
+            moveCollidingRecords: false
         }
     },
 
@@ -20,11 +22,27 @@ var DomainAddForm = React.createClass({
         });
     },
 
+    handleSkipDefaultRecordsChange: function(e) {
+        this.setState({
+            skipDefaultRecords: e.target.checked
+        });
+    },
+
+    handleMoveCollidingRecordsChange: function(e) {
+        this.setState({
+            moveCollidingRecords: e.target.checked
+        });
+    },
+
     addDomain: function(e) {
         e.preventDefault();
 
-        VegaDNSClient.addDomain(this.state.domain, this.state.skipSoa)
-        .success(data => {
+        VegaDNSClient.addDomain(
+            this.state.domain,
+            this.state.skipSoa,
+            this.state.skipDefaultRecords,
+            this.state.moveCollidingRecords
+        ).success(data => {
             var new_id = data.domain.domain_id;
             VegaDNSActions.successNotification("Domain created successfully");
             VegaDNSActions.redirect("records?domain-id=" + new_id);
@@ -46,6 +64,18 @@ var DomainAddForm = React.createClass({
                         <label>
                             <input type="checkbox" onChange={this.handleSkipSOAChange} id="skip_soa" checked={this.state.skipSoa} />
                             Skip SOA record creation
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" onChange={this.handleSkipSOAChange} id="skip_default_records" checked={this.state.skipDefaultRecords} />
+                            Skip creating ALL default records
+                        </label>
+                    </div>
+                    <div className="checkbox">
+                        <label>
+                            <input type="checkbox" onChange={this.handleMoveCollidingRecordsChange} id="move_colliding_records" checked={this.state.moveCollidingRecords} />
+                            Move colliding records (<em>e.g.: Creating domain "foo.bar.com" would move existing A record "foo.bar.com" of existing domain "bar.com" into this new domain.</em>)
                         </label>
                     </div>
                     <button type="submit" onClick={this.addDomain} className="btn btn-primary">Create</button>

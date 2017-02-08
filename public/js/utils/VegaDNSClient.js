@@ -362,13 +362,21 @@ VegaDNSClient.prototype.getDomain = function(domainId) {
     return this.send(url, "GET");
 }
 
-VegaDNSClient.prototype.addDomain = function(domain, skipSoa = false) {
+VegaDNSClient.prototype.addDomain = function(
+    domain, skipSoa = false, skipDefaultRecords = false, moveCollidingRecords = false
+) {
     var url = this.getHost() + "/domains" ;
     var data = {
         domain: domain
     }
     if (skipSoa !== false) {
         data.skip_soa = 1;
+    }
+    if (skipDefaultRecords !== false) {
+        data.skip_default_records = 1;
+    }
+    if (moveCollidingRecords !== false) {
+        data.move_colliding_records = 1;
     }
 
     return this.send(url, "POST", data);
