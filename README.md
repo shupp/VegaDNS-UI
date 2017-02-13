@@ -14,3 +14,9 @@ npm run-script watch
 ```
 
 Then you can point your browser to [http://localhost:8080/webpack-dev-server](http://localhost:8080/webpack-dev-server).  By default, it points at a local API server at http://localhost:5000 (flask test server default).  If you want to change this, uncomment and modify the VegaDNSHost variable in public/index.html.
+
+## Docker container configuration
+
+| env variable | default | description |
+| - | - | - |
+| API_URL | http<i></i>://localhost:5000/ | Sets the location of the VegaDNS-API host. |

@@ -9,3 +9,5 @@ RUN apk add --update --virtual build-dependancies git bash nodejs \
   && apk del build-dependancies
 RUN rm -rf /usr/share/nginx/html/ && \
   ln -s /opt/vegadns/public /usr/share/nginx/html
+
+CMD ["/opt/vegadns/run.sh"]
