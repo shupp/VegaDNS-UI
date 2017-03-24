@@ -53,7 +53,7 @@ var RecordEditForm = React.createClass({
             );
             VegaDNSActions.redirect("records?domain-id=" + record.domain_id);
         }).error(data => {
-            VegaDNSActions.addNotification(
+            VegaDNSActions.errorNotification(
                 "Record edit failed: ",
                 data
             );
