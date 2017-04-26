@@ -114,7 +114,7 @@ var AccountEditForm = React.createClass({
                         <div className="form-group">
                             <label htmlFor="email" className="col-sm-4 control-label">Email Address</label>
                             <div className="col-sm-8">
-                                <input type="email" onChange={this.handleChange.bind(this, 'email')} className="form-control" autoComplete="off" value={this.state.email} />
+                                <input type="text" onChange={this.handleChange.bind(this, 'email')} className="form-control" autoComplete="for-user-not-autofill" value={this.state.email} />
                             </div>
                         </div>
                         <div className="form-group">
@@ -126,7 +126,7 @@ var AccountEditForm = React.createClass({
                         <div className="form-group">
                             <label htmlFor="password" className="col-sm-4 control-label">Change Password</label>
                             <div className="col-sm-8">
-                                <input type="password" onChange={this.handleChange.bind(this, 'password')} className="form-control" />
+                                <input type="password" onChange={this.handleChange.bind(this, 'password')} autofill="for-user-not-autofill" className="form-control" />
                             </div>
                         </div>
                         {accountType}
