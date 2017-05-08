@@ -68,7 +68,7 @@ var DomainAddForm = React.createClass({
                     </div>
                     <div className="checkbox">
                         <label>
-                            <input type="checkbox" onChange={this.handleSkipSOAChange} id="skip_default_records" checked={this.state.skipDefaultRecords} />
+                            <input type="checkbox" onChange={this.handleSkipDefaultRecordsChange} id="skip_default_records" checked={this.state.skipDefaultRecords} />
                             Skip creating ALL default records
                         </label>
                     </div>
