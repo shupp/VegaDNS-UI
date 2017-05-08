@@ -5,6 +5,7 @@
   "main": "public/js/app.js",
   "scripts": {
     "watch": "webpack-dev-server --hot --progress --colors --content-base public/",
+    "watchs": "webpack-dev-server --https --hot --progress --colors --content-base public/",
     "test": "echo \"No unit tests yet\" && exit 1",
     "build": "webpack --progress --profile --colors"
   },
