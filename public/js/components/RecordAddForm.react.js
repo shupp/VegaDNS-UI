@@ -11,6 +11,9 @@ var RecordAddForm = React.createClass({
             'distance': "",
             'weight': "",
             'port': "",
+            'flag': 0,
+            'tag': "",
+            'tagval': "",
             'location_id': "",
             'ttl': 3600,
         }
@@ -81,6 +84,40 @@ var RecordAddForm = React.createClass({
                             <input onChange={this.handleChange.bind(this, 'port')} className="form-control" id="port" />
                         </div>
                     </div>
+        var flag =
+                    <div className="form-group">
+                        <label htmlFor="flag" className="col-sm-4 control-label">Flag</label>
+                        <div className="col-sm-2">
+                            <input onChange={this.handleChange.bind(this, 'flag')} className="form-control" id="flag" />
+                        </div>
+                    </div>
+        var tag =
+                    <div className="form-group">
+                        <label htmlFor="tag" className="col-sm-4 control-label">Tag</label>
+                        <div className="col-sm-2">
+                            <select id="tag" onChange={this.handleChange.bind(this, 'tag')} className="form-control" value={this.state.tag}>
+                                <option value={null}></option>
+                                <option>issue</option>
+                                <option>issuewild</option>
+                                <option>iodef</option>
+                            </select>
+                        </div>
+                    </div>
+        var tagVal =
+                    <div className="form-group">
+                        <label htmlFor="tagval" className="col-sm-4 control-label">Tag Value</label>
+                        <div className="col-sm-2">
+                            <input onChange={this.handleChange.bind(this, 'tagval')} className="form-control" id="tagval" />
+                        </div>
+                    </div>
+        var value =
+                    <div className="form-group">
+                        <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
+                        <div className="col-sm-8">
+                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" value={this.state.value} placeholder="See example below"/>
+                            Example: {example}
+                        </div>
+                    </div>
 
         var example = null;
         switch (this.state.record_type) {
@@ -141,6 +178,7 @@ var RecordAddForm = React.createClass({
                                 <option value="CNAME">CNAME</option>
                                 <option value="SRV">SRV</option>
                                 <option value="SPF">SPF</option>
+                                <option value="CAA">CAA</option>
                             </select>
                         </div>
                     </div>
@@ -155,16 +193,13 @@ var RecordAddForm = React.createClass({
                             </div>
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
-                        <div className="col-sm-8">
-                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" value={this.state.value} placeholder="See example below"/>
-                            Example: {example}
-                        </div>
-                    </div>
+                    {this.state.record_type != "CAA" ? value : null}
                     {["MX", "SRV"].indexOf(this.state.record_type) > -1 ? distance : null}
                     {this.state.record_type == "SRV" ? weight : null}
                     {this.state.record_type == "SRV" ? port : null}
+                    {this.state.record_type == "CAA" ? flag : null}
+                    {this.state.record_type == "CAA" ? tag : null}
+                    {this.state.record_type == "CAA" ? tagVal : null}
                     <div className="form-group">
                         <label htmlFor="ttl" className="col-sm-4 control-label">TTL (seconds)</label>
                         <div className="col-sm-2">

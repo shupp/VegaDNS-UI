@@ -99,11 +99,16 @@ var RecordListEntry = React.createClass({
             locationName = <a href={"#locationPrefixes?location_id=" + record.location_id}>{this.getLocationName(record.location_id)}</a>
         }
 
+        var value = record.value;
+        if (record.record_type == "CAA") {
+            value = record.flag + " " + record.tag + " \"" + record.tagval + "\""
+        }
+
         return (
             <tr>
                 <td>{record.name}</td>
                 <td>{record.record_type}</td>
-                <td>{record.value}</td>
+                <td>{value}</td>
                 <td>{record.ttl}</td>
                 <td>{distance}</td>
                 <td>{weight}</td>

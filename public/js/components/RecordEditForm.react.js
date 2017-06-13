@@ -10,6 +10,9 @@ var RecordEditForm = React.createClass({
             'distance': "",
             'weight': "",
             'port': "",
+            'flag': 0,
+            'tag': "",
+            'tagval': "",
             'ttl': 3600,
             'location_id': ""
         }
@@ -94,6 +97,55 @@ var RecordEditForm = React.createClass({
                 </div>
         }
 
+        var value;
+        if (typeof this.state.value != 'undefined') {
+            value =
+                <div className="form-group">
+                    <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
+                    <div className="col-sm-8">
+                        <input value={this.state.value} onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" />
+                    </div>
+                </div>
+        }
+
+        var flag;
+        if (typeof this.state.flag != 'undefined') {
+            flag =
+                <div className="form-group">
+                    <label htmlFor="flag" className="col-sm-4 control-label">Flag</label>
+                    <div className="col-sm-8">
+                        <input value={this.state.flag} onChange={this.handleChange.bind(this, 'flag')} className="form-control" id="flag" />
+                    </div>
+                </div>
+        }
+
+        var tag;
+        if (typeof this.state.tag != 'undefined') {
+            tag =
+                <div className="form-group">
+                    <label htmlFor="tag" className="col-sm-4 control-label">Tag</label>
+                    <div className="col-sm-8">
+                        <select id="tag" onChange={this.handleChange.bind(this, 'tag')} className="form-control" value={this.state.tag}>
+                            <option value={null}></option>
+                            <option>issue</option>
+                            <option>issuewild</option>
+                            <option>iodef</option>
+                        </select>
+                    </div>
+                </div>
+        }
+
+        var tagVal;
+        if (typeof this.state.tagval != 'undefined') {
+            tagVal =
+                <div className="form-group">
+                    <label htmlFor="tagval" className="col-sm-4 control-label">Flag</label>
+                    <div className="col-sm-8">
+                        <input value={this.state.tagval} onChange={this.handleChange.bind(this, 'tagval')} className="form-control" id="tagval" />
+                    </div>
+                </div>
+        }
+
         var locationList = [];
         for (var i = 0; i < this.props.locations.length; i++) {
             locationList.push(<option key={i} value={this.props.locations[i].location_id}>{this.props.locations[i].location}</option>);
@@ -115,15 +167,14 @@ var RecordEditForm = React.createClass({
                             <input value={this.state.name} onChange={this.handleChange.bind(this, 'name')} className="form-control" id="name" />
                         </div>
                     </div>
-                    <div className="form-group">
-                        <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
-                        <div className="col-sm-8">
-                            <input value={this.state.value} onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" />
-                        </div>
-                    </div>
+
+                    {this.state.record_type != "CAA" ? value : null}
                     {["MX", "SRV"].indexOf(this.state.record_type) > -1 ? distance : null}
                     {this.state.record_type == "SRV" ? weight : null}
                     {this.state.record_type == "SRV" ? port : null}
+                    {this.state.record_type == "CAA" ? flag : null}
+                    {this.state.record_type == "CAA" ? tag : null}
+                    {this.state.record_type == "CAA" ? tagVal : null}
                     <div className="form-group">
                         <label htmlFor="ttl" className="col-sm-4 control-label">TTL (seconds)</label>
                         <div className="col-sm-2">
