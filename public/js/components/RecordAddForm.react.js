@@ -110,14 +110,6 @@ var RecordAddForm = React.createClass({
                             <input onChange={this.handleChange.bind(this, 'tagval')} className="form-control" id="tagval" />
                         </div>
                     </div>
-        var value =
-                    <div className="form-group">
-                        <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
-                        <div className="col-sm-8">
-                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" value={this.state.value} placeholder="See example below"/>
-                            Example: {example}
-                        </div>
-                    </div>
 
         var example = null;
         switch (this.state.record_type) {
@@ -151,6 +143,15 @@ var RecordAddForm = React.createClass({
                 example = "v=spf1 a -all";
                 break;
         }
+
+        var value =
+                    <div className="form-group">
+                        <label htmlFor="value" className="col-sm-4 control-label">Value (target)</label>
+                        <div className="col-sm-8">
+                            <input onChange={this.handleChange.bind(this, 'value')} className="form-control" id="value" value={this.state.value} placeholder="See example below"/>
+                            Example: {example}
+                        </div>
+                    </div>
 
         var locationList = [];
         for (var i = 0; i < this.props.locations.length; i++) {
