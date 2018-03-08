@@ -26,7 +26,7 @@ var Pager = React.createClass({
         var showPages = parseInt(showPages, 10);
 
         // Figure out paging range to show
-        var pagesEnd = currentPage + Math.floor(showPages / 2);
+        var pagesEnd = currentPage + Math.ceil(showPages / 2);
         if (pagesEnd > pageCount) {
             pagesEnd = pageCount;
         }
