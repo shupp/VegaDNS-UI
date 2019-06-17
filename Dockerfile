@@ -3,7 +3,7 @@ FROM nginx:alpine
 ADD . /opt/vegadns
 WORKDIR /opt/vegadns
 
-RUN apk add --update --virtual build-dependancies git bash nodejs \
+RUN apk add --update --virtual build-dependancies git bash npm \
   && ./build.sh \
   && rm -rf node_modules \
   && apk del build-dependancies
