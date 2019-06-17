@@ -2,3 +2,4 @@ Dockerfile
 README.md
 .git
 .*ignore
+node_modules
