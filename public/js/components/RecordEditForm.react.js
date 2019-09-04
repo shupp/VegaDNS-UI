@@ -70,7 +70,7 @@ var RecordEditForm = React.createClass({
                 <div className="form-group">
                     <label htmlFor="distance" className="col-sm-4 control-label">Distance/Priority</label>
                     <div className="col-sm-2">
-                        <input onChange={this.handleChange.bind(this, 'distance')} className="form-control" id="distance" />
+                        <input value={this.state.distance} onChange={this.handleChange.bind(this, 'distance')} className="form-control" id="distance" />
                     </div>
                 </div>
         }
@@ -81,7 +81,7 @@ var RecordEditForm = React.createClass({
                 <div className="form-group">
                     <label htmlFor="weight" className="col-sm-4 control-label">Weight</label>
                     <div className="col-sm-2">
-                        <input onChange={this.handleChange.bind(this, 'weight')} className="form-control" id="weight" />
+                        <input value={this.state.weight} onChange={this.handleChange.bind(this, 'weight')} className="form-control" id="weight" />
                     </div>
                 </div>
         }
@@ -92,7 +92,7 @@ var RecordEditForm = React.createClass({
                 <div className="form-group">
                     <label htmlFor="port" className="col-sm-4 control-label">Port</label>
                     <div className="col-sm-2">
-                        <input onChange={this.handleChange.bind(this, 'port')} className="form-control" id="port" />
+                        <input value={this.state.port} onChange={this.handleChange.bind(this, 'port')} className="form-control" id="port" />
                     </div>
                 </div>
         }
