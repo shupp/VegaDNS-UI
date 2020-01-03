@@ -12,6 +12,12 @@ if (process.env.hasOwnProperty('ENV') && process.env.ENV === 'production') {
             }
         })
     );
+
+    plugins.push(
+        new webpack.LoaderOptionsPlugin({
+            debug: true
+        })
+    );
 }
 
 // webpack.config.js
@@ -21,11 +27,11 @@ module.exports = {
     },
     output: {
         filename: 'bundle.js',
-        path: './public/js/',
+        path: __dirname + '/public/js/',
         publicPath: '/js/'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 loader: 'babel',
@@ -43,7 +49,6 @@ module.exports = {
     },
     plugins: plugins,
     devtool: devtool,
-    debug: true,
     node: {
         fs: "empty"
     }
