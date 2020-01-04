@@ -65,4 +65,4 @@ var AccountListEntry = React.createClass({
     }
 });
 
-module.exports = AccountListEntry;
+export default AccountListEntry;

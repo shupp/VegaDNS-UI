@@ -42,4 +42,4 @@ var LogIn = React.createClass({
     }
 });
 
-module.exports = LogIn;
+export default LogIn;

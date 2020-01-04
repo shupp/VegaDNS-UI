@@ -180,4 +180,4 @@ var DomainGroupMapList = React.createClass({
     }
 });
 
-module.exports = DomainGroupMapList;
+export default DomainGroupMapList;

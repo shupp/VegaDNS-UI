@@ -60,4 +60,4 @@ var ApiKeyListEntry = React.createClass({
     }
 });
 
-module.exports = ApiKeyListEntry;
+export default ApiKeyListEntry;

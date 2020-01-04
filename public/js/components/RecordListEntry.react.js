@@ -122,4 +122,4 @@ var RecordListEntry = React.createClass({
     }
 });
 
-module.exports = RecordListEntry;
+export default RecordListEntry;

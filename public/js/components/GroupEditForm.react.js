@@ -52,4 +52,4 @@ var GroupEditForm = React.createClass({
     }
 });
 
-module.exports = GroupEditForm;
+export default GroupEditForm;

@@ -98,4 +98,4 @@ var DomainListEntry = React.createClass({
     }
 });
 
-module.exports = DomainListEntry;
+export default DomainListEntry;

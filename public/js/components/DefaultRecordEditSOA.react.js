@@ -48,4 +48,4 @@ var DefaultRecordEditSOA = React.createClass({
     }
 });
 
-module.exports = DefaultRecordEditSOA;
+export default DefaultRecordEditSOA;

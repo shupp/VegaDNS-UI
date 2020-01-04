@@ -83,4 +83,4 @@ var GroupMemberListEntry = React.createClass({
     }
 });
 
-module.exports = GroupMemberListEntry;
+export default GroupMemberListEntry;

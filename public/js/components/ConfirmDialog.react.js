@@ -13,4 +13,4 @@ var ConfirmDialog = React.createClass({
     }
 });
 
-module.exports = ConfirmDialog;
+export default ConfirmDialog;

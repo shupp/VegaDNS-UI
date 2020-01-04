@@ -204,4 +204,4 @@ var RecordEditForm = React.createClass({
     }
 });
 
-module.exports = RecordEditForm;
+export default RecordEditForm;

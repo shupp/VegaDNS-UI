@@ -90,4 +90,4 @@ var GroupList = React.createClass({
     }
 });
 
-module.exports = GroupList;
+export default GroupList;

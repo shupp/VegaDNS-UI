@@ -311,4 +311,4 @@ var RecordList = React.createClass({
     }
 });
 
-module.exports = RecordList;
+export default RecordList;

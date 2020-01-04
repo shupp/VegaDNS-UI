@@ -86,4 +86,4 @@ var LocationPrefixesListEntry = React.createClass({
     }
 });
 
-module.exports = LocationPrefixesListEntry;
+export default LocationPrefixesListEntry;

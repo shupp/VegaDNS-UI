@@ -146,4 +146,4 @@ var AccountEditForm = React.createClass({
     }
 });
 
-module.exports = AccountEditForm;
+export default AccountEditForm;

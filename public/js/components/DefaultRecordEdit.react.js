@@ -47,4 +47,4 @@ var DefaultRecordEdit = React.createClass({
     }
 });
 
-module.exports = DefaultRecordEdit;
+export default DefaultRecordEdit;

@@ -42,4 +42,4 @@ var AuditLogListEntry = React.createClass({
     }
 });
 
-module.exports = AuditLogListEntry;
+export default AuditLogListEntry;

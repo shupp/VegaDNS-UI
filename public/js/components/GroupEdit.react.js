@@ -58,4 +58,4 @@ var GroupEdit = React.createClass({
     }
 });
 
-module.exports = GroupEdit;
+export default GroupEdit;

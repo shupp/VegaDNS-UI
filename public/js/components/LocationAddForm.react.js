@@ -64,4 +64,4 @@ var LocationAddForm = React.createClass({
     }
 });
 
-module.exports = LocationAddForm;
+export default LocationAddForm;

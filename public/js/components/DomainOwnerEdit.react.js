@@ -168,4 +168,4 @@ var DomainOwnerEdit = React.createClass({
     }
 });
 
-module.exports = DomainOwnerEdit;
+export default DomainOwnerEdit;

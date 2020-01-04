@@ -105,4 +105,4 @@ var DomainGroupMapListEntry = React.createClass({
     }
 });
 
-module.exports = DomainGroupMapListEntry;
+export default DomainGroupMapListEntry;

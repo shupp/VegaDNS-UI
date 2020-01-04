@@ -20,4 +20,4 @@ var PagerInnerPage = React.createClass({
     }
 });
 
-module.exports = PagerInnerPage;
+export default PagerInnerPage;

@@ -48,4 +48,4 @@ var AccountEdit = React.createClass({
     }
 });
 
-module.exports = AccountEdit;
+export default AccountEdit;

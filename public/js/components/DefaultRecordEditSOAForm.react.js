@@ -120,4 +120,4 @@ var DefaultRecordEditSOAForm = React.createClass({
     }
 });
 
-module.exports = DefaultRecordEditSOAForm;
+export default DefaultRecordEditSOAForm;

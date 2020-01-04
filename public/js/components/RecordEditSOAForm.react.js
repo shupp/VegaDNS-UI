@@ -121,4 +121,4 @@ var RecordEditSOAForm = React.createClass({
     }
 });
 
-module.exports = RecordEditSOAForm;
+export default RecordEditSOAForm;

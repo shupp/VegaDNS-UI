@@ -96,4 +96,4 @@ var DefaultRecordList = React.createClass({
     }
 });
 
-module.exports = DefaultRecordList;
+export default DefaultRecordList;

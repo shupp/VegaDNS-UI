@@ -45,4 +45,4 @@ var ApiKeyAddForm = React.createClass({
     }
 });
 
-module.exports = ApiKeyAddForm;
+export default ApiKeyAddForm;

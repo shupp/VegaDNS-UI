@@ -116,4 +116,4 @@ var Pager = React.createClass({
     }
 });
 
-module.exports = Pager;
+export default Pager;

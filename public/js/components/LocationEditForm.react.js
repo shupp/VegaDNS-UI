@@ -66,4 +66,4 @@ var LocationEditForm = React.createClass({
     }
 });
 
-module.exports = LocationEditForm;
+export default LocationEditForm;

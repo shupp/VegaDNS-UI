@@ -66,4 +66,4 @@ var GroupAddForm = React.createClass({
     }
 });
 
-module.exports = GroupAddForm;
+export default GroupAddForm;

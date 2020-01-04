@@ -87,4 +87,4 @@ var DomainAddForm = React.createClass({
     }
 });
 
-module.exports = DomainAddForm;
+export default DomainAddForm;

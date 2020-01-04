@@ -84,4 +84,4 @@ var LocationListEntry = React.createClass({
     }
 });
 
-module.exports = LocationListEntry;
+export default LocationListEntry;

@@ -109,4 +109,4 @@ var LocationPrefixList = React.createClass({
     }
 });
 
-module.exports = LocationPrefixList;
+export default LocationPrefixList;

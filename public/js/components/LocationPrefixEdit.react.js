@@ -47,4 +47,4 @@ var LocationPrefixEdit = React.createClass({
     }
 });
 
-module.exports = LocationPrefixEdit;
+export default LocationPrefixEdit;

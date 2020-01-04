@@ -131,4 +131,4 @@ var PasswordReset = React.createClass({
     }
 });
 
-module.exports = PasswordReset;
+export default PasswordReset;

@@ -193,4 +193,4 @@ var VegaDNSApp = React.createClass({
     }
 });
 
-module.exports = VegaDNSApp;
+export default VegaDNSApp;

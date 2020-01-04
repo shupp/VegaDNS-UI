@@ -143,4 +143,4 @@ var GroupMemberList = React.createClass({
     }
 });
 
-module.exports = GroupMemberList;
+export default GroupMemberList;

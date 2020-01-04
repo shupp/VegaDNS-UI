@@ -88,4 +88,4 @@ var LocationPrefixAddForm = React.createClass({
     }
 });
 
-module.exports = LocationPrefixAddForm;
+export default LocationPrefixAddForm;

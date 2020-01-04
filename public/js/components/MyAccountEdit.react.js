@@ -47,4 +47,4 @@ var MyAccountEdit = React.createClass({
     }
 });
 
-module.exports = MyAccountEdit;
+export default MyAccountEdit;

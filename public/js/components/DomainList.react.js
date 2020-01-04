@@ -237,4 +237,4 @@ var DomainList = React.createClass({
     }
 });
 
-module.exports = DomainList;
+export default DomainList;

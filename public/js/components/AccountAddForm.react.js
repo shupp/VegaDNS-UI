@@ -100,4 +100,4 @@ var AccountAddForm = React.createClass({
     }
 });
 
-module.exports = AccountAddForm;
+export default AccountAddForm;

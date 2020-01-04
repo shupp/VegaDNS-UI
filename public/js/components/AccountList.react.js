@@ -126,4 +126,4 @@ var AccountList = React.createClass({
     }
 });
 
-module.exports = AccountList;
+export default AccountList;

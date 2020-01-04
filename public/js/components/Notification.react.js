@@ -78,4 +78,4 @@ var Notification = React.createClass({
     }
 });
 
-module.exports = Notification;
+export default Notification;

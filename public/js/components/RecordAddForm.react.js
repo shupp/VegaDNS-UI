@@ -230,4 +230,4 @@ var RecordAddForm = React.createClass({
     }
 });
 
-module.exports = RecordAddForm;
+export default RecordAddForm;

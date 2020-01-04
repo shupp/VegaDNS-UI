@@ -90,4 +90,4 @@ var LocationPrefixEditForm = React.createClass({
     }
 });
 
-module.exports = LocationPrefixEditForm;
+export default LocationPrefixEditForm;

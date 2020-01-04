@@ -121,4 +121,4 @@ var HeaderSection = React.createClass({
     }
 });
 
-module.exports = HeaderSection;
+export default HeaderSection;

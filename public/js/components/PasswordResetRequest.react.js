@@ -58,4 +58,4 @@ var PasswordResetRequest = React.createClass({
     }
 });
 
-module.exports = PasswordResetRequest;
+export default PasswordResetRequest;

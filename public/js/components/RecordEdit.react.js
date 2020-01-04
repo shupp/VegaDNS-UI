@@ -69,4 +69,4 @@ var RecordEdit = React.createClass({
     }
 });
 
-module.exports = RecordEdit;
+export default RecordEdit;

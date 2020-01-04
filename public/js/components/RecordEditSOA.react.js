@@ -146,4 +146,4 @@ var RecordEditSOA = React.createClass({
     }
 });
 
-module.exports = RecordEditSOA;
+export default RecordEditSOA;

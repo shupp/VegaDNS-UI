@@ -135,4 +135,4 @@ AppDispatcher.register(function(action) {
     }
 });
 
-module.exports = store;
+export default store;

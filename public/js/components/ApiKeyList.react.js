@@ -92,4 +92,4 @@ var ApiKeyList = React.createClass({
     }
 });
 
-module.exports = ApiKeyList;
+export default ApiKeyList;
