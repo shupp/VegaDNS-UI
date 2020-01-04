@@ -5,7 +5,7 @@ var DefaultRecordListEntry = require('./DefaultRecordListEntry.react');
 var DefaultRecordAddForm = require('./DefaultRecordAddForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DefaultRecordList = React.createClass({
+var DefaultRecordList = createClass({
     getInitialState: function() {
         return {
             records: [],

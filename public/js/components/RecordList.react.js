@@ -7,7 +7,7 @@ var RecordAddForm = require('./RecordAddForm.react');
 var URI = require('urijs');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var RecordList = React.createClass({
+var RecordList = createClass({
     getInitialState: function() {
         var page;
         if (typeof this.props.params.page !== "undefined") {

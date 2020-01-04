@@ -4,7 +4,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordEditForm = require('./RecordEditForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var RecordEdit = React.createClass({
+var RecordEdit = createClass({
     getInitialState: function() {
         return {
             record: {},

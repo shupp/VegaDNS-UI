@@ -4,7 +4,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var LocationEditForm = require('./LocationEditForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var LocationEdit = React.createClass({
+var LocationEdit = createClass({
     getInitialState: function() {
         return {
             location: {}

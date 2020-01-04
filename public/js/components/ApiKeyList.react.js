@@ -5,7 +5,7 @@ var ApiKeyListEntry = require('./ApiKeyListEntry.react');
 var ApiKeyAddForm = require('./ApiKeyAddForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var ApiKeyList = React.createClass({
+var ApiKeyList = createClass({
     getInitialState: function() {
         return {
             apikeys: [],

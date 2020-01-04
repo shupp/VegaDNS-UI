@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var AccountEditForm = React.createClass({
+var AccountEditForm = createClass({
     getInitialState: function() {
         return {
             'first_name': this.props.account.first_name,

@@ -4,7 +4,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var DefaultRecordEditSOAForm = require('./DefaultRecordEditSOAForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DefaultRecordEditSOA = React.createClass({
+var DefaultRecordEditSOA = createClass({
     getInitialState: function() {
         return {
             record: {}

@@ -6,7 +6,7 @@ var VegaDNSClient = require('../utils/VegaDNSClient');
 var GroupMemberListEntry = require('./GroupMemberListEntry.react');
 var accounts = [];
 
-var GroupMemberList = React.createClass({
+var GroupMemberList = createClass({
     getInitialState: function() {
         return {
             groupmembers: [],

@@ -8,7 +8,7 @@ var Select = require('react-select');
 var URI = require('urijs');
 var domains = [];
 
-var AuditLogList = React.createClass({
+var AuditLogList = createClass({
     getInitialState: function() {
         var page;
         if (typeof this.props.params.page !== "undefined") {

@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var Logo = require('./Logo.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
-var LogIn = React.createClass({
+var LogIn = createClass({
     handleEmailChange: function(e) {
         this.setState({email: e.target.value});
     },

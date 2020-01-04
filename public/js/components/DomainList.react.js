@@ -7,7 +7,7 @@ var URI = require('urijs');
 var Pager = require('./Pager.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DomainList = React.createClass({
+var DomainList = createClass({
     getInitialState: function() {
         var page;
         if (typeof this.props.params.page !== "undefined") {

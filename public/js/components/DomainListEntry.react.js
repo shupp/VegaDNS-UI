@@ -5,7 +5,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DomainListEntry = React.createClass({
+var DomainListEntry = createClass({
     getInitialState: function() {
         return {
             showConfirmDeleteDialog: false,

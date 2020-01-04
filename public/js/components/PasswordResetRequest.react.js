@@ -5,7 +5,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var PasswordResetRequest = React.createClass({
+var PasswordResetRequest = createClass({
     getInitialState: function() {
         return {
             email: "",

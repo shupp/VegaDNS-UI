@@ -5,7 +5,7 @@ var GroupListEntry = require('./GroupListEntry.react');
 var GroupAddForm = require('./GroupAddForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var GroupList = React.createClass({
+var GroupList = createClass({
     getInitialState: function() {
         return {
             groups: [],

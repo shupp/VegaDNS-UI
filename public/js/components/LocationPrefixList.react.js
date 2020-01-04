@@ -5,7 +5,7 @@ var LocationPrefixListEntry = require('./LocationPrefixListEntry.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var LocationPrefixAddForm = require('./LocationPrefixAddForm.react');
 
-var LocationPrefixList = React.createClass({
+var LocationPrefixList = createClass({
     getInitialState: function() {
         return {
             showAddForm: false,

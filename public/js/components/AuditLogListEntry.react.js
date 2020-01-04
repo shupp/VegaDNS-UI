@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var ReactPropTypes = React.PropTypes;
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
-var AuditLogListEntry = React.createClass({
+var AuditLogListEntry = createClass({
     getInitialState: function() {
         return {
             domainName: this.props.domainName

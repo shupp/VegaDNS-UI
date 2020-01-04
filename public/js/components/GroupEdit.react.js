@@ -6,7 +6,7 @@ var GroupMemberList = require('./GroupMemberList.react');
 var DomainGroupMapList = require('./DomainGroupMapList.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var GroupEdit = React.createClass({
+var GroupEdit = createClass({
     getInitialState: function() {
         return {
             group: {}

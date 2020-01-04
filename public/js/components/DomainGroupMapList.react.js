@@ -6,7 +6,7 @@ var VegaDNSClient = require('../utils/VegaDNSClient');
 var DomainGroupMapListEntry = require('./DomainGroupMapListEntry.react');
 var domains = [];
 
-var DomainGroupMapList = React.createClass({
+var DomainGroupMapList = createClass({
     getInitialState: function() {
         return {
             domaingroupmaps: [],

@@ -27,7 +27,7 @@ var PasswordReset = require('./PasswordReset.react');
 var About = require('./About.react');
 var Redirect = require('../utils/Redirect');
 
-var VegaDNSApp = React.createClass({
+var VegaDNSApp = createClass({
     getInitialState: function() {
         return {
             loggedIn: false,

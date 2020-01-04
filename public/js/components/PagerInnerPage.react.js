@@ -2,7 +2,7 @@ var React = require('react');
 var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
-var PagerInnerPage = React.createClass({
+var PagerInnerPage = createClass({
     render: function() {
         if (this.props.page == this.props.currentPage) {
             return (

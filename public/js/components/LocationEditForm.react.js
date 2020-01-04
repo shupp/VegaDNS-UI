@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var LocationEditForm = React.createClass({
+var LocationEditForm = createClass({
     getInitialState: function() {
         return {
             location: this.props.location.location,

@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var LogInStore = require('../stores/LogInStore');
 
-var HeaderSection = React.createClass({
+var HeaderSection = createClass({
     getInitialState: function() {
         return {account: LogInStore.getAccount()}
     },

@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var AccountAddForm = React.createClass({
+var AccountAddForm = createClass({
     getInitialState: function() {
         return {
             'first_name': "",

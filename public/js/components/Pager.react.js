@@ -4,7 +4,7 @@ var URI = require('urijs');
 var PagerInnerPage = require('./PagerInnerPage.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
-var Pager = React.createClass({
+var Pager = createClass({
     buildUrl: function(page) {
         // Copy params before we modify them
         var newParams = {};

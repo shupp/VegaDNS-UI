@@ -5,7 +5,7 @@ var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var AccountListEntry = React.createClass({
+var AccountListEntry = createClass({
     getInitialState: function() {
         return {
             showConfirmDeleteDialog: false

@@ -6,7 +6,7 @@ var VegaDNSClient = require('../utils/VegaDNSClient');
 var ConfirmDialog = require('./ConfirmDialog.react');
 var Loader = require('react-loader');
 
-var RecordEditSOA = React.createClass({
+var RecordEditSOA = createClass({
     getInitialState: function() {
         return {
             showConfirmDeleteDialog: false,

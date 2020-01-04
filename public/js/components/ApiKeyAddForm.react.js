@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var ApiKeyAddForm = React.createClass({
+var ApiKeyAddForm = createClass({
     handleDescriptionChange: function(e) {
         this.setState({description: e.target.value});
     },

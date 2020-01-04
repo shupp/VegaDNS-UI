@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DefaultRecordEditForm = React.createClass({
+var DefaultRecordEditForm = createClass({
     getInitialState: function() {
         var defaults = {
             'name': "",

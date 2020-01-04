@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var DomainAddForm = React.createClass({
+var DomainAddForm = createClass({
     getInitialState: function() {
         return {
             domain: "",

@@ -4,7 +4,7 @@ var VegaDNSConfig = require('../utils/VegaDNSConfig');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 
-var About = React.createClass({
+var About = createClass({
     getInitialState: function() {
         return {
             apiRelease: "",

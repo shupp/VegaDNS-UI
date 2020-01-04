@@ -5,7 +5,7 @@ var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
-var Notification = React.createClass({
+var Notification = createClass({
     getInitialState: function() {
         return {
             message: "",

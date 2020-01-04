@@ -5,7 +5,7 @@ var AccountListEntry = require('./AccountListEntry.react');
 var AccountAddForm = require('./AccountAddForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
-var AccountList = React.createClass({
+var AccountList = createClass({
     getInitialState: function() {
         return {
             search: false,

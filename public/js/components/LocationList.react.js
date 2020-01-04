@@ -5,7 +5,7 @@ var LocationListEntry = require('./LocationListEntry.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var LocationAddForm = require('./LocationAddForm.react');
 
-var LocationList = React.createClass({
+var LocationList = createClass({
     getInitialState: function() {
         return {
             showAddForm: false,

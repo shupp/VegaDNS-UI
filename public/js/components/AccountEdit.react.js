@@ -5,7 +5,7 @@ var AccountEditForm = require('./AccountEditForm.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var LogInStore = require('../stores/LogInStore');
 
-var AccountEdit = React.createClass({
+var AccountEdit = createClass({
     getInitialState: function() {
         return {
             account: {}

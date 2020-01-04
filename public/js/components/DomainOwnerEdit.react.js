@@ -6,7 +6,7 @@ var Select = require('react-select');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 var accounts = [];
 
-var DomainOwnerEdit = React.createClass({
+var DomainOwnerEdit = createClass({
     getInitialState: function() {
         return {
             domain: {},
