@@ -10,8 +10,8 @@ var ApiKeyAddForm = createClass({
     },
 
     propTypes: {
-        listCallback: React.PropTypes.func.isRequired,
-        hideCallback: React.PropTypes.func.isRequired
+        listCallback: ReactPropTypes.func.isRequired,
+        hideCallback: ReactPropTypes.func.isRequired
     },
 
     addKey: function(e) {

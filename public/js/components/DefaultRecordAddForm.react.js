@@ -18,7 +18,7 @@ var DefaultRecordAddForm = createClass({
     },
 
     propTypes: {
-        listCallback: React.PropTypes.func.isRequired
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     handleChange: function(name, e) {

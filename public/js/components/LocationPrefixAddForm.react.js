@@ -14,8 +14,8 @@ var LocationPrefixAddForm = createClass({
     },
 
     propTypes: {
-        location: React.PropTypes.object.isRequired,
-        listCallback: React.PropTypes.func.isRequired
+        location: ReactPropTypes.object.isRequired,
+        listCallback: ReactPropTypes.func.isRequired
     },
 
     handlePrefixChange: function(e) {

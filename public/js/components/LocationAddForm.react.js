@@ -13,8 +13,8 @@ var LocationAddForm = createClass({
     },
 
     propTypes: {
-        listCallback: React.PropTypes.func.isRequired,
-        hideCallback: React.PropTypes.func.isRequired
+        listCallback: ReactPropTypes.func.isRequired,
+        hideCallback: ReactPropTypes.func.isRequired
     },
 
     handleLocationChange: function(e) {
