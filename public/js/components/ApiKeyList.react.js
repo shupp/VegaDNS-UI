@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ApiKeyListEntry = require('./ApiKeyListEntry.react');
 var ApiKeyAddForm = require('./ApiKeyAddForm.react');

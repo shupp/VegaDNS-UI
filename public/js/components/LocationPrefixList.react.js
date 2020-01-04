@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var LocationPrefixListEntry = require('./LocationPrefixListEntry.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');

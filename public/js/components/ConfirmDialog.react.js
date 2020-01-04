@@ -1,4 +1,6 @@
-var React = require('react'); var VegaDNSActions = require('../actions/VegaDNSActions');
+var React = require('react');
+var createClass = require('create-react-class');
+var VegaDNSActions = require('../actions/VegaDNSActions');
 
 var ConfirmDialog = React.createClass({
     render: function() {

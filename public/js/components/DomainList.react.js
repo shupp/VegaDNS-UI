@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var DomainListEntry = require('./DomainListEntry.react');
 var DomainAddForm = require('./DomainAddForm.react');

@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var Select = require('react-select');

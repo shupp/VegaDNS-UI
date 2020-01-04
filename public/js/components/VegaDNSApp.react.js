@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var LogInStore = require('../stores/LogInStore');
 var LogIn = require('./LogIn.react');
 var HeaderSection = require('./HeaderSection.react');

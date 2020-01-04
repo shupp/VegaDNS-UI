@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var URI = require('urijs');
 var PagerInnerPage = require('./PagerInnerPage.react');
 var VegaDNSActions = require('../actions/VegaDNSActions');

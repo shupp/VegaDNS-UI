@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var NotificationStore = require('../stores/NotificationStore');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');

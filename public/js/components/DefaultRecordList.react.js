@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var DefaultRecordListEntry = require('./DefaultRecordListEntry.react');
 var DefaultRecordAddForm = require('./DefaultRecordAddForm.react');

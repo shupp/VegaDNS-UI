@@ -1,4 +1,5 @@
 var React = require('react');
+var createClass = require('create-react-class');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var RecordListEntry = require('./RecordListEntry.react');
 var Pager = require('./Pager.react');
