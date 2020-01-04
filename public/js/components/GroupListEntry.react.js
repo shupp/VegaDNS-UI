@@ -1,6 +1,6 @@
 var React = require('react');
 var createClass = require('create-react-class');
-var ReactPropTypes = React.PropTypes;
+var ReactPropTypes = require('prop-types');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ConfirmDialog = require('./ConfirmDialog.react');
 var VegaDNSClient = require('../utils/VegaDNSClient');

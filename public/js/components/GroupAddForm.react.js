@@ -1,5 +1,6 @@
 var React = require('react');
 var createClass = require('create-react-class');
+var ReactPropTypes = require('prop-types');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var VegaDNSClient = require('../utils/VegaDNSClient');
 
