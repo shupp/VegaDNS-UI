@@ -3,7 +3,7 @@ var createClass = require('create-react-class');
 var NotificationStore = require('../stores/NotificationStore');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');
-var ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+var ReactCSSTransitionGroup = require('react-transition-group/CSSTransition');
 
 var Notification = createClass({
     getInitialState: function() {
