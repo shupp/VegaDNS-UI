@@ -13,7 +13,7 @@ import 'react-select/dist/react-select.css';
 var React = require('react');
 var ReactDOM = require('react-dom');
 var VegaDNSApp = require('./components/VegaDNSApp.react');
-var Notification = require('./components/Notification.react');
+import Notification from './components/Notification.react';
 ReactDOM.render(<Notification />, document.getElementById('notifications'));
 
 function renderRoute () {

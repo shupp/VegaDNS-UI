@@ -1,28 +1,29 @@
-var React = require('react');
-var createClass = require('create-react-class');
+import React from 'react';
+// var createClass = require('create-react-class');
 var NotificationStore = require('../stores/NotificationStore');
 var VegaDNSConstants = require('../constants/VegaDNSConstants');
 var VegaDNSActions = require('../actions/VegaDNSActions');
 var ReactCSSTransitionGroup = require('react-transition-group/CSSTransition');
 
-var Notification = createClass({
-    getInitialState: function() {
-        return {
+export default class Notification extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
             message: "",
             messageType: null,
             autoDismiss: false
         }
-    },
+    }
 
-    componentDidMount: function() {
+    componentDidMount() {
         NotificationStore.addChangeListener(this.onChange);
-    },
+    }
 
-    onChange: function() {
+    onChange() {
         this.setState(NotificationStore.getNotification());
-    },
+    }
 
-    render: function() {
+    render() {
         var timeout = 4000;
         if (this.state.messageType == null) {
             var alert = null;
@@ -72,11 +73,9 @@ var Notification = createClass({
                 </ReactCSSTransitionGroup>
             </div>
         )
-    },
+    }
 
-    handleDismissal: function(e) {
+    handleDismissal(e) {
         VegaDNSActions.dismissNotification();
     }
-});
-
-export default Notification;
+}
