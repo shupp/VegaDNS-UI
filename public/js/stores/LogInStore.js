@@ -57,6 +57,8 @@ class LogInStore extends EventEmitter {
             responseData = data;
             if (data.status == "ok") {
                 loggedInState = true;
+            } else if (data.status == "redirect") {
+                window.location.replace(data.location);
             } else {
                 loggedInState = false;
             }
